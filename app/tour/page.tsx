@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { scenes, Scene } from "./data";
 import { Minimap } from "../../components/tour/Minimap";
 import { Compass } from "../../components/tour/Compass";
+import { LogOut } from "lucide-react";
 
 export default function Recorrido() {
+  const router = useRouter();
   const panoRef = useRef<HTMLDivElement | null>(null);
   const [viewer, setViewer] = useState<any>(null);
   const [currentScene, setCurrentScene] = useState<Scene>(scenes[0]);
@@ -229,6 +232,13 @@ export default function Recorrido() {
         <div className="absolute top-4 left-4 z-10 bg-black/50 text-white p-4 rounded backdrop-blur-md border border-white/10">
           <h1 className="text-2xl font-bold">{currentScene.name}</h1>
           <p className="text-sm opacity-80">Arrastra para explorar • Clic en flechas para moverte</p>
+          <button 
+            onClick={() => router.push("/")}
+            className="mt-2 flex items-center gap-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded text-sm transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            Salir del recorrido
+          </button>
         </div>
 
         {/* Compass */}
