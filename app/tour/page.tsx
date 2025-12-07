@@ -223,16 +223,17 @@ export default function Recorrido() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-black flex flex-col relative">
+    <div id="tour-container" className="min-h-screen w-full bg-black flex flex-col relative">
       {/* Viewer Container */}
-      <div className="relative w-full h-screen overflow-hidden">
-        <div ref={panoRef} className="absolute inset-0 w-full h-full" />
+      <div id="tour-viewer-wrapper" className="relative w-full h-screen overflow-hidden">
+        <div id="pano-container" ref={panoRef} className="absolute inset-0 w-full h-full" />
         
         {/* Top Overlay */}
-        <div className="absolute top-4 left-4 z-10 bg-black/50 text-white p-4 rounded backdrop-blur-md border border-white/10">
-          <h1 className="text-2xl font-bold">{currentScene.name}</h1>
-          <p className="text-sm opacity-80">Arrastra para explorar • Clic en flechas para moverte</p>
+        <div id="tour-overlay" className="absolute top-4 left-4 z-10 bg-black/50 text-white p-4 rounded backdrop-blur-md border border-white/10">
+          <h1 id="tour-scene-name" className="text-2xl font-bold">{currentScene.name}</h1>
+          <p id="tour-instructions" className="text-sm opacity-80">Arrastra para explorar • Clic en flechas para moverte</p>
           <button 
+            id="tour-exit-btn"
             onClick={() => router.push("/")}
             className="mt-2 flex items-center gap-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded text-sm transition-colors"
           >
@@ -242,12 +243,12 @@ export default function Recorrido() {
         </div>
 
         {/* Compass */}
-        <div className="absolute top-4 right-4 z-10">
+        <div id="tour-compass-container" className="absolute top-4 right-4 z-10">
           <Compass yaw={viewParams.yaw + (currentScene.northOffset || 0)} onReset={handleResetView} />
         </div>
 
         {/* Minimap (Bottom Right) */}
-        <div className="absolute bottom-4 right-4 z-10 hidden md:block">
+        <div id="tour-minimap-container" className="absolute bottom-4 right-4 z-10 hidden md:block">
           <Minimap 
             scenes={scenes} 
             currentScene={currentScene} 

@@ -34,9 +34,12 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen">
+    <main id="home-main" className="min-h-screen">
       {/* Hero Section (centered variant with red gradient overlay) */}
-      <section className="relative h-[90vh] flex items-center justify-center text-center">
+      <section
+        id="hero-section"
+        className="relative h-[90vh] flex items-center justify-center text-center"
+      >
         <div className="absolute inset-0 z-0">
           <Image
             src="/placeholder.svg?height=1080&width=1920"
@@ -49,16 +52,23 @@ export default function Home() {
 
         <div className="container relative z-10 px-4 md:px-6">
           <div className="max-w-3xl mx-auto space-y-6 text-card">
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
+            <h1
+              id="hero-title"
+              className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-tight"
+            >
               Protegiendo Nuestra Comunidad Con Valentía
             </h1>
-            <p className="max-w-2xl mx-auto text-base md:text-lg text-destructive/90">
-              «Colegas y amigos, bienvenidos a la página Oficial de
-              «Código 10-32». En nuestra web, encontrarán información relacionada
-              con el día a día de los miembros de la Compañía.»
+            <p
+              id="hero-description"
+              className="max-w-2xl mx-auto text-base md:text-lg text-destructive/90"
+            >
+              «Colegas y amigos, bienvenidos a la página Oficial de «Código
+              10-32». En nuestra web, encontrarán información relacionada con el
+              día a día de los miembros de la Compañía.»
             </p>
             <div className="mt-4">
               <button
+                id="hero-cta-tour"
                 onClick={() => router.push("/tour")}
                 aria-label="Entrar al recorrido virtual"
                 className="dark mt-4 bg-muted text-card px-4 py-2 rounded-md font-medium"
@@ -71,12 +81,13 @@ export default function Home() {
       </section>
 
       {/* Nosotros section (inserted at start) */}
-      <section className="py-16 md:py-24 bg-card">
+      <section id="about-section" className="py-16 md:py-24 bg-card">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <div className="space-y-3">
                 <h2
+                  id="about-title"
                   className={cn(
                     "text-3xl md:text-4xl font-bold tracking-tight transition-opacity duration-300 ease-in-out",
                     isFading && "text-muted text-lg opacity-0"
@@ -85,6 +96,7 @@ export default function Home() {
                   {showHistory ? "Nuestra Historia" : "Sobre Nosotros"}
                 </h2>
                 <p
+                  id="about-subtitle"
                   className={cn(
                     "text-muted text-lg transition-opacity duration-300 ease-in-out",
                     isFading && "opacity-0"
@@ -96,6 +108,7 @@ export default function Home() {
                 </p>
               </div>
               <div
+                id="about-content"
                 className={cn(
                   "transition-opacity duration-300 ease-in-out",
                   isFading && "opacity-0"
@@ -129,10 +142,9 @@ export default function Home() {
                 ) : (
                   <>
                     <p className="text-muted">
-                      Código 10-32 fue fundada en 1868 en el
-                      Callao, Perú. Desde entonces, hemos servido
-                      ininterrumpidamente, protegiendo vidas y propiedades con
-                      valentía y dedicación.
+                      Código 10-32 fue fundada en 1868 en el Callao, Perú. Desde
+                      entonces, hemos servido ininterrumpidamente, protegiendo
+                      vidas y propiedades con valentía y dedicación.
                     </p>
                     <p className="text-muted">
                       Nuestra historia está forjada en el coraje de voluntarios
@@ -145,12 +157,14 @@ export default function Home() {
               </div>
               <div className="flex space-x-4">
                 <button
+                  id="about-cta-team"
                   onClick={() => router.push("/team")}
                   className="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-6 py-3 rounded-md font-medium transition-colors"
                 >
                   Conoce al Equipo
                 </button>
                 <button
+                  id="about-cta-history"
                   onClick={handleShowHistory}
                   className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-3 rounded-md font-medium transition-colors"
                 >
@@ -181,8 +195,54 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Members Preview Section */}
+      {/*
+      <section id="members-preview-section" className="py-16 bg-background">
+        <div className="container px-4 md:px-6 mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-foreground">
+              Nuestros Integrantes
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+              Conoce a quienes hacen posible nuestra misión de servicio.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+                <div className="aspect-[3/4] relative bg-muted">
+                  <Image
+                    src="/placeholder-user.jpg"
+                    alt={`Integrante ${i}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+                  <h3 className="font-bold text-lg">Nombre Apellido</h3>
+                  <p className="text-sm opacity-90">Cargo</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <button
+              id="members-cta-view-all"
+              onClick={() => router.push("/members")}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-md font-medium transition-colors"
+            >
+              Ver Todos los Integrantes
+            </button>
+          </div>
+        </div>
+      </section>
+      */}
+
       {/* Services Preview */}
-      <section className="py-16 bg-secondary">
+      {/* Services Preview - Hidden temporarily
+      <section id="services-preview-section" className="py-16 bg-secondary">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-card">
@@ -195,8 +255,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card: Prevención */}
-            <div className="rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+            <div id="service-card-prevention" className="rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
               <div className="h-36 bg-destructive flex items-center justify-center rounded-t-lg">
                 <ShieldCheck className="h-12 w-12 text-card" />
               </div>
@@ -207,6 +266,7 @@ export default function Home() {
                   para reducir riesgos en hogares y empresas.
                 </p>
                 <button
+                  id="service-cta-prevention"
                   onClick={() => router.push("/services?service=prevencion")}
                   className="mt-4 bg-muted text-card px-4 py-2 rounded-md font-medium"
                 >
@@ -215,8 +275,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Card: Preparación */}
-            <div className="rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+            <div id="service-card-preparation" className="rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
               <div className="h-36 bg-destructive flex items-center justify-center rounded-t-lg">
                 <Flame className="h-12 w-12 text-card" />
               </div>
@@ -227,6 +286,7 @@ export default function Home() {
                   comunidad esté lista ante cualquier emergencia.
                 </p>
                 <button
+                  id="service-cta-preparation"
                   onClick={() => router.push("/services?service=preparacion")}
                   className="mt-4 bg-muted text-card px-4 py-2 rounded-md font-medium"
                 >
@@ -235,8 +295,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Card: Respuesta a Emergencias */}
-            <div className="rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
+            <div id="service-card-response" className="rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
               <div className="h-36 bg-destructive flex items-center justify-center rounded-t-lg">
                 <AlertTriangle className="h-12 w-12 text-card" />
               </div>
@@ -249,6 +308,7 @@ export default function Home() {
                   con personal y equipamiento especializado.
                 </p>
                 <button
+                  id="service-cta-response"
                   onClick={() => router.push("/services?service=respuesta")}
                   className="mt-4 bg-muted text-card px-4 py-2 rounded-md font-medium"
                 >
@@ -259,6 +319,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
 
       {/* Voluntarios section: layout matches provided design */}
       {/* <section className="py-16 bg-card">
@@ -365,7 +426,7 @@ export default function Home() {
       </section> */}
 
       {/* Contact Preview */}
-      <section className="py-16 bg-secondary">
+      <section id="contact-preview-section" className="py-16 bg-secondary">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-card">
@@ -378,36 +439,49 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center p-6 bg-secondary rounded-lg text-center">
+            <div
+              id="contact-card-phone"
+              className="flex flex-col items-center p-6 bg-secondary rounded-lg text-center"
+            >
               <div className="h-12 w-12 rounded-full bg-surface-10 flex items-center justify-center mb-4">
                 <Phone className="h-6 w-6 text-surface" />
               </div>
               <h3 className="text-xl font-bold text-card">Teléfono</h3>
-              <p className="mt-2 text-muted">Emergencias: 911</p>
-              <p className="text-muted">No emergencias: (555) 123-4567</p>
+              <p className="mt-2 text-muted">Emergencias: 116</p>
+              <p className="text-muted">Central: (01) 429-0318</p>
             </div>
 
-            <div className="flex flex-col items-center p-6 bg-secondary rounded-lg text-center">
+            <div
+              id="contact-card-email"
+              className="flex flex-col items-center p-6 bg-secondary rounded-lg text-center"
+            >
               <div className="h-12 w-12 rounded-full bg-surface-10 flex items-center justify-center mb-4">
                 <Mail className="h-6 w-6 text-surface" />
               </div>
               <h3 className="text-xl font-bold text-card">Email</h3>
-              <p className="mt-2 text-muted">info@bomberositalia5.org</p>
-              <p className="text-muted">voluntarios@bomberositalia5.org</p>
+              <p className="mt-2 text-muted">utamaitalia5@gmail.com</p>
             </div>
 
-            <div className="flex flex-col items-center p-6 bg-secondary rounded-lg text-center">
+            <div
+              id="contact-card-location"
+              className="flex flex-col items-center p-6 bg-secondary rounded-lg text-center"
+            >
               <div className="h-12 w-12 rounded-full bg-surface-10 flex items-center justify-center mb-4">
                 <MapPin className="h-6 w-6 text-surface" />
               </div>
               <h3 className="text-xl font-bold text-card">Ubicación</h3>
-              <p className="mt-2 text-muted">Calle Principal 123</p>
-              <p className="text-muted">Ciudad Ejemplo, 12345</p>
+              <p className="mt-2 text-muted">
+                Av. Alejandro Granda s/n, Mz. E, Lt. 3
+              </p>
+              <p className="text-muted">
+                Urb. Stella Maris, Bellavista, Callao
+              </p>
             </div>
           </div>
 
           <div className="text-center mt-12">
             <button
+              id="contact-cta-page"
               onClick={() => router.push("/contact")}
               className="bg-destructive hover:bg-destructive-80 text-destructive px-6 py-3 rounded-md font-medium transition-colors"
             >

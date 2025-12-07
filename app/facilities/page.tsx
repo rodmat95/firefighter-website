@@ -131,7 +131,7 @@ export default function FacilitiesPage() {
                   <div>
                     <h3 className="font-bold">Correo de Contacto</h3>
                     <p className="text-muted-foreground">
-                      pompaitalia@hotmail.com
+                      utamaitalia5@gmail.com
                     </p>
                   </div>
                 </div>
