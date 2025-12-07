@@ -19,12 +19,25 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header id="main-header" className="sticky top-0 left-0 w-full bg-destructive shadow-md z-50">
+    <header
+      id="main-header"
+      className="sticky top-0 left-0 w-full bg-destructive shadow-md z-50"
+    >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Image src="/logo.png" alt="Código 10-32" width={32} height={32} className="mr-2" />
-            <LinkComponent id="nav-brand-link" href="/" className="text-xl font-bold">
+            <Image
+              src="/logo.svg"
+              alt="Código 10-32"
+              width={32}
+              height={32}
+              className="mr-2"
+            />
+            <LinkComponent
+              id="nav-brand-link"
+              href="/"
+              className="text-xl font-bold"
+            >
               Código 10-32
             </LinkComponent>
           </div>
@@ -102,7 +115,10 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
 
       {/* Mobile Navigation Menu */}
       {menuOpen && (
-        <div id="mobile-nav-menu" className="md:hidden bg-destructive border-t border-destructive animate-in slide-in-from-top">
+        <div
+          id="mobile-nav-menu"
+          className="md:hidden bg-destructive border-t border-destructive animate-in slide-in-from-top"
+        >
           <nav className="container mx-auto px-4 py-2">
             <ul className="space-y-1">
               <li>
