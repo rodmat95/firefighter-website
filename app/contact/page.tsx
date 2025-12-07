@@ -37,7 +37,10 @@ export default function ContactPage() {
   };
 
   return (
-    <div id="contact-page" className="dark bg-background text-foreground min-h-screen">
+    <div
+      id="contact-page"
+      className="dark bg-background text-foreground min-h-screen"
+    >
       <Button
         id="contact-close-btn"
         variant="ghost"
@@ -49,10 +52,13 @@ export default function ContactPage() {
       </Button>
 
       {/* Hero Section */}
-      <section id="contact-hero" className="relative h-96 flex items-center justify-center text-center">
+      <section
+        id="contact-hero"
+        className="relative h-96 flex items-center justify-center text-center"
+      >
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.jpg"
+            src="/placeholder.svg"
             alt="Contact Us"
             fill
             className="object-cover brightness-50"
@@ -60,10 +66,16 @@ export default function ContactPage() {
           <div className="absolute" />
         </div>
         <div className="relative z-10 px-4 md:px-6">
-          <h1 id="contact-hero-title" className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary-foreground">
+          <h1
+            id="contact-hero-title"
+            className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary-foreground"
+          >
             Contáctanos
           </h1>
-          <p id="contact-hero-subtitle" className="mt-4 text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto">
+          <p
+            id="contact-hero-subtitle"
+            className="mt-4 text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto"
+          >
             ¿Tienes preguntas o necesitas información? Estamos aquí para
             ayudarte.
           </p>
@@ -71,7 +83,10 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact-content" className="container mx-auto px-4 md:px-6 py-16">
+      <section
+        id="contact-content"
+        className="container mx-auto px-4 md:px-6 py-16"
+      >
         <div className="container px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -99,15 +114,29 @@ export default function ContactPage() {
                     </Button>
                   </div>
                 ) : (
-                  <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
+                  <form
+                    id="contact-form"
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                  >
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="firstName">Nombre</Label>
-                        <Input id="firstName" name="firstName" placeholder="John" required />
+                        <Input
+                          id="firstName"
+                          name="firstName"
+                          placeholder="John"
+                          required
+                        />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">Apellido</Label>
-                        <Input id="lastName" name="lastName" placeholder="Doe" required />
+                        <Input
+                          id="lastName"
+                          name="lastName"
+                          placeholder="Doe"
+                          required
+                        />
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -139,7 +168,11 @@ export default function ContactPage() {
                         required
                       />
                     </div>
-                    <Button id="contact-submit-btn" type="submit" className="w-full">
+                    <Button
+                      id="contact-submit-btn"
+                      type="submit"
+                      className="w-full"
+                    >
                       Enviar Mensaje
                     </Button>
                   </form>
@@ -195,7 +228,6 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex space-x-4">
-
                     <a
                       id="contact-social-instagram"
                       href="https://www.instagram.com/codigo10.32"

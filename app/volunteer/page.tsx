@@ -67,7 +67,7 @@ export default function VolunteerPage() {
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.jpg"
+            src="/placeholder.svg"
             alt="Volunteers"
             fill
             className="object-cover brightness-50"
@@ -126,8 +126,8 @@ export default function VolunteerPage() {
                   <div>
                     <h3 className="font-bold">Edad y Disponibilidad</h3>
                     <p className="text-muted-foreground">
-                      Tener al menos 18 años y disponibilidad para entrenamientos
-                      regulares y respuesta a emergencias.
+                      Tener al menos 18 años y disponibilidad para
+                      entrenamientos regulares y respuesta a emergencias.
                     </p>
                   </div>
                 </div>

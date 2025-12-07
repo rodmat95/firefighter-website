@@ -41,7 +41,7 @@ export default function FacilitiesPage() {
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.jpg"
+            src="/placeholder.svg"
             alt="Fire Station"
             fill
             className="object-cover brightness-50"

@@ -5,27 +5,40 @@ import { SiTiktok } from "react-icons/si";
 
 export default function Footer() {
   return (
-    <footer id="main-footer" className="dark bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))]">
+    <footer
+      id="main-footer"
+      className="dark bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))]"
+    >
       <div className="container mx-auto px-4 md:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Logo and Description */}
           <div className="md:col-span-2">
-            <Link id="footer-brand-link" href="/" className="flex items-start space-x-3">
-              <Image src="/logo.svg" alt="Código 10-32" width={24} height={24} className="mt-1 invert" />
+            <Link
+              id="footer-brand-link"
+              href="/"
+              className="flex items-center space-x-3"
+            >
+              <Image
+                src="/logo.svg"
+                alt="Código 10-32"
+                width={24}
+                height={24}
+                className="invert"
+              />
               <div>
-                <div className="text-lg font-bold">
-                  Código 10-32
-                </div>
+                <div className="text-lg font-bold">Código 10-32</div>
               </div>
             </Link>
-            <p id="footer-description" className="mt-2 text-sm text-muted max-w-sm">
-              Somos Código 10-32, comprometidos con la seguridad y el
-              bienestar de la comunidad. Estamos disponibles 24/7 para
-              responder a cualquier emergencia.
+            <p
+              id="footer-description"
+              className="mt-2 text-sm text-muted max-w-sm"
+            >
+              Somos Código 10-32, comprometidos con la seguridad y el bienestar
+              de la comunidad. Estamos disponibles 24/7 para responder a
+              cualquier emergencia.
             </p>
 
             <div id="footer-social-links" className="flex space-x-3 mt-4">
-
               <Link
                 id="footer-social-tiktok"
                 href="https://www.tiktok.com/@codigo10.32"
@@ -46,7 +59,6 @@ export default function Footer() {
                 <Instagram className="h-4 w-4" />
                 <span className="sr-only">Instagram</span>
               </Link>
-
             </div>
           </div>
 
@@ -55,7 +67,11 @@ export default function Footer() {
             <h3 className="text-sm font-bold mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2 text-muted">
               <li>
-                <Link id="footer-link-home" href="/" className="hover:text-card transition-colors">
+                <Link
+                  id="footer-link-home"
+                  href="/"
+                  className="hover:text-card transition-colors"
+                >
                   Inicio
                 </Link>
               </li>
@@ -147,15 +163,27 @@ export default function Footer() {
         </div>
 
         {/* Copyright row */}
-        <div id="footer-copyright" className="mt-6 flex items-center justify-between text-muted text-sm">
+        <div
+          id="footer-copyright"
+          className="mt-6 flex items-center justify-between text-muted text-sm"
+        >
           <div>
-            © {new Date().getFullYear()} Código 10-32. Todos los derechos reservados.
+            © {new Date().getFullYear()} Código 10-32. Todos los derechos
+            reservados.
           </div>
           <div className="hidden md:flex space-x-4">
-            <Link id="footer-link-terms" href="#" className="hover:text-card transition-colors">
+            <Link
+              id="footer-link-terms"
+              href="#"
+              className="hover:text-card transition-colors"
+            >
               Términos y Condiciones
             </Link>
-            <Link id="footer-link-privacy" href="#" className="hover:text-card transition-colors">
+            <Link
+              id="footer-link-privacy"
+              href="#"
+              className="hover:text-card transition-colors"
+            >
               Política de Privacidad
             </Link>
           </div>
