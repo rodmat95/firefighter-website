@@ -12,14 +12,12 @@ export default function Footer() {
               <Flame className="h-6 w-6 text-destructive mt-1" />
               <div>
                 <div className="text-lg font-bold">
-                  Benemérita y Sesquicentenaria Compañía Italiana de Bomberos
-                  Italia N° 5
+                  Código 10-32
                 </div>
               </div>
             </Link>
             <p className="mt-2 text-sm text-muted max-w-sm">
-              Somos la Benemérita y Sesquicentenaria Compañía Italiana de
-              Bomberos Italia N° 5, comprometidos con la seguridad y el
+              Somos Código 10-32, comprometidos con la seguridad y el
               bienestar de la comunidad. Estamos disponibles 24/7 para
               responder a cualquier emergencia.
             </p>
@@ -93,14 +91,14 @@ export default function Footer() {
                   Instalaciones
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/volunteer"
                   className="hover:text-card transition-colors"
                 >
                   Voluntarios
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="/contact"
@@ -146,8 +144,7 @@ export default function Footer() {
         {/* Copyright row */}
         <div className="mt-6 flex items-center justify-between text-muted text-sm">
           <div>
-            © {new Date().getFullYear()} Benemérita y Sesquicentenaria Compañía
-            Italiana de Bomberos Italia N° 5. Todos los derechos reservados.
+            © {new Date().getFullYear()} Código 10-32. Todos los derechos reservados.
           </div>
           <div className="hidden md:flex space-x-4">
             <Link href="#" className="hover:text-card transition-colors">

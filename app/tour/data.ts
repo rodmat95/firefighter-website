@@ -120,7 +120,7 @@ export const manualHotspotYaws: Record<string, number> = {
   "scene-A-03-scene-A-04": -0.0029929022617594114,
   "scene-A-03-scene-A-02": -3.139805233225232,
   "scene-A-04-scene-A-03": -2.7878454397033536,
-  "scene-A-04-scene-A-04-1": -0.5252796856778268,
+  "scene-A-04-scene-A-04-1": -0.22749258798623728,
   "scene-A-04-scene-A-05": 0.3354366255787422,
   "scene-A-05-scene-A-04": -2.1953930412852607,
   "scene-A-05-scene-A-06": 1.7169378027119349,

@@ -53,9 +53,8 @@ export default function Home() {
               Protegiendo Nuestra Comunidad Con Valentía
             </h1>
             <p className="max-w-2xl mx-auto text-base md:text-lg text-destructive/90">
-              «Colegas y amigos, bienvenidos a la página Oficial de la
-              «Benemérita y Centenaria Compañía Italiana de Bomberos Voluntarios
-              ITALIA N°5». En nuestra web, encontrarán información relacionada
+              «Colegas y amigos, bienvenidos a la página Oficial de
+              «Código 10-32». En nuestra web, encontrarán información relacionada
               con el día a día de los miembros de la Compañía.»
             </p>
             <div className="mt-4">
@@ -130,8 +129,7 @@ export default function Home() {
                 ) : (
                   <>
                     <p className="text-muted">
-                      La Benemérita y Sesquicentenaria Compañía Italiana de
-                      Bomberos Voluntarios Italia N° 5 fue fundada en 1868 en el
+                      Código 10-32 fue fundada en 1868 en el
                       Callao, Perú. Desde entonces, hemos servido
                       ininterrumpidamente, protegiendo vidas y propiedades con
                       valentía y dedicación.
@@ -263,7 +261,7 @@ export default function Home() {
       </section>
 
       {/* Voluntarios section: layout matches provided design */}
-      <section className="py-16 bg-card">
+      {/* <section className="py-16 bg-card">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl text-card">
@@ -276,7 +274,6 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-            {/* Left: benefits + CTA */}
             <div>
               <h3 className="text-2xl font-semibold text-card mb-6">
                 Beneficios de ser Voluntario
@@ -352,7 +349,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right: large visual block (placeholder) */}
             <div className="flex items-center justify-center">
               <div>
                 <Image
@@ -366,7 +362,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Preview */}
       <section className="py-16 bg-secondary">

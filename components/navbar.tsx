@@ -24,7 +24,7 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
           <div className="flex items-center">
             <Flame className="h-8 w-8 text-card mr-2" />
             <LinkComponent href="/" className="text-xl font-bold">
-              Bomberos Voluntarios ITALIA N° 5
+              Código 10-32
             </LinkComponent>
           </div>
 
@@ -64,14 +64,14 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
                   Instalaciones
                 </LinkComponent>
               </li>
-              <li>
+              {/* <li>
                 <LinkComponent
                   href="/volunteer"
                   className="px-3 py-2 rounded hover:bg-surface-10"
                 >
                   Voluntarios
                 </LinkComponent>
-              </li>
+              </li> */}
               <li>
                 <LinkComponent
                   href="/contact"
@@ -122,14 +122,14 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
                   Instalaciones
                 </LinkComponent>
               </li>
-              <li>
+              {/* <li>
                 <LinkComponent
                   href="/volunteer"
                   className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
                 >
                   Voluntarios
                 </LinkComponent>
-              </li>
+              </li> */}
               <li>
                 <LinkComponent
                   href="/contact"

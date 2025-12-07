@@ -68,7 +68,7 @@ export default function FacilitiesPage() {
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-card">
               <CardHeader>
-                <CardTitle>Estación de Bomberos Italia N.º 5</CardTitle>
+                <CardTitle>Estación Código 10-32</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-4">

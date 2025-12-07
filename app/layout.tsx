@@ -10,9 +10,9 @@ import ThemeManager from "@/components/ThemeManager";
 const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Bomberos Voluntarios ITALIA N° 5",
+  title: "Código 10-32",
   description:
-    "Colegas y amigos, bienvenidos a la página Oficial de la «Benemérita y Centenaria Compañía Italiana de Bomberos Voluntarios ITALIA N°5». En nuestra web, encontrarán información relacionada con el día a día de los miembros de la Compañía.",
+    "Colegas y amigos, bienvenidos a la página Oficial de «Código 10-32». En nuestra web, encontrarán información relacionada con el día a día de los miembros de la Compañía.",
 };
 
 export default function RootLayout({
