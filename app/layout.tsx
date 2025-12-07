@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description:
     "Colegas y amigos, bienvenidos a la página Oficial de «Código 10-32». En nuestra web, encontrarán información relacionada con el día a día de los miembros de la Compañía.",
   icons: {
-    icon: "/logo_color.png",
+    icon: "/logo_color.svg",
   },
 };
 

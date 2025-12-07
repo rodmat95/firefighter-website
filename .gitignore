@@ -52,4 +52,4 @@ Thumbs.db
 /public/*.png
 /public/*.jpg
 /public/*.jpeg
-/public/*.svg
+#/public/*.svg
