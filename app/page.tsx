@@ -347,7 +347,7 @@ export default function Home() {
                   onClick={() => router.push("/volunteer")}
                   className="bg-destructive hover:bg-destructive-80 text-destructive px-6 py-3 rounded-md font-medium transition-colors"
                 >
-                  Aplica Ahora
+                  Más Información
                 </button>
               </div>
             </div>

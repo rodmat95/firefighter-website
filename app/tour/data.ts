@@ -121,8 +121,9 @@ export const manualHotspotYaws: Record<string, number> = {
   "scene-A-03-scene-A-02": -3.139805233225232,
   "scene-A-04-scene-A-03": -2.7878454397033536,
   "scene-A-04-scene-A-04-1": -0.5252796856778268,
-  "scene-A-05-scene-A-06": 1.7169378027119349,
+  "scene-A-04-scene-A-05": 0.3354366255787422,
   "scene-A-05-scene-A-04": -2.1953930412852607,
+  "scene-A-05-scene-A-06": 1.7169378027119349,
   "scene-B-01-scene-A-01": -1.5355543129163998,
   "scene-B-02-scene-B-01": 2.798869464376569,
   "scene-B-02-scene-B-03": -0.34355381345087466,
@@ -330,6 +331,8 @@ const getHotspotYaw = (currentSceneId: string, targetSceneId: string, currentCoo
 const getSceneTitle = (group: string, number: number, decimal: number | null): string => {
   // ROOT
   if (group === "ROOT") {
+    if (number === 1 && decimal === null) return "Entrada";
+    if (number === 1 && decimal === 1) return "Monolito";
     if (number >= 2 && number <= 5 && decimal === null) return "Pasillo";
     if (number >= 6 && number <= 8 && decimal === null) return "Cocina";
     if (number === 9 && decimal === null) return "Zona de casilleros";
