@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Target, History, Users } from "lucide-react";
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/assets";
 import { Button } from "@/components/ui/button";
 
 export function AboutUsView() {
@@ -14,7 +15,7 @@ export function AboutUsView() {
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg"
+            src={getAssetUrl("/placeholder.svg")}
             alt="Our Team"
             fill
             className="object-cover brightness-50"

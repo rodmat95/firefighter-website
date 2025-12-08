@@ -19,6 +19,7 @@ import {
 import { SiTiktok } from "react-icons/si";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/assets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function ContactPage() {
@@ -58,7 +59,7 @@ export default function ContactPage() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg"
+            src={getAssetUrl("/placeholder.svg")}
             alt="Contact Us"
             fill
             className="object-cover brightness-50"

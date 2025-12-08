@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/assets";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
 import Link from "next/link";
@@ -17,7 +18,7 @@ const services = {
     description:
       "Creemos que prevenir incendios es tan importante como combatirlos. Nuestros servicios de prevención ayudan a empresas y residentes a reducir los riesgos de incendio y a mantenerse seguros.",
     icon: <Shield className="h-8 w-8 text-primary" />,
-    image: "/placeholder.svg?height=800&width=1200",
+    image: getAssetUrl("/placeholder.svg?height=800&width=1200"),
     alt: "Prevención de Incendios",
     features: [
       "Inspecciones de seguridad contra incendios para empresas",
@@ -31,7 +32,7 @@ const services = {
     description:
       "Ofrecemos una variedad de programas educativos para ayudar a los miembros de la comunidad de todas las edades a aprender sobre seguridad contra incendios, preparación para emergencias y cómo responder en situaciones de crisis.",
     icon: <Users className="h-8 w-8 text-primary" />,
-    image: "/placeholder.svg?height=800&width=1200",
+    image: getAssetUrl("/placeholder.svg?height=800&width=1200"),
     alt: "Educación Comunitaria",
     features: [
       "Programas de seguridad contra incendios en escuelas",
@@ -45,7 +46,7 @@ const services = {
     description:
       "Nuestro equipo proporciona una respuesta rápida a incendios, emergencias médicas y otras situaciones críticas las 24 horas del día, los 7 días de la semana.",
     icon: <AlertTriangle className="h-8 w-8 text-primary" />,
-    image: "/placeholder.svg?height=800&width=1200",
+    image: getAssetUrl("/placeholder.svg?height=800&width=1200"),
     alt: "Respuesta a Emergencias",
     features: [
       "Respuesta y supresión de incendios estructurales",
@@ -94,7 +95,7 @@ function ServicesContent() {
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg"
+            src={getAssetUrl("/placeholder.svg")}
             alt="Our Services"
             fill
             className="object-cover brightness-50"

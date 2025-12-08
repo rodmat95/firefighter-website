@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/assets";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
 import Link from "next/link";
@@ -41,7 +42,7 @@ export default function FacilitiesPage() {
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg"
+            src={getAssetUrl("/placeholder.svg")}
             alt="Fire Station"
             fill
             className="object-cover brightness-50"

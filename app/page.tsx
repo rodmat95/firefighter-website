@@ -15,7 +15,9 @@ import {
   Building,
   Calendar,
   ShieldCheck,
+  History,
 } from "lucide-react";
+import { getAssetUrl } from "@/lib/assets";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Footer from "@/components/footer";
@@ -35,15 +37,15 @@ export default function Home() {
 
   return (
     <main id="home-main" className="min-h-screen">
-      {/* Hero Section (centered variant with red gradient overlay) */}
+      {/* Hero Section (Utama / Código 10-32) */}
       <section
         id="hero-section"
         className="relative h-[90vh] flex items-center justify-center text-center"
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg?height=1080&width=1920"
-            alt="Bomberos en acción"
+            src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
+            alt="Producción en acción"
             fill
             className="object-cover brightness-50"
             priority
@@ -51,20 +53,27 @@ export default function Home() {
         </div>
 
         <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-3xl mx-auto space-y-6 text-card">
+          <div className="max-w-4xl mx-auto space-y-6 text-card">
             <h1
               id="hero-title"
               className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-tight"
             >
-              Protegiendo Nuestra Comunidad Con Valentía
+              UTAMA PRODUCCIONES
             </h1>
             <p
-              id="hero-description"
-              className="max-w-2xl mx-auto text-base md:text-lg text-destructive/90"
+              id="hero-subtitle"
+              className="text-xl md:text-2xl font-bold text-destructive/90"
             >
-              «Colegas y amigos, bienvenidos a la página Oficial de «Código
-              10-32». En nuestra web, encontrarán información relacionada con el
-              día a día de los miembros de la Compañía.»
+              CÓDIGO 10-32
+            </p>
+            <p
+              id="hero-description"
+              className="max-w-2xl mx-auto text-base md:text-lg text-card/90"
+            >
+              "Nuestro hogar, donde nacen las historias."
+            </p>
+            <p className="max-w-2xl mx-auto text-base md:text-lg text-destructive/90 italic">
+              Un documental sobre la Benemérita y Sesquicentenaria Compañía Italiana de Bomberos Italia N° 5.
             </p>
             <div className="mt-4">
               <button
@@ -80,7 +89,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Nosotros section (inserted at start) */}
+      {/* Sobre Nosotros (Utama Producciones) */}
       <section id="about-section" className="py-16 md:py-24 bg-card">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -88,72 +97,24 @@ export default function Home() {
               <div className="space-y-3">
                 <h2
                   id="about-title"
-                  className={cn(
-                    "text-3xl md:text-4xl font-bold tracking-tight transition-opacity duration-300 ease-in-out",
-                    isFading && "text-muted text-lg opacity-0"
-                  )}
+                  className="text-3xl md:text-4xl font-bold tracking-tight"
                 >
-                  {showHistory ? "Nuestra Historia" : "Sobre Nosotros"}
+                  Sobre Nosotros
                 </h2>
-                <p
-                  id="about-subtitle"
-                  className={cn(
-                    "text-muted text-lg transition-opacity duration-300 ease-in-out",
-                    isFading && "opacity-0"
-                  )}
-                >
-                  {showHistory
-                    ? "Historia y legado de la Compañía"
-                    : "Más de 150 años de servicio y compromiso con nuestra comunidad."}
+                <p className="text-muted text-lg">
+                  Utama: "Nuestro Hogar"
                 </p>
               </div>
-              <div
-                id="about-content"
-                className={cn(
-                  "transition-opacity duration-300 ease-in-out",
-                  isFading && "opacity-0"
-                )}
-              >
-                {showHistory ? (
-                  <>
-                    <p className="text-muted">
-                      La compañía fue fundada el 28 de octubre de 1868 en la
-                      provincia constitucional del Callao, con el nombre de
-                      “Bellavista”, por miembros destacados de la colonia
-                      italiana en el Perú: Giovanni Bollo, Tomaso Rada vero,
-                      Francesco Ametis, Andrea Dall’Orso, Michiele Canessa,
-                      Modesto Barabino, Faustino Piaggio, Eliggio Dodero, entre
-                      otros.
-                    </p>
-                    <p className="text-muted">
-                      Su primer equipo contra incendios fue donado por el
-                      alcalde del Callao, “Señor Guegorio Real”: incluía
-                      herramientas y una bomba manual que hoy es considerada una
-                      reliquia. En noviembre de 1868 ya participaba en
-                      emergencias, como el incendio en la calle Constitución,
-                      junto a la Compañía Unión Chalaca N° 1.
-                    </p>
-                    <p className="text-muted">
-                      Además de combatir incendios, los voluntarios cumplieron
-                      funciones de orden público, guardia urbana, atención de
-                      emergencias médicas y salvataje.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-muted">
-                      Código 10-32 fue fundada en 1868 en el Callao, Perú. Desde
-                      entonces, hemos servido ininterrumpidamente, protegiendo
-                      vidas y propiedades con valentía y dedicación.
-                    </p>
-                    <p className="text-muted">
-                      Nuestra historia está forjada en el coraje de voluntarios
-                      que, a lo largo de generaciones, han enfrentado incendios,
-                      desastres y emergencias, convirtiéndose en un pilar de
-                      seguridad y confianza para la comunidad.
-                    </p>
-                  </>
-                )}
+              <div id="about-content" className="space-y-4 text-muted">
+                <p>
+                  El nombre de Utama proviene del aimara y significa “Nuestro Hogar”. Representa el espacio compartido donde nacen ideas, se construyen historias y se expresan emociones a través del lenguaje audiovisual.
+                </p>
+                <p>
+                  Utama es una productora creada por estudiantes del Instituto Toulouse Lautrec, apasionados por narrar historias que inspiren y generen impacto. Su objetivo es desarrollar contenido original que trascienda la imagen, conecte emocionalmente y permanezca en la memoria del público.
+                </p>
+                <p>
+                  En Utama creemos que lo audiovisual es un lenguaje capaz de conectar profundamente y transmitir verdades. Trabajamos temas sociales y humanos, guiados por la pasión, la empatía y la responsabilidad.
+                </p>
               </div>
               <div className="flex space-x-4">
                 <button
@@ -164,18 +125,18 @@ export default function Home() {
                   Conoce al Equipo
                 </button>
                 <button
-                  id="about-cta-history"
-                  onClick={handleShowHistory}
+                  id="about-cta-more"
+                  onClick={() => router.push("/about-us")}
                   className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-6 py-3 rounded-md font-medium transition-colors"
                 >
-                  {showHistory ? "Sobre Nosotros" : "Nuestra Historia"}
+                  Más sobre Utama
                 </button>
               </div>
             </div>
             <div className="relative h-80 md:h-96 rounded-xl overflow-hidden shadow-lg">
               <Image
-                src="/placeholder.svg?height=400&width=400"
-                alt="Equipo de bomberos"
+                src={getAssetUrl("/placeholder.svg?height=400&width=400")}
+                alt="Equipo Utama"
                 layout="fill"
                 objectFit="cover"
                 className="brightness-90"
@@ -183,14 +144,68 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6">
                 <h3 className="text-white text-2xl font-bold">
-                  Unidos por la Vocación de Servir
+                  Narrando Historias que Impactan
                 </h3>
-                <p className="text-white/90 mt-2">
-                  Comprometidos con la seguridad y el bienestar de nuestra
-                  gente.
-                </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Nuestros Protagonistas: Italia N° 5 (History) */}
+      <section id="protagonists-section" className="py-16 md:py-24 bg-zinc-900 border-y border-white/5 relative overflow-hidden">
+         {/* Background pattern or subtle gradient to make it distinct */}
+         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-destructive/10 via-background to-background opacity-50 z-0"></div>
+         
+         <div className="container px-4 md:px-6 mx-auto relative z-10">
+          <div className="flex flex-col md:flex-row gap-12 items-start">
+             <div className="md:w-1/3 space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-2">
+                  Nuestros Protagonistas
+                </h2>
+                <h3 className="text-xl md:text-2xl font-semibold text-gray-300">
+                  Benemérita y Sesquicentenaria Compañía Italiana de Bomberos Italia N° 5
+                </h3>
+                <div className="relative h-64 md:h-80 rounded-xl overflow-hidden shadow-2xl mt-6 ring-1 ring-white/10 group">
+                  <Image
+                    src={getAssetUrl("/placeholder.svg?height=600&width=400")}
+                    alt="Foto grupal Bomberos Italia 5"
+                    layout="fill"
+                    objectFit="cover"
+                    className="brightness-90 transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 text-white text-sm font-medium">
+                    Foto Grupal Compañía Italia 5
+                  </div>
+                </div>
+                <div className="pt-2">
+                    <button
+                        onClick={() => router.push("/members")}
+                        className="w-full sm:w-auto bg-destructive hover:bg-destructive/90 text-destructive-foreground px-6 py-3 rounded-md font-medium transition-colors flex items-center justify-center gap-2"
+                    >
+                        <Users className="h-5 w-5" />
+                        Ver Integrantes
+                    </button>
+                </div>
+             </div>
+             <div className="md:w-2/3 space-y-6 text-gray-300/90 leading-relaxed">
+                <div className="prose prose-invert max-w-none text-gray-300">
+                  <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <History className="h-5 w-5 text-destructive" />
+                    Historia
+                  </h4>
+                  <p className="mb-4">
+                    La historia de la Compañía Italiana de Bomberos Bellavista (hoy Italia N° 5) comienza en 1866, en plena tensión previa al ataque de la escuadra española al Callao. Ante el riesgo de incendios, un grupo de ciudadanos italianos —Giovanni Bollo, Tomasso Radavero, Faustino Piaggio, Andrea Dall’Orso, Michele Canessa, Eligio Dodero, Modesto Barabino, Francesco Ametis y Alejandro Gabrielli— se organizó para formar una compañía de bomberos voluntarios. Su valor durante el Combate del 2 de Mayo les dio reconocimiento popular, aunque la compañía se desactivó tras el conflicto.
+                  </p>
+                  <p className="mb-4">
+                    En 1868, los mismos fundadores se reunieron nuevamente y reorganizaron la institución. El 18 de octubre recibieron una bomba a brazo y equipo básico, y el 28 de octubre se oficializó la fundación con autoridades peruanas e italianas. La primera Junta Directiva fue liderada por Giovanni Bollo como Capitán. Desde entonces, su misión fue clara: proteger vidas, atender incendios y servir a la comunidad con vocación y disciplina.
+                  </p>
+                  <p>
+                    La compañía creció a través del tiempo, convirtiéndose en un símbolo de unión entre la colonia italiana y el pueblo chalaco. Evolucionó, permaneció y se consolidó como Italia N° 5, institución que continúa activa hasta hoy gracias al compromiso voluntario de generaciones que honran un legado nacido en 1866 y reafirmado en 1868.
+                  </p>
+                </div>
+             </div>
           </div>
         </div>
       </section>
@@ -413,7 +428,7 @@ export default function Home() {
             <div className="flex items-center justify-center">
               <div>
                 <Image
-                  src="/placeholder.svg?height=400&width=400"
+                  src={getAssetUrl("/placeholder.svg?height=400&width=400")}
                   alt="Jefe de la Compañía"
                   width={400}
                   height={400}

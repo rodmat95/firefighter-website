@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/assets";
 
 // Mock Data for Members
 const members = [
@@ -13,91 +14,91 @@ const members = [
     id: 1,
     name: "Angie Burgos",
     role: "Producción",
-    image: "/members/angie-burgos.jpg",
+    image: getAssetUrl("/members/angie-burgos.jpg"),
   },
   {
     id: 2,
     name: "Romina Silva",
     role: "Asist. de producción",
-    image: "/members/romina-silva.jpg",
+    image: getAssetUrl("/members/romina-silva.jpg"),
   },
   {
     id: 3,
     name: "Fabian Palomino",
     role: "Asist. de Producción",
-    image: "/members/fabian-palomino.jpg",
+    image: getAssetUrl("/members/fabian-palomino.jpg"),
   },
   {
     id: 4,
     name: "Rodrigo Chavez",
     role: "Dirección General",
-    image: "/members/rodrigo-chavez.jpg",
+    image: getAssetUrl("/members/rodrigo-chavez.jpg"),
   },
   {
     id: 5,
     name: "Julio Ramos",
     role: "Dirección de foto, op.cam y Gaffer",
-    image: "/members/julio-ramos.jpg",
+    image: getAssetUrl("/members/julio-ramos.jpg"),
   },
   {
     id: 6,
     name: "David Aliaga",
     role: "1er asistente de foto y Postproducción",
-    image: "/members/david-aliaga.jpg",
+    image: getAssetUrl("/members/david-aliaga.jpg"),
   },
   {
     id: 7,
     name: "Ruth De La Cruz",
     role: "Dirección de Arte",
-    image: "/members/ruth-de-la-cruz.jpg",
+    image: getAssetUrl("/members/ruth-de-la-cruz.jpg"),
   },
   {
     id: 8,
     name: "Mario Romanet",
     role: "Luminotécnico, Sonido y Postproducción",
-    image: "/members/mario-romanet.jpg",
+    image: getAssetUrl("/members/mario-romanet.jpg"),
   },
   {
     id: 9,
     name: "Cristhian Castillo",
     role: "Postprod., Colorización y Luminotécnico",
-    image: "/members/cristhian-castillo.jpg",
+    image: getAssetUrl("/members/cristhian-castillo.jpg"),
   },
   {
     id: 10,
     name: "Antonio Alva",
     role: "Luminotécnico",
-    image: "/members/antonio-alva.jpg",
+    image: getAssetUrl("/members/antonio-alva.jpg"),
   },
   {
     id: 11,
     name: "Deevid Siguas",
     role: "Asist. Arte",
-    image: "/members/deevid-siguas.jpg",
+    image: getAssetUrl("/members/deevid-siguas.jpg"),
   },
   {
     id: 12,
     name: "Gabriel Guinea",
     role: "Dirección General",
-    image: "/members/gabriel-guinea.jpg",
+    image: getAssetUrl("/members/gabriel-guinea.jpg"),
   },
   {
     id: 13,
     name: "Stephano Gonzales",
     role: "Productor de arte Luminotécnico",
-    image: "/members/stephano-gonzales.jpg",
+    image: getAssetUrl("/members/stephano-gonzales.jpg"),
   },
   {
     id: 14,
     name: "Giancarlo Chahua",
     role: "Asist. de Arte",
-    image: "/members/giancarlo-chahua.jpg",
+    image: getAssetUrl("/members/giancarlo-chahua.jpg"),
   },
   {
     id: 15,
     name: "Franco Calderon",
     role: "Asistente de cámara",
-    image: "/members/franco-calderon.jpg",
+    image: getAssetUrl("/members/franco-calderon.jpg"),
   },
 ];
 
@@ -128,7 +129,7 @@ export default function MembersPage() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg"
+            src={getAssetUrl("/placeholder.svg")}
             alt="Integrantes Hero"
             fill
             className="object-cover brightness-50"

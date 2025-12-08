@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/assets";
 import { useState, useRef, MouseEvent, useEffect } from "react";
 import { scenes } from "../tour/data";
 
@@ -149,7 +150,7 @@ export default function PathEditorPage() {
                 className="relative w-full aspect-square cursor-default bg-black rounded-lg overflow-hidden border-2 border-blue-500 select-none"
               >
                 <Image
-                  src="/tour/floorplan.png"
+                  src={getAssetUrl("/tour/floorplan.png")}
                   alt="Plano de la estación"
                   fill
                   className="object-contain pointer-events-none"

@@ -5,6 +5,7 @@ import { X, Target, History, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/assets";
 
 export default function AboutUsPage() {
   const router = useRouter();
@@ -30,8 +31,8 @@ export default function AboutUsPage() {
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg"
-            alt="Our Team"
+            src={getAssetUrl("/placeholder.svg")}
+            alt="Utama Team"
             fill
             className="object-cover brightness-50"
           />
@@ -39,48 +40,51 @@ export default function AboutUsPage() {
         </div>
         <div className="relative z-10 px-4 md:px-6">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary-foreground">
-            Sobre Nosotros
+            Utama Producciones
           </h1>
           <p className="mt-4 text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto">
-            Conoce nuestra historia, misión y los valores que nos unen como
-            equipo.
+            "Nuestro Hogar" - Donde nacen las historias.
           </p>
         </div>
       </section>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 md:px-6 py-16">
+        {/* Intro / Meaning */}
+        <div className="mb-16 text-center max-w-4xl mx-auto space-y-6">
+          <h2 className="text-3xl font-bold">¿Qué es Utama?</h2>
+          <p className="text-muted-foreground text-lg">
+            El nombre de Utama proviene del aimara y significa “Nuestro Hogar”. Representa el espacio compartido donde nacen ideas, se construyen historias y se expresan emociones a través del lenguaje audiovisual.
+          </p>
+          <p className="text-muted-foreground text-lg">
+            Utama es una productora creada por estudiantes del Instituto Toulouse Lautrec, apasionados por narrar historias que inspiren y generen impacto. Su objetivo es desarrollar contenido original que trascienda la imagen, conecte emocionalmente y permanezca en la memoria del público.
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Our Mission */}
+          {/* Mission */}
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="bg-primary/10 text-primary p-3 rounded-full">
                 <Target className="h-8 w-8" />
               </div>
-              <h2 className="text-3xl font-bold">Nuestra Misión</h2>
+              <h2 className="text-3xl font-bold">Misión</h2>
             </div>
             <p className="text-muted-foreground text-lg">
-              Proteger vidas y bienes a través de la prevención de incendios,
-              respuesta a emergencias y educación comunitaria. Estamos
-              comprometidos con la seguridad y el bienestar de cada persona en
-              nuestra jurisdicción.
+              Crear proyectos audiovisuales de alto valor basados en creatividad, innovación y responsabilidad social. Desarrollamos contenido transmedia que genere experiencias únicas y vínculos auténticos con la audiencia.
             </p>
           </div>
 
-          {/* Our History */}
+          {/* Vision */}
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="bg-primary/10 text-primary p-3 rounded-full">
                 <History className="h-8 w-8" />
               </div>
-              <h2 className="text-3xl font-bold">Nuestra Historia</h2>
+              <h2 className="text-3xl font-bold">Visión</h2>
             </div>
             <p className="text-muted-foreground text-lg">
-              Fundada en 1868, nuestra compañía de bomberos ha servido con
-              orgullo a la comunidad durante más de 150 años. Desde nuestros
-              humildes comienzos, hemos crecido y evolucionado, adaptándonos a
-              los nuevos desafíos y mejorando continuamente nuestros servicios
-              para garantizar la máxima protección.
+              Convertirnos en una productora referente en Comunicación Audiovisual, destacando por contenido transmedia de alto impacto narrativo, cultural y social.
             </p>
           </div>
         </div>

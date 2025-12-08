@@ -374,6 +374,8 @@ const getSceneTitle = (group: string, number: number, decimal: number | null): s
   return group === "ROOT" ? `Punto ${number}${decimal ? `.${decimal}` : ''}` : `Ruta ${group} - ${number}${decimal ? `.${decimal}` : ''}`;
 };
 
+import { getAssetUrl } from "@/lib/assets";
+
 export const scenes: Scene[] = parsedScenes.map((ps, index) => {
   const { id, group, number, decimal } = ps;
   const hotspots: Hotspot[] = [];
@@ -583,7 +585,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
   return {
     id,
     name: getSceneTitle(group, number, decimal),
-    image: `${process.env.NEXT_PUBLIC_R2_URL || ""}/tour/RUTA/${ps.filename}`,
+    image: getAssetUrl(`tour/RUTA/${ps.filename}`),
     hotspots,
     coordinates: currentCoords,
     northOffset,

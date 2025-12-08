@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link, { LinkProps } from "next/link";
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/assets";
 import { X, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,7 +28,7 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Image
-              src="/logo.svg"
+              src={getAssetUrl("/logo.svg")}
               alt="Código 10-32"
               width={32}
               height={32}
