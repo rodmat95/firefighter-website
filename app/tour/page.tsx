@@ -27,8 +27,10 @@ export default function Recorrido() {
 
     import("marzipano").then((Marzipano) => {
       const viewerOpts = {
+        stageType: "webgl", // Force WebGL for performance
         controls: {
           mouseViewMode: "drag",
+          touchViewMode: "drag", // Ensure touch works
         },
       };
 
@@ -117,28 +119,28 @@ export default function Recorrido() {
             
             if (hotspot.type === "arrow") {
               // Google Maps style floor arrow
-              element.className = "floor-hotspot opacity-0 transition-opacity duration-500"; // Ensure class is set
+              element.className = "floor-hotspot opacity-0 transition-opacity duration-500 transform-gpu";
               element.innerHTML = `
-                <div class="relative group cursor-pointer transform transition-transform hover:scale-110">
+                <div class="relative group cursor-pointer transform transition-transform active:scale-95 md:hover:scale-110">
                   <div class="w-16 h-16 flex items-center justify-center">
-                    <div class="absolute inset-0 bg-white/80 rounded-full blur-md opacity-50 group-hover:opacity-80 transition-opacity"></div>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-white drop-shadow-lg transform rotate-0">
+                    <div class="absolute inset-0 bg-white/80 rounded-full blur-md opacity-50 md:group-hover:opacity-80 transition-opacity"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-white drop-shadow-lg transform rotate-0 shadow-black">
                       <path d="M12 2L12 22M12 2L5 9M12 2L19 9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                     </svg>
                   </div>
-                  <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                  <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-20">
                     ${hotspot.text || "Ir aquí"}
                   </div>
                 </div>
               `;
             } else {
               // Standard info hotspot
-              element.className = "hotspot opacity-0 transition-opacity duration-500";
+              element.className = "hotspot opacity-0 transition-opacity duration-500 transform-gpu";
               element.innerHTML = `
-                <div class="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform text-primary">
+                <div class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg cursor-pointer active:scale-95 md:hover:scale-110 transition-transform text-primary border-2 border-white/50">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
                 </div>
-                <div class="mt-2 px-2 py-1 bg-black/70 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                <div class="mt-2 px-2 py-1 bg-black/70 text-white text-xs rounded opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none text-center">
                   ${hotspot.text || "Info"}
                 </div>
               `;
@@ -171,22 +173,21 @@ export default function Recorrido() {
           }
         }
 
-        // Preload adjacent scenes
+        // IMPROVED PRELOADING: Correctly create Image objects to force browser cache
         const preloadScenes = () => {
           currentScene.hotspots.forEach(hotspot => {
             const targetId = hotspot.targetSceneId;
             const targetScene = scenes.find(s => s.id === targetId);
-            if (targetScene && !scenesRef.current.has(targetId)) {
-              try {
-                 Marzipano.ImageUrlSource.fromString(targetScene.image);
-              } catch (e) {
-                 console.warn("Error preloading", targetId, e);
-              }
+            if (targetScene) {
+                 // Use core Image constructor to prefetch resource into browser disk cache
+                 const img = new window.Image();
+                 img.src = targetScene.image;
             }
           });
         };
         
-        setTimeout(preloadScenes, 1000);
+        // Delay preloading slightly to prioritize current scene render
+        setTimeout(preloadScenes, 1500);
 
         // Switch scene with error handling
         try {
@@ -223,32 +224,32 @@ export default function Recorrido() {
   };
 
   return (
-    <div id="tour-container" className="min-h-screen w-full bg-black flex flex-col relative">
+    <div id="tour-container" className="fixed inset-0 w-full h-full bg-black flex flex-col z-50">
       {/* Viewer Container */}
-      <div id="tour-viewer-wrapper" className="relative w-full h-screen overflow-hidden">
+      <div id="tour-viewer-wrapper" className="relative w-full h-full overflow-hidden">
         <div id="pano-container" ref={panoRef} className="absolute inset-0 w-full h-full" />
         
         {/* Top Overlay */}
-        <div id="tour-overlay" className="absolute top-4 left-4 z-10 bg-black/50 text-white p-4 rounded backdrop-blur-md border border-white/10">
-          <h1 id="tour-scene-name" className="text-2xl font-bold">{currentScene.name}</h1>
-          <p id="tour-instructions" className="text-sm opacity-80">Arrastra para explorar • Clic en flechas para moverte</p>
+        <div id="tour-overlay" className="absolute top-4 left-4 z-10 bg-black/60 text-white p-3 md:p-4 rounded-xl backdrop-blur-md border border-white/10 max-w-[80%] md:max-w-md shadow-2xl">
+          <h1 id="tour-scene-name" className="text-xl md:text-2xl font-bold truncate leading-tight">{currentScene.name}</h1>
+          <p id="tour-instructions" className="text-xs md:text-sm opacity-80 mt-1 hidden md:block">Arrastra para explorar • Clic en flechas para moverte</p>
           <button 
             id="tour-exit-btn"
             onClick={() => router.push("/")}
-            className="mt-2 flex items-center gap-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded text-sm transition-colors"
+            className="mt-3 flex items-center gap-2 bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg text-xs md:text-sm transition-colors active:scale-95"
           >
             <LogOut className="w-4 h-4" />
-            Salir del recorrido
+            Salir
           </button>
         </div>
 
         {/* Compass */}
-        <div id="tour-compass-container" className="absolute top-4 right-4 z-10">
+        <div id="tour-compass-container" className="absolute top-4 right-4 z-10 opacity-80 hover:opacity-100 transition-opacity">
           <Compass yaw={viewParams.yaw + (currentScene.northOffset || 0)} onReset={handleResetView} />
         </div>
 
-        {/* Minimap (Bottom Right) */}
-        <div id="tour-minimap-container" className="absolute bottom-4 right-4 z-10 hidden md:block">
+        {/* Minimap (Bottom Right) - Collapsible on mobile could be better, but hidden on smaller mobile is safe for now unless user asks */}
+        <div id="tour-minimap-container" className="absolute bottom-4 right-4 z-10 hidden md:block opacity-90 hover:opacity-100 transition-opacity">
           <Minimap 
             scenes={scenes} 
             currentScene={currentScene} 
@@ -257,7 +258,7 @@ export default function Recorrido() {
         </div>
       </div>
 
-      {/* Global Styles for Hotspots (could be moved to CSS file) */}
+      {/* Global Styles for Hotspots */}
       <style jsx global>{`
         .floor-hotspot {
           transform: rotateX(60deg); /* Perspective effect for floor */
@@ -266,3 +267,4 @@ export default function Recorrido() {
     </div>
   );
 }
+
