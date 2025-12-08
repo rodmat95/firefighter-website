@@ -17,6 +17,7 @@ export default function ConditionalNavbar() {
     "/facilities",
     "/volunteer",
     "/contact",
+    "/members",
   ];
 
   const handleLinkClick = (href: string) => {

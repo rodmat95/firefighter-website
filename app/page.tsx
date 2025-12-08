@@ -1,5 +1,7 @@
 "use client";
 
+
+import { useTransition } from "@/context/TransitionContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -24,6 +26,7 @@ import Footer from "@/components/footer";
 
 export default function Home() {
   const router = useRouter();
+  const { setAnimations } = useTransition();
   const [showHistory, setShowHistory] = useState(false);
   const [isFading, setIsFading] = useState(false);
 
@@ -119,7 +122,10 @@ export default function Home() {
               <div className="flex space-x-4">
                 <button
                   id="about-cta-team"
-                  onClick={() => router.push("/team")}
+                  onClick={() => {
+                    setAnimations("up", "none");
+                    router.push("/members");
+                  }}
                   className="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-6 py-3 rounded-md font-medium transition-colors"
                 >
                   Conoce al Equipo
@@ -181,7 +187,10 @@ export default function Home() {
                 </div>
                 <div className="pt-2">
                     <button
-                        onClick={() => router.push("/members")}
+                        onClick={() => {
+                          setAnimations("up", "none");
+                          router.push("/team");
+                        }}
                         className="w-full sm:w-auto bg-destructive hover:bg-destructive/90 text-destructive-foreground px-6 py-3 rounded-md font-medium transition-colors flex items-center justify-center gap-2"
                     >
                         <Users className="h-5 w-5" />
