@@ -46,11 +46,24 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
           {/* Mobile Menu Button */}
           <button
             id="mobile-menu-btn"
-            className="md:hidden p-2 rounded-full bg-surface-10 hover:bg-surface-20 transition-colors"
+            className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors text-white z-50 relative"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
           >
-            {menuOpen ? <X /> : <Menu />}
+            <div className="relative w-6 h-5 flex flex-col justify-between items-center overflow-hidden">
+                <span className={cn(
+                    "w-full h-0.5 bg-black rounded-full transform transition-all duration-300 ease-in-out origin-center",
+                    menuOpen ? "rotate-45 translate-y-2" : "translate-y-0"
+                )} />
+                <span className={cn(
+                    "w-full h-0.5 bg-black rounded-full transform transition-all duration-300 ease-in-out",
+                    menuOpen ? "translate-x-full opacity-0" : "translate-x-0 opacity-100"
+                )} />
+                <span className={cn(
+                    "w-full h-0.5 bg-black rounded-full transform transition-all duration-300 ease-in-out origin-center",
+                    menuOpen ? "-rotate-45 -translate-y-2.5" : "translate-y-0"
+                )} />
+            </div>
           </button>
 
           {/* Desktop Navigation */}
@@ -122,15 +135,6 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
         >
           <nav className="container mx-auto px-4 py-2">
             <ul className="space-y-1">
-              <li>
-                <LinkComponent
-                  id="mobile-nav-link-home"
-                  href="/"
-                  className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
-                >
-                  Inicio
-                </LinkComponent>
-              </li>
               <li>
                 <LinkComponent
                   id="mobile-nav-link-about"
