@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link, { LinkProps } from "next/link";
-import Image from "next/image";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
 import { X, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Define a type for the LinkComponent prop
 type LinkComponentProps = React.FC<
@@ -27,12 +28,13 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Image
+            <ImageWithLoader
               src={getAssetUrl("/logo.svg")}
               alt="Código 10-32"
               width={32}
               height={32}
               className="mr-2"
+              showSpinner={false} 
             />
             <LinkComponent
               id="nav-brand-link"
@@ -128,70 +130,76 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
       </div>
 
       {/* Mobile Navigation Menu */}
-      {menuOpen && (
-        <div
-          id="mobile-nav-menu"
-          className="md:hidden bg-destructive border-t border-destructive animate-in slide-in-from-top"
-        >
-          <nav className="container mx-auto px-4 py-2">
-            <ul className="space-y-1">
-              <li>
-                <LinkComponent
-                  id="mobile-nav-link-about"
-                  href="/about-us"
-                  className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
-                >
-                  Nosotros
-                </LinkComponent>
-              </li>
-              {/* <li>
-                <LinkComponent
-                  id="mobile-nav-link-services"
-                  href="/services"
-                  className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
-                >
-                  Servicios
-                </LinkComponent>
-              </li> */}
-              <li>
-                <LinkComponent
-                  id="mobile-nav-link-facilities"
-                  href="/facilities"
-                  className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
-                >
-                  Instalaciones
-                </LinkComponent>
-              </li>
-              <li>
-                <LinkComponent
-                  id="mobile-nav-link-members"
-                  href="/members"
-                  className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
-                >
-                  Integrantes
-                </LinkComponent>
-              </li>
-              {/* <li>
-                <LinkComponent
-                  href="/volunteer"
-                  className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
-                >
-                  Voluntarios
-                </LinkComponent>
-              </li> */}
-              <li>
-                <LinkComponent
-                  id="mobile-nav-link-contact"
-                  href="/contact"
-                  className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
-                >
-                  Contacto
-                </LinkComponent>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            id="mobile-nav-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-destructive border-t border-destructive overflow-hidden"
+          >
+            <nav className="container mx-auto px-4 py-2">
+              <ul className="space-y-1">
+                <li>
+                  <LinkComponent
+                    id="mobile-nav-link-about"
+                    href="/about-us"
+                    className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
+                  >
+                    Nosotros
+                  </LinkComponent>
+                </li>
+                {/* <li>
+                  <LinkComponent
+                    id="mobile-nav-link-services"
+                    href="/services"
+                    className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
+                  >
+                    Servicios
+                  </LinkComponent>
+                </li> */}
+                <li>
+                  <LinkComponent
+                    id="mobile-nav-link-facilities"
+                    href="/facilities"
+                    className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
+                  >
+                    Instalaciones
+                  </LinkComponent>
+                </li>
+                <li>
+                  <LinkComponent
+                    id="mobile-nav-link-members"
+                    href="/members"
+                    className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
+                  >
+                    Integrantes
+                  </LinkComponent>
+                </li>
+                {/* <li>
+                  <LinkComponent
+                    href="/volunteer"
+                    className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
+                  >
+                    Voluntarios
+                  </LinkComponent>
+                </li> */}
+                <li>
+                  <LinkComponent
+                    id="mobile-nav-link-contact"
+                    href="/contact"
+                    className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
+                  >
+                    Contacto
+                  </LinkComponent>
+                </li>
+              </ul>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import { SiTiktok } from "react-icons/si";
@@ -19,12 +19,13 @@ export default function Footer() {
               href="/"
               className="flex items-center space-x-3"
             >
-              <Image
+              <ImageWithLoader
                 src={getAssetUrl("/logo.svg")}
-                alt="Código 10-32"
-                width={24}
-                height={24}
-                className="invert"
+                alt="Logo"
+                width={40}
+                height={40}
+                className="brightness-0 invert"
+                showSpinner={false}
               />
               <div>
                 <div className="text-lg font-bold">Código 10-32</div>

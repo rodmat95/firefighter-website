@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { SiTiktok } from "react-icons/si";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -58,11 +58,12 @@ export default function ContactPage() {
         className="relative h-96 flex items-center justify-center text-center"
       >
         <div className="absolute inset-0 z-0">
-          <Image
-            src={getAssetUrl("/placeholder.svg")}
-            alt="Contact Us"
+          <ImageWithLoader
+            src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
+            alt="Fondo Contacto"
             fill
             className="object-cover brightness-50"
+            priority
           />
           <div className="absolute" />
         </div>

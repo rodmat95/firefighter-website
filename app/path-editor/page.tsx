@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
 import { useState, useRef, MouseEvent, useEffect } from "react";
 import { scenes } from "../tour/data";
@@ -149,7 +149,7 @@ export default function PathEditorPage() {
                 onClick={handleBackgroundClick}
                 className="relative w-full aspect-square cursor-default bg-black rounded-lg overflow-hidden border-2 border-blue-500 select-none"
               >
-                <Image
+                <ImageWithLoader
                   src={getAssetUrl("/tour/floorplan.png")}
                   alt="Plano de la estación"
                   fill

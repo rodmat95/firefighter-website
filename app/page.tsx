@@ -20,7 +20,7 @@ import {
   History,
 } from "lucide-react";
 import { getAssetUrl } from "@/lib/assets";
-import Image from "next/image";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { cn } from "@/lib/utils";
 import Footer from "@/components/footer";
 
@@ -46,7 +46,7 @@ export default function Home() {
         className="relative h-[100dvh] flex items-center justify-center text-center overflow-hidden"
       >
         <div className="absolute inset-0 z-0">
-          <Image
+          <ImageWithLoader
             src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
             alt="Producción en acción"
             fill
@@ -142,7 +142,7 @@ export default function Home() {
               </div>
             </div>
             <div className="relative h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden shadow-2xl order-1 md:order-2 ring-1 ring-border/10">
-              <Image
+              <ImageWithLoader
                 src={getAssetUrl("/placeholder.svg?height=800&width=800")}
                 alt="Equipo Utama"
                 fill
@@ -178,7 +178,7 @@ export default function Home() {
                 </div>
                 
                 <div className="relative h-64 md:h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl mt-6 ring-1 ring-white/10 group">
-                  <Image
+                  <ImageWithLoader
                     src={getAssetUrl("/placeholder.svg?height=800&width=600")}
                     alt="Foto grupal Bomberos Italia 5"
                     fill

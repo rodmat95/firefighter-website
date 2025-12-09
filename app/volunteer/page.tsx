@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
@@ -67,11 +67,12 @@ export default function VolunteerPage() {
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
-          <Image
-            src={getAssetUrl("/placeholder.svg")}
-            alt="Volunteers"
+          <ImageWithLoader
+            src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
+            alt="Fondo Voluntarios"
             fill
             className="object-cover brightness-50"
+            priority
           />
           <div className="absolute" />
         </div>

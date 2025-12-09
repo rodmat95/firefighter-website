@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { X, Target, History, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
-import Image from "next/image";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
 
 export default function AboutUsPage() {
@@ -29,14 +29,14 @@ export default function AboutUsPage() {
 
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center text-center">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={getAssetUrl("/placeholder.svg")}
-            alt="Utama Team"
+        <div className="absolute inset-0">
+          <ImageWithLoader
+            src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
+            alt="Fondo Sobre Nosotros"
             fill
             className="object-cover brightness-50"
+            priority
           />
-          <div className="absolute" />
         </div>
         <div className="relative z-10 px-4 md:px-6">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary-foreground">

@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { Target, History, Users } from "lucide-react";
-import Image from "next/image";
 import { getAssetUrl } from "@/lib/assets";
 import { Button } from "@/components/ui/button";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 
 export function AboutUsView() {
   const router = useRouter();
@@ -14,8 +14,8 @@ export function AboutUsView() {
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
-          <Image
-            src={getAssetUrl("/placeholder.svg")}
+          <ImageWithLoader
+            src={getAssetUrl("/placeholder.svg?height=800&width=800")}
             alt="Our Team"
             fill
             className="object-cover brightness-50"

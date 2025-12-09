@@ -5,7 +5,7 @@ import { X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
 import { Card, CardContent } from "@/components/ui/card";
-import Image from "next/image";
+import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
 
 // Custom Gradient for the border based on reference (Dark Red -> Beige/Gold)
@@ -131,14 +131,13 @@ export default function MembersPage() {
         className="relative h-96 flex items-center justify-center text-center"
       >
         <div className="absolute inset-0 z-0">
-          <Image
-            src={getAssetUrl("/placeholder.svg")}
-            alt="Integrantes Hero"
+          <ImageWithLoader
+            src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
+            alt="Fondo Integrantes"
             fill
             className="object-cover brightness-50"
             priority
           />
-          <div className="absolute" />
         </div>
         <div className="relative z-10 px-4 md:px-6">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary-foreground">
@@ -168,12 +167,12 @@ export default function MembersPage() {
                 <div className={`relative w-48 h-48 rounded-full p-[6px] ${BORDER_GRADIENT} shadow-xl mb-6 transition-transform duration-300 group-hover:scale-105`}>
                   <div className="relative w-full h-full rounded-full overflow-hidden bg-white border-4 border-white/20">
                     {member.image ? (
-                      <Image
+                      <ImageWithLoader
                         src={member.image}
                         alt={member.name}
                         fill
                         className="object-cover object-top"
-                        sizes="(max-width: 768px) 192px, 192px"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     ) : (
                       <div className="flex items-center justify-center h-full bg-muted">
