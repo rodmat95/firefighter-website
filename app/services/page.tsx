@@ -167,7 +167,7 @@ function ServicesContent() {
               </div>
             </div>
             <div className="order-1 md:order-2 relative h-[400px] rounded-lg overflow-hidden shadow-lg">
-              <Image
+              <ImageWithLoader
                 src={service.image}
                 alt={service.alt}
                 fill
