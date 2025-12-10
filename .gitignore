@@ -50,8 +50,12 @@ Thumbs.db
 # R2 Migration - Images hosted on Cloudflare
 /public/tour/
 /public/tour-src/
+/public/hero-background/
+/public/hero-background-src/
 /public/members/
 /public/*.png
 /public/*.jpg
 /public/*.jpeg
+/public/*.mp4
+/public/*.webm
 #/public/*.svg

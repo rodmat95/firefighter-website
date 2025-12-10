@@ -54,11 +54,28 @@ function syncAndConvert(sourceDir: string, destDir: string) {
         const destPath = path.join(destDir, jpgName);
 
         let shouldConvert = true;
-        if (fs.existsSync(destPath)) {
-          const destStat = fs.statSync(destPath);
-          if (destStat.mtimeMs > stat.mtimeMs) {
-            shouldConvert = false; // Dest is newer
-          }
+        
+        // EXCEPTION: floorplan.png should stay PNG (transparency)
+        if (item.toLowerCase() === "floorplan.png") {
+            // Treat as copy, not convert.
+            // Actually, better to just SKIP this block and let the "else" handle it?
+            // But the "else" is inside the loop structure based on extension.
+            // Let's just create a special case at the top of the loop or modify the condition.
+        }
+
+        if (item.toLowerCase() === "floorplan.png") {
+            // Special handling: Copy as PNG, do not convert
+             const destPath = path.join(destDir, item);
+             let shouldCopy = true;
+             if (fs.existsSync(destPath)) {
+                const destStat = fs.statSync(destPath);
+                if (destStat.mtimeMs > stat.mtimeMs) shouldCopy = false;
+             }
+             if (shouldCopy) {
+                 console.log(`cP Copying (Preserving PNG): ${srcPath} -> ${destPath}`);
+                 fs.copyFileSync(srcPath, destPath);
+             }
+             continue; // Skip the rest of the loop for this item
         }
 
         if (shouldConvert) {
@@ -146,6 +163,65 @@ async function uploadFile(filePath: string, fileKey: string) {
 }
 
 // --- MAIN EXECUTION ---
+// --- HELPER: Video Processing ---
+async function processVideos() {
+  const videoSourceDir = "public/hero-background-src";
+  const videoDestDir = "public/hero-background";
+  const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+
+  if (!fs.existsSync(videoSourceDir)) {
+    console.log("ℹ️ No video source directory found. Skipping video processing.");
+    return;
+  }
+
+  if (!fs.existsSync(videoDestDir)) {
+    fs.mkdirSync(videoDestDir, { recursive: true });
+  }
+
+  const items = fs.readdirSync(videoSourceDir);
+  const videoFiles = items.filter(f => f.toLowerCase().endsWith(".mp4") || f.toLowerCase().endsWith(".mov"));
+
+  for (const file of videoFiles) {
+    const srcPath = path.join(videoSourceDir, file);
+    const basename = path.basename(file, path.extname(file));
+    
+    // Outputs
+    const webmPath = path.join(videoDestDir, `${basename}.webm`);
+    const mp4Path = path.join(videoDestDir, `${basename}.mp4`); // Optimized MP4
+
+    // 1. WebM (VP9)
+    // Target ~2M bitrate for high quality but reasonable size.
+    // -an to remove audio (as requested).
+    if (!fs.existsSync(webmPath)) {
+      console.log(`🎥 Converting to WebM: ${srcPath} -> ${webmPath}`);
+      try {
+        // -c:v libvpx-vp9 -b:v 2M -row-mt 1 -an (No Audio)
+        execSync(`"${ffmpegPath}" -i "${srcPath}" -c:v libvpx-vp9 -b:v 2M -row-mt 1 -an -y "${webmPath}"`, { stdio: 'inherit' });
+      } catch (e) {
+        console.error("❌ WebM conversion failed:", e);
+      }
+    } else {
+      console.log(`⏭️  WebM already exists: ${webmPath}`);
+    }
+
+    // 2. Optimized MP4 (H.264)
+    // -crf 23 is standard balanced quality.
+    // -an to remove audio.
+    if (!fs.existsSync(mp4Path)) {
+       console.log(`🎥 Optimizing MP4: ${srcPath} -> ${mp4Path}`);
+       try {
+         // -c:v libx264 -crf 23 -preset medium -an -movflags +faststart
+         execSync(`"${ffmpegPath}" -i "${srcPath}" -c:v libx264 -crf 23 -preset medium -an -movflags +faststart -y "${mp4Path}"`, { stdio: 'inherit' });
+       } catch (e) {
+         console.error("❌ MP4 optimization failed:", e);
+       }
+    } else {
+        console.log(`⏭️  Optimized MP4 already exists: ${mp4Path}`);
+    }
+  }
+}
+
+// --- MAIN EXECUTION ---
 async function main() {
   console.log("🔄 Starting Sync and Optimization Process...");
   
@@ -170,17 +246,32 @@ async function main() {
       process.exit(1);
   }
 
+  // 1.5 Process Videos
+  await processVideos();
+
   console.log("✅ Optimization/Sync Complete. Starting Upload...");
 
-  // 2. Upload from tour (the optimized folder)
+  // 2. Upload from tour (the optimized folder) + Hero Background
   // We want to upload everything in public/tour to the R2 bucket under the 'tour/' prefix.
   // We assume 'public/tour' maps to 'tour/' in R2.
+  
+  // Also collect public/hero-background
+  const heroDir = "public/hero-background";
 
-  const existingR2Files = await getR2Files("tour/"); // Check existing files with prefix 'tour/'
+  const existingR2Files = await getR2Files(""); // Get ALL files to avoid dupes global or scoped? 
+  // Wait, getR2Files("tour/") limits to tour/. 
+  // Let's get "tour/" and "hero-background/" separately or just list all if bucket isn't huge.
+  // Getting all might be safer. Or just check existence per file (slow).
+  // Let's fetch "tour/" and "hero-background/" separately.
+  
+  const r2TourFiles = await getR2Files("tour/");
+  const r2HeroFiles = await getR2Files("hero-background/");
+  const existingR2Keys = new Set([...r2TourFiles, ...r2HeroFiles]);
   
   const filesToUpload: string[] = [];
 
   function collectFiles(dir: string) {
+    if (!fs.existsSync(dir)) return;
     const items = fs.readdirSync(dir);
     for (const item of items) {
        const fullPath = path.join(dir, item);
@@ -193,9 +284,25 @@ async function main() {
   }
 
   if (fs.existsSync(DEST_DIR_ROOT)) {
-    collectFiles(DEST_DIR_ROOT); // Start collecting from public/tour
-  } else {
-    console.log("⚠️ Destination directory empty or missing. Nothing to upload.");
+    collectFiles(DEST_DIR_ROOT); // public/tour
+  }
+  
+  if (fs.existsSync(heroDir)) {
+      collectFiles(heroDir); // public/hero-background
+  }
+
+  const aboutDir = "public/about";
+  if (fs.existsSync(aboutDir)) {
+      collectFiles(aboutDir); // public/about
+  }
+
+  const protagonistsDir = "public/protagonists";
+  if (fs.existsSync(protagonistsDir)) {
+      collectFiles(protagonistsDir); // public/protagonists
+  }
+
+  if (filesToUpload.length === 0) {
+    console.log("⚠️ No files to upload.");
     return;
   }
 
@@ -207,7 +314,7 @@ async function main() {
     const relativeToPublic = path.relative("public", filePath).replace(/\\/g, "/"); // Normalize slashes
     
     // Check if exists
-    if (existingR2Files.has(relativeToPublic)) {
+    if (existingR2Keys.has(relativeToPublic)) {
        console.log(`⏭️  Skipping (already exists): ${relativeToPublic}`);
        continue;
     }

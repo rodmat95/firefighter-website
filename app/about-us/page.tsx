@@ -31,7 +31,7 @@ export default function AboutUsPage() {
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0">
           <ImageWithLoader
-            src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
+            src={getAssetUrl("/about/hero-about.png")}
             alt="Fondo Sobre Nosotros"
             fill
             className="object-cover brightness-50"

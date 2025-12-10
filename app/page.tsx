@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useTransition } from "@/context/TransitionContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -23,6 +22,12 @@ import { getAssetUrl } from "@/lib/assets";
 import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { cn } from "@/lib/utils";
 import Footer from "@/components/footer";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 export default function Home() {
   const router = useRouter();
@@ -46,47 +51,61 @@ export default function Home() {
         className="relative h-[100dvh] flex items-center justify-center text-center overflow-hidden"
       >
         <div className="absolute inset-0 z-0">
-          <ImageWithLoader
-            src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
-            alt="Producción en acción"
-            fill
-            className="object-cover brightness-50"
-            priority
-            sizes="100vw"
-          />
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
+          >
+            <source
+              src={`${process.env.NEXT_PUBLIC_R2_URL}/hero-background/hero-background.webm`}
+              type="video/webm"
+            />
+            <source
+              src={`${process.env.NEXT_PUBLIC_R2_URL}/hero-background/hero-background.mp4`}
+              type="video/mp4"
+            />
+          </video>
+          {/* Subtle light overlay to help black text, but keeping video very visible */}
+          <div className="absolute inset-0 bg-black/30 z-10"></div>
         </div>
 
-        <div className="container relative z-10 px-4 md:px-6">
-          <div className="max-w-4xl mx-auto space-y-4 md:space-y-6 text-card animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <div className="container relative z-20 px-4 md:px-6 flex flex-col items-center">
+          {/* Minimalist Container - No blur/border, just layout */}
+          <div className="max-w-5xl mx-auto space-y-4 md:space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <h1
               id="hero-title"
-              className="text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-lg"
+              className="text-3xl font-black tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-none text-black drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)]"
             >
               UTAMA PRODUCCIONES
             </h1>
             <p
               id="hero-subtitle"
-              className="text-lg sm:text-2xl md:text-3xl font-bold text-destructive/90 drop-shadow-md"
+              className="text-xl sm:text-3xl md:text-4xl font-bold text-red-600 drop-shadow-[0_1px_1px_rgba(255,150,150,0.35)] tracking-wide uppercase"
             >
               CÓDIGO 10-32
             </p>
+
             <p
               id="hero-description"
-              className="max-w-xl md:max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-card/90 font-medium drop-shadow-sm"
+              className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-zinc-900 font-bold drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)] leading-relaxed"
             >
               "Nuestro hogar, donde nacen las historias."
             </p>
-            <p className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-destructive/90 italic drop-shadow-sm hidden sm:block">
-              Un documental sobre la Benemérita y Sesquicentenaria Compañía Italiana de Bomberos Italia N° 5.
+            <p className="max-w-3xl mx-auto text-sm sm:text-base md:text-lg text-zinc-800 italic font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)] hidden sm:block">
+              Un documental sobre la Benemérita y Sesquicentenaria Compañía
+              Italiana de Bomberos Italia N° 5.
             </p>
-            <div className="pt-4 md:pt-6">
+            <div className="pt-8">
               <button
                 id="hero-cta-tour"
                 onClick={() => router.push("/tour")}
                 aria-label="Entrar al recorrido virtual"
-                className="bg-destructive hover:bg-destructive/90 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 mx-auto"
+                className="bg-red-700 hover:bg-red-600 text-white px-10 py-5 rounded-full font-bold text-xl shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto"
               >
-                <MapPin className="w-5 h-5" />
+                <MapPin className="w-6 h-6" />
                 Entrar al recorrido
               </button>
             </div>
@@ -110,15 +129,28 @@ export default function Home() {
                   Utama: "Nuestro Hogar"
                 </p>
               </div>
-              <div id="about-content" className="space-y-4 text-muted-foreground leading-relaxed">
+              <div
+                id="about-content"
+                className="space-y-4 text-muted-foreground leading-relaxed"
+              >
                 <p>
-                  El nombre de Utama proviene del aimara y significa “Nuestro Hogar”. Representa el espacio compartido donde nacen ideas, se construyen historias y se expresan emociones a través del lenguaje audiovisual.
+                  El nombre de Utama proviene del aimara y significa “Nuestro
+                  Hogar”. Representa el espacio compartido donde nacen ideas, se
+                  construyen historias y se expresan emociones a través del
+                  lenguaje audiovisual.
                 </p>
                 <p>
-                  Utama es una productora creada por estudiantes del Instituto Toulouse Lautrec, apasionados por narrar historias que inspiren y generen impacto. Su objetivo es desarrollar contenido original que trascienda la imagen, conecte emocionalmente y permanezca en la memoria del público.
+                  Utama es una productora creada por estudiantes del Instituto
+                  Toulouse Lautrec, apasionados por narrar historias que
+                  inspiren y generen impacto. Su objetivo es desarrollar
+                  contenido original que trascienda la imagen, conecte
+                  emocionalmente y permanezca en la memoria del público.
                 </p>
                 <p className="hidden md:block">
-                  En Utama creemos que lo audiovisual es un lenguaje capaz de conectar profundamente y transmitir verdades. Trabajamos temas sociales y humanos, guiados por la pasión, la empatía y la responsabilidad.
+                  En Utama creemos que lo audiovisual es un lenguaje capaz de
+                  conectar profundamente y transmitir verdades. Trabajamos temas
+                  sociales y humanos, guiados por la pasión, la empatía y la
+                  responsabilidad.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
@@ -142,13 +174,37 @@ export default function Home() {
               </div>
             </div>
             <div className="relative h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden shadow-2xl order-1 md:order-2 ring-1 ring-border/10">
-              <ImageWithLoader
-                src={getAssetUrl("/placeholder.svg?height=800&width=800")}
-                alt="Equipo Utama"
-                fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              <Carousel
+                plugins={[
+                  Autoplay({
+                    delay: 3500,
+                  }),
+                ]}
+                className="w-full h-full"
+              >
+                <CarouselContent className="h-full">
+                  <CarouselItem className="h-full">
+                    <div className="relative w-full h-full">
+                      <ImageWithLoader
+                        src={getAssetUrl("/about/bts-1.png")}
+                        alt="Equipo Utama - Detrás de Cámaras 1"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </CarouselItem>
+                  <CarouselItem className="h-full">
+                    <div className="relative w-full h-full">
+                      <ImageWithLoader
+                        src={getAssetUrl("/about/bts-2.png")}
+                        alt="Equipo Utama - Detrás de Cámaras 2"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </CarouselItem>
+                </CarouselContent>
+              </Carousel>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6">
                 <h3 className="text-white text-xl md:text-2xl font-bold drop-shadow-md">
@@ -161,78 +217,123 @@ export default function Home() {
       </section>
 
       {/* Nuestros Protagonistas: Italia N° 5 (History) */}
-      <section id="protagonists-section" className="py-12 md:py-24 bg-zinc-950 border-y border-white/5 relative overflow-hidden text-zinc-100">
-         {/* Background pattern or subtle gradient to make it distinct */}
-         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-destructive/20 via-zinc-950 to-zinc-950 opacity-40 z-0"></div>
-         
-         <div className="container px-4 md:px-6 mx-auto relative z-10">
+      <section
+        id="protagonists-section"
+        className="py-12 md:py-24 bg-zinc-950 border-y border-white/5 relative overflow-hidden text-zinc-100"
+      >
+        {/* Background pattern or subtle gradient to make it distinct */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-destructive/20 via-zinc-950 to-zinc-950 opacity-40 z-0"></div>
+
+        <div className="container px-4 md:px-6 mx-auto relative z-10">
           <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
-             <div className="w-full md:w-1/3 space-y-6">
-                <div>
-                  <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-white mb-2">
-                    Nuestros Protagonistas
-                  </h2>
-                  <h3 className="text-lg md:text-xl font-medium text-zinc-400">
-                    Benemérita Compañía de Bomberos Italia N° 5
-                  </h3>
-                </div>
-                
-                <div className="relative h-64 md:h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl mt-6 ring-1 ring-white/10 group">
+            <div className="w-full md:w-5/12 space-y-8 relative">
+              <div>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-2 drop-shadow-lg">
+                  Nuestros Protagonistas
+                </h2>
+                <h3 className="text-xl md:text-2xl font-medium text-red-500">
+                  Benemérita Compañía de Bomberos Italia N° 5
+                </h3>
+              </div>
+
+              {/* Modern Image Composition */}
+              <div className="relative h-[500px] w-full group perspective-1000">
+                {/* Main Image (Back/Left) */}
+                <div className="absolute top-0 left-0 w-[85%] h-[85%] rounded-3xl overflow-hidden shadow-2xl z-10 transition-transform duration-700 group-hover:rotate-y-2 group-hover:scale-[1.02]">
                   <ImageWithLoader
-                    src={getAssetUrl("/placeholder.svg?height=800&width=600")}
-                    alt="Foto grupal Bomberos Italia 5"
+                    src={getAssetUrl("/protagonists/protagonists-1.png")}
+                    alt="Bomberos Italia N° 5 - Acción"
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 40vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-medium">
-                    Foto Grupal Compañía Italia 5
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
                 </div>
-                <div className="pt-2">
-                    <button
-                        onClick={() => {
-                          setAnimations("up", "none");
-                          router.push("/team");
-                        }}
-                        className="w-full bg-red-700 hover:bg-red-600 text-white px-6 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-red-900/20 flex items-center justify-center gap-2"
-                    >
-                        <Users className="h-5 w-5" />
-                        Ver Integrantes
-                    </button>
+
+                {/* Secondary Image (Front/Right) */}
+                <div className="absolute bottom-0 right-0 w-[65%] h-[55%] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20 border-4 border-zinc-950 transition-transform duration-700 group-hover:-translate-y-4 group-hover:translate-x-2">
+                  <ImageWithLoader
+                    src={getAssetUrl("/protagonists/protagonists-2.png")}
+                    alt="Bomberos Italia N° 5 - Retrato"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                  />
                 </div>
-             </div>
-             <div className="w-full md:w-2/3 space-y-6 text-zinc-300 leading-relaxed md:pt-2">
-                <div className="prose prose-invert max-w-none text-zinc-300">
-                  <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-white/10 pb-2">
-                    <History className="h-5 w-5 text-red-500" />
-                    Historia y Legado
-                  </h4>
-                  <p className="mb-4 text-base md:text-lg">
-                    La historia de la Compañía Italiana de Bomberos Bellavista (hoy Italia N° 5) comienza en 1866, en plena tensión previa al ataque de la escuadra española al Callao. Ante el riesgo de incendios, un grupo de ciudadanos italianos —Giovanni Bollo, Tomasso Radavero, Faustino Piaggio, Andrea Dall’Orso, Michele Canessa, Eligio Dodero, Modesto Barabino, Francesco Ametis y Alejandro Gabrielli— se organizó para formar una compañía de bomberos voluntarios. Su valor durante el Combate del 2 de Mayo les dio reconocimiento popular, aunque la compañía se desactivó tras el conflicto.
-                  </p>
-                  <p className="mb-4 text-base md:text-lg">
-                    En 1868, los mismos fundadores se reunieron nuevamente y reorganizaron la institución. El 18 de octubre recibieron una bomba a brazo y equipo básico, y el 28 de octubre se oficializó la fundación con autoridades peruanas e italianas. La primera Junta Directiva fue liderada por Giovanni Bollo como Capitán. Desde entonces, su misión fue clara: proteger vidas, atender incendios y servir a la comunidad con vocación y disciplina.
-                  </p>
-                  <p className="text-base md:text-lg">
-                    La compañía creció a través del tiempo, convirtiéndose en un símbolo de unión entre la colonia italiana y el pueblo chalaco. Evolucionó, permaneció y se consolidó como Italia N° 5, institución que continúa activa hasta hoy gracias al compromiso voluntario de generaciones que honran un legado nacido en 1866 y reafirmado en 1868.
-                  </p>
-                </div>
-             </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute -z-10 top-10 right-10 w-32 h-32 bg-red-600/20 rounded-full blur-3xl"></div>
+                <div className="absolute -z-10 bottom-10 left-10 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl"></div>
+              </div>
+
+              <div className="pt-4">
+                <button
+                  onClick={() => {
+                    setAnimations("up", "none");
+                    router.push("/members");
+                  }}
+                  className="w-full bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white px-8 py-5 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-red-900/40 flex items-center justify-center gap-3 group/btn"
+                >
+                  <Users className="h-6 w-6 transition-transform group-hover/btn:scale-110" />
+                  Ver Integrantes
+                </button>
+              </div>
+            </div>
+            <div className="w-full md:w-7/12 space-y-6 text-zinc-300 leading-relaxed md:pt-4">
+              <div className="prose prose-invert max-w-none text-zinc-300">
+                <h4 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-white/10 pb-2">
+                  <History className="h-5 w-5 text-red-500" />
+                  Historia y Legado
+                </h4>
+                <p className="mb-4 text-base md:text-lg">
+                  La historia de la Compañía Italiana de Bomberos Bellavista
+                  (hoy Italia N° 5) comienza en 1866, en plena tensión previa al
+                  ataque de la escuadra española al Callao. Ante el riesgo de
+                  incendios, un grupo de ciudadanos italianos —Giovanni Bollo,
+                  Tomasso Radavero, Faustino Piaggio, Andrea Dall’Orso, Michele
+                  Canessa, Eligio Dodero, Modesto Barabino, Francesco Ametis y
+                  Alejandro Gabrielli— se organizó para formar una compañía de
+                  bomberos voluntarios. Su valor durante el Combate del 2 de
+                  Mayo les dio reconocimiento popular, aunque la compañía se
+                  desactivó tras el conflicto.
+                </p>
+                <p className="mb-4 text-base md:text-lg">
+                  En 1868, los mismos fundadores se reunieron nuevamente y
+                  reorganizaron la institución. El 18 de octubre recibieron una
+                  bomba a brazo y equipo básico, y el 28 de octubre se
+                  oficializó la fundación con autoridades peruanas e italianas.
+                  La primera Junta Directiva fue liderada por Giovanni Bollo
+                  como Capitán. Desde entonces, su misión fue clara: proteger
+                  vidas, atender incendios y servir a la comunidad con vocación
+                  y disciplina.
+                </p>
+                <p className="text-base md:text-lg">
+                  La compañía creció a través del tiempo, convirtiéndose en un
+                  símbolo de unión entre la colonia italiana y el pueblo
+                  chalaco. Evolucionó, permaneció y se consolidó como Italia N°
+                  5, institución que continúa activa hasta hoy gracias al
+                  compromiso voluntario de generaciones que honran un legado
+                  nacido en 1866 y reafirmado en 1868.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Contact Preview */}
-      <section id="contact-preview-section" className="py-12 md:py-20 bg-secondary/30">
+      <section
+        id="contact-preview-section"
+        className="py-12 md:py-20 bg-secondary/30"
+      >
         <div className="container px-4 md:px-6 mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground">
               Contáctanos
             </h2>
             <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-              ¿Tienes preguntas o necesitas información? Comunícate con nosotros.
+              ¿Tienes preguntas o necesitas información? Comunícate con
+              nosotros.
             </p>
           </div>
 
@@ -245,8 +346,12 @@ export default function Home() {
                 <Phone className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-lg font-bold">Teléfono</h3>
-              <p className="mt-2 text-sm text-muted-foreground">Emergencias: 116</p>
-              <p className="text-sm text-muted-foreground">Central: (01) 429-0318</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Emergencias: 116
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Central: (01) 429-0318
+              </p>
             </div>
 
             <div
@@ -257,7 +362,9 @@ export default function Home() {
                 <Mail className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-lg font-bold">Email</h3>
-              <p className="mt-2 text-sm text-muted-foreground break-all">utamaitalia5@gmail.com</p>
+              <p className="mt-2 text-sm text-muted-foreground break-all">
+                utamaitalia5@gmail.com
+              </p>
             </div>
 
             <div
