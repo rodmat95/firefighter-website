@@ -49,6 +49,7 @@ Thumbs.db
 
 # R2 Migration - Images hosted on Cloudflare
 /public/tour/
+/public/tour-src/
 /public/members/
 /public/*.png
 /public/*.jpg

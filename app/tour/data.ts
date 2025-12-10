@@ -77,101 +77,200 @@ export const northOffsets: Record<string, number> = {
 
 // 🎯 AJUSTE MANUAL DE FLECHAS
 // Usa http://localhost:3000/hotspot-editor para generar estos valores
-
 export const manualHotspotYaws: Record<string, number> = {
-  "scene-01-scene-02": -0.17620039118389386,
-  "scene-01-scene-01-1": 0.9695990058201875,
-  "scene-01-1-scene-01": 1.8198996023060587, // 02->01 becomes 01.1->01
-  "scene-02-scene-03": -0.12449781180748687, // 03->04 becomes 02->03
-  "scene-02-scene-01-1": 2.998177206477277, // 03->02 becomes 02->01.1
-  "scene-03-scene-04": -0.12780162903968062, // 04->05 becomes 03->04
-  "scene-03-scene-02": 2.972266376960059, // 04->03 becomes 03->02
-  "scene-04-scene-05": -0.07752171809126196, // 05->06 becomes 04->05
-  "scene-04-scene-03": 2.9945734795509384, // 05->04 becomes 04->03
-  "scene-05-scene-04": 2.9864120020964195, // 06->05 becomes 05->04
-  "scene-05-scene-C-01": 0.8484572575950597, // 06->C-01 becomes 05->C-01
-  "scene-05-scene-D-01": 2.1393827263806315, // 06->D-01 becomes 05->D-01
-  "scene-05-scene-A-01": -1.635339201019228, // 06->A-01 becomes 05->A-01
-  "scene-05-scene-06": 0.3381151643293965, // 06->07 becomes 05->06
-  "scene-06-scene-07": -0.8129658145775078, // 07->08 becomes 06->07
-  "scene-06-scene-05": -2.952643409812538, // 07->06 becomes 06->05
-  "scene-07-scene-08": -0.3342310816391638, // 08->09 becomes 07->08
-  "scene-07-scene-06": 2.3344149387684663, // 08->07 becomes 07->06
-  "scene-08-scene-07": 2.044633274782184, // 09->08 becomes 08->07
-  "scene-08-scene-09": -3.028852766949921, // 09->10 becomes 08->09
-  "scene-09-scene-08": 1.5170754887707174, // 10->09 becomes 09->08
-  "scene-09-scene-09-1": -0.9998114434967604, // 10->10.1 becomes 09->09.1
-  "scene-09-scene-10": 0.5618522992896082, // 10->11 becomes 09->10
-  "scene-10-scene-09": 1.0700360412601455, // 11->10 becomes 10->09
-  "scene-10-scene-11": -2.0380412118490447, // 11->12 becomes 10->11
-  "scene-11-scene-10": 1.374414715546921, // 12->11 becomes 11->10
-  "scene-11-scene-12": -1.7088801013365789, // 12->13 becomes 11->12
-  "scene-12-scene-11": 1.1869276366852564, // 13->12 becomes 12->11
-  "scene-12-scene-13": -3.0092171798067433, // 13->14 becomes 12->13
-  "scene-13-scene-12": 1.5946412101067837, // 14->13 becomes 13->12
-  "scene-13-scene-14": -1.3202631452910154, // 14->15 becomes 13->14
-  "scene-14-scene-13": 2.559484578142648, // 15->14 becomes 14->13
-  "scene-A-01-scene-A-02": -0.08481520184832192,
-  "scene-A-01-scene-05": -1.6846304950488697, // A-01->06 becomes A-01->05
-  "scene-A-01-scene-B-01": 1.4488431570859586,
-  "scene-B-01-scene-B-02": 0.0188441119394831,
-  "scene-A-02-scene-A-03": -0.3259945650531293,
-  "scene-A-02-scene-A-01": 2.7623411005901133,
-  "scene-A-03-scene-A-04": -0.0029929022617594114,
-  "scene-A-03-scene-A-02": -3.139805233225232,
-  "scene-A-04-scene-A-03": -2.7878454397033536,
-  "scene-A-04-scene-A-04-1": -0.22749258798623728,
-  "scene-A-04-scene-A-05": 0.3354366255787422,
-  "scene-A-05-scene-A-04": -2.1953930412852607,
-  "scene-A-05-scene-A-06": 1.7169378027119349,
-  "scene-B-01-scene-A-01": -1.5355543129163998,
-  "scene-B-02-scene-B-01": 2.798869464376569,
-  "scene-B-02-scene-B-03": -0.34355381345087466,
-  "scene-B-02-scene-B-02-1": 0.5488902096025541,
-  "scene-B-02-1-scene-B-02": 3.1368730296695535,
-  "scene-B-03-scene-B-02": -0.12985198450234137,
-  "scene-09-scene-B-01": -2.3493400008092458,
-  "scene-B-01-scene-09": -2.8795713693462535,
-  "scene-C-01-scene-05": -0.18225618143582345, // C-01->06 becomes C-01->05
-  "scene-C-01-1-scene-C-01": 1.9113602548392814,
-  "scene-C-01-scene-C-01-1": -1.7093135880303656,
-  "scene-C-01-scene-C-02": 1.8039361818741035,
-  "scene-C-02-scene-C-01": 1.7338087994394789,
-  "scene-C-03-scene-C-02": 0.9131708749085234,
-  "scene-C-02-scene-C-03": -1.8519537171142186,
-  "scene-C-04-scene-C-03": 2.8365395272102365,
-  "scene-C-03-scene-C-04": -2.8703611073605853,
-  "scene-C-05-scene-C-06": 2.698775114246992,
-  "scene-C-04-scene-C-05": 0.04722369919447189,
-  "scene-C-05-scene-C-04": 1.325097238451967,
-  "scene-C-06-scene-C-05": 2.6408176949051256,
-  "scene-C-07-scene-C-06": -1.8300896360688022,
-  "scene-D-01-scene-05": 2.7958012669316172, // D-01->06 becomes D-01->05
-  "scene-D-01-scene-D-02": -3.0055644686006335,
-  "scene-D-02-scene-D-01": 1.2100112923557127,
-  "scene-D-02-scene-E-01": -0.40609031370899196,
-  "scene-D-02-scene-D-03": 2.7369881217916046,
-  "scene-D-03-scene-D-02": -2.9816151587468056,
-  "scene-D-03-scene-D-04": 0.1478998697906917,
-  "scene-D-04-scene-D-03": 3.13212090252604,
-  "scene-D-04-scene-D-05": -0.07957395558518421,
-  "scene-D-04-scene-D-04-1": -1.9547010306985655,
-  "scene-D-04-1-scene-D-04": -3.1135971108084544,
-  "scene-D-05-scene-D-04": 3.0023272475522447,
-  "scene-E-01-scene-D-02": 1.5605437020475597,
-  "scene-E-01-scene-E-01-1": -0.03510888862087391,
-  "scene-E-01-scene-E-02": -3.139658019613213,
-  "scene-E-01-1-scene-E-01": 3.0763910268551236,
-  "scene-E-02-scene-E-03": -0.21807461346292456,
-  "scene-E-02-scene-E-01": 2.9840348775115775,
-  "scene-E-03-scene-E-02": 2.723945539835495,
-  "scene-E-03-scene-E-04": -0.43521022731584935,
-  "scene-E-03-scene-E-03-1": 0.4976724793806788,
-  "scene-E-04-scene-E-05": -0.4397794406362099,
-  "scene-E-04-scene-E-03": 2.6933463251232173,
-  "scene-E-05-scene-E-06": -0.06710367843185416,
-  "scene-E-05-scene-E-04": 2.8587431873446114,
-  "scene-E-06-scene-E-05": -1.8364332786126205
+  "scene-01-1-scene-01": 1.9441130738975474,
+  "scene-01-scene-01-1": 0.9537402166772537,
+  "scene-01-scene-02": -0.19342755930858146,
+
+  "scene-02-scene-01": 3.0051791981037645,
+  "scene-02-scene-03": -0.14477247405818616,
+
+  "scene-03-scene-02": 3.0193367015674326,
+  "scene-03-scene-04": -0.1393885893500748,
+
+  "scene-04-scene-03": 3.0253062120534224,
+  "scene-04-scene-05": -0.10078606793760514,
+
+  "scene-05-scene-04": 3.002492651621681,
+  "scene-05-scene-06": 0.36065380000536607,
+  "scene-05-scene-A-01": -1.6550912820426014,
+  "scene-05-scene-C-01": 0.8782156554354756,
+  "scene-05-scene-D-01": 2.1201872568567293,
+
+  "scene-06-scene-07": -0.9073618262581284,
+
+  "scene-07-scene-06": 2.706115238954535,
+
+  "scene-08-scene-07": 2.271199624041664,
+  "scene-08-scene-09": -2.9987611371988905,
+
+  "scene-09-1-scene-09": -2.996225533736851,
+  "scene-09-scene-08": 1.5060763461059619,
+  "scene-09-scene-09-1": -0.9457437226231136,
+  "scene-09-scene-B-01": -2.3510900430762085,
+
+  "scene-10-scene-09": 1.1616403031751439,
+
+  "scene-11-scene-10": 1.4076896972315343,
+  "scene-11-scene-12": -1.462290132989665,
+
+  "scene-12-scene-11": 1.2602934041624696,
+  "scene-12-scene-13": -2.9606174320609693,
+
+  "scene-13-scene-12": 1.7376082507863684,
+  "scene-13-scene-14": -1.3332027053226412,
+
+  "scene-14-scene-13": 2.548689461757421,
+
+  "scene-A-01-scene-05": -1.6945979780517284,
+  "scene-A-01-scene-A-01": -1.5865317129466021,
+  "scene-A-01-scene-A-02": -0.07639439936225223,
+  "scene-A-01-scene-B-01": 1.445948535973872,
+
+  "scene-A-02-scene-A-01": 2.811105666594834,
+  "scene-A-02-scene-A-03": -0.3304858489429563,
+
+  "scene-A-03-scene-A-02": -3.1330832008863894,
+  "scene-A-03-scene-A-04": -0.013031953083732617,
+
+  "scene-A-04-1-scene-A-04": 1.706292784428653,
+  "scene-A-04-scene-A-03": -2.7775655957265393,
+  "scene-A-04-scene-A-04-1": -0.226672667332263,
+  "scene-A-04-scene-A-05": 0.34588431870029446,
+
+  "scene-A-05-scene-A-04": -2.1555013291252454,
+  "scene-A-05-scene-A-06": 0.9047204808895106,
+
+  "scene-A-06-scene-A-05": -0.6525250060977594,
+
+  "scene-B-01-scene-09": -2.815739741724034,
+  "scene-B-01-scene-A-01": -1.5815219443108965,
+  "scene-B-01-scene-B-02": 0.01912988241731739,
+
+  "scene-B-02-1-scene-B-02": 3.133436601545119,
+  "scene-B-02-scene-B-01": 2.749065549330286,
+  "scene-B-02-scene-B-02-1": 0.5518282880548142,
+  "scene-B-02-scene-B-03": -0.35596131420641086,
+
+  "scene-B-03-scene-B-02": -0.14537212707881686,
+
+  "scene-C-03-scene-C-04": -2.713814394646711,
+  "scene-C-04-scene-C-05": 0.07119309671104723,
+  "scene-C-05-scene-C-06": 2.6285476630974483,
+  "scene-C-06-scene-C-05": 2.6475456404219013,
+
+  "scene-D-01-scene-05": 2.791235135334059,
+  "scene-D-01-scene-D-02": -3.024460422384994,
+
+  "scene-D-02-scene-D-01": 1.2185287587600957,
+  "scene-D-02-scene-D-03": 2.7343847852025416,
+
+  "scene-D-03-scene-D-02": -2.980030873383246,
+  "scene-D-03-scene-D-04": 0.14763169018423206,
+
+  "scene-D-04-scene-D-03": 3.1363535577025434,
+
+  "scene-D-05-scene-D-04": 3.0060141032904664,
+
+  "scene-E-01-scene-D-02": 1.570773558165639
+};
+
+export const manualHotspotPitches: Record<string, number> = {
+  "scene-01-1-scene-01": 0.22723859057433415,
+  "scene-01-scene-01-1": -0.006034892583759444,
+  "scene-01-scene-02": -0.0017242550239338073,
+  
+  "scene-02-scene-01": 0.09761280924737648,
+  "scene-02-scene-03": 0.01979456402354529,
+  
+  "scene-03-scene-02": 0.04329111720781853,
+  "scene-03-scene-04": 0.03362297296650496,
+  
+  "scene-04-scene-03": 0.033555763584530496,
+  "scene-04-scene-05": 0.03267292116128928,
+  
+  "scene-05-scene-04": 0.006357244082682456,
+  "scene-05-scene-06": 0.12123023775717101,
+  "scene-05-scene-A-01": 0.01717431238593292,
+  "scene-05-scene-C-01": 0.1035243389119529,
+  "scene-05-scene-D-01": 0.09114665106166342,
+  
+  "scene-06-scene-07": 0.28930258557033994,
+  
+  "scene-07-scene-06": 0.1645977485038692,
+  
+  "scene-08-scene-07": 0.3082703366784436,
+  "scene-08-scene-09": 0.09662550271237436,
+  
+  "scene-09-1-scene-09": 0.2193271337811975,
+  "scene-09-scene-08": 0.10887540106115523,
+  "scene-09-scene-09-1": 0.12373303736464258,
+  "scene-09-scene-B-01": 0.1373046948433263,
+  
+  "scene-10-scene-09": 0.24749029322126503,
+  
+  "scene-11-scene-10": 0.2991451002782348,
+  "scene-11-scene-12": 0.2490644470850647,
+  
+  "scene-12-scene-11": 0.29697728374104315,
+  "scene-12-scene-13": 0.03394730264380641,
+  
+  "scene-13-scene-12": 0.2767073247439349,
+  "scene-13-scene-14": 0.040445623696339084,
+  
+  "scene-14-scene-13": 0.18792938292719796,
+  
+  "scene-A-01-scene-05": 0.027206532062006517,
+  "scene-A-01-scene-A-01": 0.017509028794417958,
+  "scene-A-01-scene-A-02": -0.01662293786197111,
+  "scene-A-01-scene-B-01": 0.026396745361919827,
+  
+  "scene-A-02-scene-A-01": 0.013980627520250977,
+  "scene-A-02-scene-A-03": -0.02327744282298383,
+  
+  "scene-A-03-scene-A-02": 0.002225379983016751,
+  "scene-A-03-scene-A-04": -0.01876096543800898,
+  
+  "scene-A-04-1-scene-A-04": 0.5838504026827724,
+  "scene-A-04-scene-A-03": -0.015504805173808478,
+  "scene-A-04-scene-A-04-1": -0.052517247321961946,
+  "scene-A-04-scene-A-05": -0.012672100491641913,
+  
+  "scene-A-05-scene-A-04": -0.013168937508867273,
+  "scene-A-05-scene-A-06": 0.051905677910704995,
+  
+  "scene-A-06-scene-A-05": 0.023300294977595115,
+  
+  "scene-B-01-scene-09": 0.19732435676987237,
+  "scene-B-01-scene-A-01": 0.21889453707111883,
+  "scene-B-01-scene-B-02": 0.01698880438749839,
+  
+  "scene-B-02-1-scene-B-02": 0.11215741316353878,
+  "scene-B-02-scene-B-01": 0.05677071448699422,
+  "scene-B-02-scene-B-02-1": 0.017907878701285185,
+  "scene-B-02-scene-B-03": -0.006030096072453972,
+  
+  "scene-B-03-scene-B-02": 0.02413957033489922,
+  
+  "scene-C-03-scene-C-04": 0.036197819748810645,
+  "scene-C-04-scene-C-05": -0.1387983506922854,
+  "scene-C-05-scene-C-06": 0.09007616202900337,
+  "scene-C-06-scene-C-05": 0.1582105176318258,
+  
+  "scene-D-01-scene-05": 0.7040462105995537,
+  "scene-D-01-scene-D-02": 0.026166086824551016,
+  
+  "scene-D-02-scene-D-01": 0.6877035568083727,
+  "scene-D-02-scene-D-03": 0.04188446019934133,
+  
+  "scene-D-03-scene-D-02": 0.35572772159989796,
+  "scene-D-03-scene-D-04": 0.06638381842109098,
+  
+  "scene-D-04-scene-D-03": 0.3152093752580072,
+
+  "scene-D-05-scene-D-04": 0.4101827794233017,
+
+  "scene-E-01-scene-D-02": 0.3456826199701375
 };
 
 // 🎯 RUTA PERSONALIZADA: Coordenadas (Generado por Path Editor)
@@ -235,17 +334,17 @@ export const tourGraph: TourGraphNode[] = [];
 // Lista plana de todos los archivos encontrados en la estructura de carpetas
 const rawFiles = [
   // RUTA (Raíz)
-  "01.png", "01.1.png", "02.png", "03.png", "04.png", "05.png", "06.png", "07.png", "08.png", "09.png", "09.1.png", "10.png", "11.png", "12.png", "13.png", "14.png",
+  "01.jpg", "01.1.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg", "08.jpg", "09.jpg", "09.1.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg",
   // RUTA A
-  "RUTA A/A-01.png", "RUTA A/A-02.png", "RUTA A/A-03.png", "RUTA A/A-04.png", "RUTA A/A-04.1.png", "RUTA A/A-05.png", "RUTA A/A-06.png",
+  "RUTA A/A-01.jpg", "RUTA A/A-02.jpg", "RUTA A/A-03.jpg", "RUTA A/A-04.jpg", "RUTA A/A-04.1.jpg", "RUTA A/A-05.jpg", "RUTA A/A-06.jpg",
   // RUTA B
-  "RUTA B/B-01.png", "RUTA B/B-02.png", "RUTA B/B-02.1.png", "RUTA B/B-03.png",
+  "RUTA B/B-01.jpg", "RUTA B/B-02.jpg", "RUTA B/B-02.1.jpg", "RUTA B/B-03.jpg",
   // RUTA C
-  "RUTA C/C-01.png", "RUTA C/C-01.1.png", "RUTA C/C-02.png", "RUTA C/C-03.png", "RUTA C/C-04.png", "RUTA C/C-05.png", "RUTA C/C-06.png", "RUTA C/C-07.png",
+  "RUTA C/C-01.jpg", "RUTA C/C-01.1.jpg", "RUTA C/C-02.jpg", "RUTA C/C-03.jpg", "RUTA C/C-04.jpg", "RUTA C/C-05.jpg", "RUTA C/C-06.jpg", "RUTA C/C-07.jpg",
   // RUTA D
-  "RUTA D/D-01.png", "RUTA D/D-02.png", "RUTA D/D-03.png", "RUTA D/D-04.png", "RUTA D/D-04.1.png", "RUTA D/D-05.png",
+  "RUTA D/D-01.jpg", "RUTA D/D-02.jpg", "RUTA D/D-03.jpg", "RUTA D/D-04.jpg", "RUTA D/D-04.1.jpg", "RUTA D/D-05.jpg",
   // RUTA E
-  "RUTA E/E-01.png", "RUTA E/E-01.1.png", "RUTA E/E-02.png", "RUTA E/E-03.png", "RUTA E/E-03.1.png", "RUTA E/E-04.png", "RUTA E/E-05.png", "RUTA E/E-06.png",
+  "RUTA E/E-01.jpg", "RUTA E/E-01.1.jpg", "RUTA E/E-02.jpg", "RUTA E/E-03.jpg", "RUTA E/E-03.1.jpg", "RUTA E/E-04.jpg", "RUTA E/E-05.jpg", "RUTA E/E-06.jpg",
 ];
 
 // --- PARSING LOGIC ---
@@ -259,10 +358,10 @@ interface ParsedScene {
 }
 
 const parseFilename = (filepath: string): ParsedScene => {
-  // Examples: "01.png", "10.1.png", "RUTA A/A-01.png", "RUTA B/B-02.1.png"
+  // Examples: "01.jpg", "10.1.jpg", "RUTA A/A-01.jpg", "RUTA B/B-02.1.jpg"
   const parts = filepath.split("/");
   const filename = parts[parts.length - 1];
-  const nameWithoutExt = filename.replace(".png", "");
+  const nameWithoutExt = filename.replace(".jpg", "");
 
   let group = "ROOT";
   let numberPart = nameWithoutExt;
@@ -374,6 +473,14 @@ const getSceneTitle = (group: string, number: number, decimal: number | null): s
   return group === "ROOT" ? `Punto ${number}${decimal ? `.${decimal}` : ''}` : `Ruta ${group} - ${number}${decimal ? `.${decimal}` : ''}`;
 };
 
+const getHotspotPitch = (currentSceneId: string, targetSceneId: string) => {
+    const key = `${currentSceneId}-${targetSceneId}`;
+    if (manualHotspotPitches[key] !== undefined) {
+        return manualHotspotPitches[key];
+    }
+    return 0.1; // Default pitch
+};
+
 import { getAssetUrl } from "@/lib/assets";
 
 export const scenes: Scene[] = parsedScenes.map((ps, index) => {
@@ -404,7 +511,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     if (next) {
       hotspots.push({
         yaw: getHotspotYaw(id, next.id, currentCoords, currentCoords, northOffset, 0), // Default Forward
-        pitch: 0.1,
+        pitch: getHotspotPitch(id, next.id),
         targetSceneId: next.id,
         text: getNavigationText(getSceneTitle(next.group, next.number, next.decimal)),
         type: "arrow"
@@ -413,7 +520,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     if (prev) {
       hotspots.push({
         yaw: getHotspotYaw(id, prev.id, currentCoords, currentCoords, northOffset, Math.PI), // Default Back
-        pitch: 0.1,
+        pitch: getHotspotPitch(id, prev.id),
         targetSceneId: prev.id,
         text: getNavigationText(getSceneTitle(prev.group, prev.number, prev.decimal), true),
         type: "arrow"
@@ -428,7 +535,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     if (main) {
       hotspots.push({
         yaw: getHotspotYaw(id, main.id, currentCoords, currentCoords, northOffset, Math.PI),
-        pitch: 0.1,
+        pitch: getHotspotPitch(id, main.id),
         targetSceneId: main.id,
         text: `Volver a ${getSceneTitle(main.group, main.number, main.decimal)}`, // Always "Volver" for decimal return
         type: "arrow"
@@ -440,7 +547,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     if (decimalNode) {
       hotspots.push({
         yaw: getHotspotYaw(id, decimalNode.id, currentCoords, currentCoords, northOffset, Math.PI / 2), // Default Right?
-        pitch: 0.1,
+        pitch: getHotspotPitch(id, decimalNode.id),
         targetSceneId: decimalNode.id,
         text: getNavigationText(getSceneTitle(decimalNode.group, decimalNode.number, decimalNode.decimal)),
         type: "arrow"
@@ -458,21 +565,21 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
 
     if (routeA) hotspots.push({ 
       yaw: getHotspotYaw(id, routeA.id, currentCoords, currentCoords, northOffset, -Math.PI / 2), 
-      pitch: 0, 
+      pitch: getHotspotPitch(id, routeA.id), 
       targetSceneId: routeA.id, 
       text: getNavigationText(getSceneTitle(routeA.group, routeA.number, routeA.decimal)), 
       type: "arrow" 
     });
     if (routeC) hotspots.push({ 
       yaw: getHotspotYaw(id, routeC.id, currentCoords, currentCoords, northOffset, Math.PI / 2), 
-      pitch: 0, 
+      pitch: getHotspotPitch(id, routeC.id), 
       targetSceneId: routeC.id, 
       text: getNavigationText(getSceneTitle(routeC.group, routeC.number, routeC.decimal)), 
       type: "arrow" 
     });
     if (routeD) hotspots.push({ 
-      yaw: getHotspotYaw(id, routeD.id, currentCoords, currentCoords, northOffset, Math.PI / 2 + 0.5), 
-      pitch: 0, 
+      yaw: getHotspotYaw(id, routeD.id, currentCoords, currentCoords, northOffset, Math.PI / 2 + 0.5),
+      pitch: getHotspotPitch(id, routeD.id), 
       targetSceneId: routeD.id, 
       text: getNavigationText(getSceneTitle(routeD.group, routeD.number, routeD.decimal)), 
       type: "arrow" 
@@ -484,7 +591,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     const routeB = findScene("B", 1);
     if (routeB) hotspots.push({ 
       yaw: getHotspotYaw(id, routeB.id, currentCoords, currentCoords, northOffset, -Math.PI / 2), 
-      pitch: 0, 
+      pitch: getHotspotPitch(id, routeB.id), 
       targetSceneId: routeB.id, 
       text: getNavigationText(getSceneTitle(routeB.group, routeB.number, routeB.decimal)), 
       type: "arrow" 
@@ -496,7 +603,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     const routeE = findScene("E", 1);
     if (routeE) hotspots.push({ 
       yaw: getHotspotYaw(id, routeE.id, currentCoords, currentCoords, northOffset, -Math.PI / 2), 
-      pitch: 0, 
+      pitch: getHotspotPitch(id, routeE.id), 
       targetSceneId: routeE.id, 
       text: getNavigationText(getSceneTitle(routeE.group, routeE.number, routeE.decimal)), 
       type: "arrow" 
@@ -532,7 +639,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     const root05 = findScene("ROOT", 5);
     if (root05) hotspots.push({ 
       yaw: getHotspotYaw(id, root05.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: 0, 
+      pitch: getHotspotPitch(id, root05.id), 
       targetSceneId: root05.id, 
       text: `Volver a ${getSceneTitle(root05.group, root05.number, root05.decimal)}`, 
       type: "arrow" 
@@ -543,7 +650,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     const root05 = findScene("ROOT", 5);
     if (root05) hotspots.push({ 
       yaw: getHotspotYaw(id, root05.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: 0, 
+      pitch: getHotspotPitch(id, root05.id), 
       targetSceneId: root05.id, 
       text: `Volver a ${getSceneTitle(root05.group, root05.number, root05.decimal)}`, 
       type: "arrow" 
@@ -554,7 +661,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     const a01 = findScene("A", 1);
     if (a01) hotspots.push({ 
       yaw: getHotspotYaw(id, a01.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: 0, 
+      pitch: getHotspotPitch(id, a01.id), 
       targetSceneId: a01.id, 
       text: `Volver a ${getSceneTitle(a01.group, a01.number, a01.decimal)}`, 
       type: "arrow" 
@@ -564,7 +671,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     const root09 = findScene("ROOT", 9);
     if (root09) hotspots.push({ 
       yaw: getHotspotYaw(id, root09.id, currentCoords, currentCoords, northOffset, 0), // Default yaw, calibrate manually
-      pitch: 0, 
+      pitch: getHotspotPitch(id, root09.id), 
       targetSceneId: root09.id, 
       text: getNavigationText(getSceneTitle(root09.group, root09.number, root09.decimal)), 
       type: "arrow" 
@@ -575,7 +682,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     const d02 = findScene("D", 2);
     if (d02) hotspots.push({ 
       yaw: getHotspotYaw(id, d02.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: 0, 
+      pitch: getHotspotPitch(id, d02.id), 
       targetSceneId: d02.id, 
       text: `Volver a ${getSceneTitle(d02.group, d02.number, d02.decimal)}`, 
       type: "arrow" 
@@ -585,7 +692,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
   return {
     id,
     name: getSceneTitle(group, number, decimal),
-    image: getAssetUrl(`tour/RUTA/${ps.filename}`),
+    image: getAssetUrl(`tour/${ps.filename.includes('/') ? '' : 'RUTA/'}${ps.filename.split('/').map(part => encodeURIComponent(part)).join('/')}?v=2`),
     hotspots,
     coordinates: currentCoords,
     northOffset,

@@ -9,8 +9,10 @@ export default function HotspotEditor() {
   const [viewer, setViewer] = useState<any>(null);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
   const [manualYaws, setManualYaws] = useState<Record<string, number>>({});
+  const [manualPitches, setManualPitches] = useState<Record<string, number>>({});
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentYaw, setCurrentYaw] = useState(0);
+  const [currentPitch, setCurrentPitch] = useState(0);
 
   const currentScene = scenes[currentSceneIndex];
   const scenesRef = useRef<Map<string, any>>(new Map());
@@ -35,6 +37,7 @@ export default function HotspotEditor() {
         const view = viewerInstance.view();
         if (view) {
           setCurrentYaw(view.yaw());
+          setCurrentPitch(view.pitch());
         }
       });
     });
@@ -103,9 +106,10 @@ export default function HotspotEditor() {
 
               const key = `${currentScene.id}-${hotspot.targetSceneId}`;
               const yaw = manualYaws[key] !== undefined ? manualYaws[key] : hotspot.yaw;
+              const pitch = manualPitches[key] !== undefined ? manualPitches[key] : (hotspot.pitch || 0.1);
               
               try {
-                  container.createHotspot(element, { yaw: yaw, pitch: 0.1 });
+                  container.createHotspot(element, { yaw: yaw, pitch: pitch });
               } catch (e) {
                   console.warn("Error creating hotspot:", e);
               }
@@ -124,13 +128,17 @@ export default function HotspotEditor() {
         console.error("Error in scene setup:", error);
       }
     });
-  }, [viewer, currentScene, isLoaded, manualYaws]);
+  }, [viewer, currentScene, isLoaded, manualYaws, manualPitches]);
 
-  const handleSetYaw = (targetId: string) => {
+  const handleSetPosition = (targetId: string) => {
     const key = `${currentScene.id}-${targetId}`;
     setManualYaws(prev => ({
       ...prev,
       [key]: currentYaw
+    }));
+    setManualPitches(prev => ({
+        ...prev,
+        [key]: currentPitch
     }));
   };
 
@@ -148,9 +156,11 @@ export default function HotspotEditor() {
   };
 
   const handleCopyConfig = () => {
-    const code = `export const manualHotspotYaws: Record<string, number> = ${JSON.stringify(manualYaws, null, 2)};`;
-    navigator.clipboard.writeText(code);
-    alert("Configuración copiada al portapapeles!");
+    const yawsCode = `export const manualHotspotYaws: Record<string, number> = ${JSON.stringify(manualYaws, null, 2)};`;
+    const pitchesCode = `export const manualHotspotPitches: Record<string, number> = ${JSON.stringify(manualPitches, null, 2)};`;
+    
+    navigator.clipboard.writeText(`${yawsCode}\n\n${pitchesCode}`);
+    alert("Configuración (Yaws + Pitches) copiada al portapapeles!");
   };
 
   return (
@@ -167,9 +177,9 @@ export default function HotspotEditor() {
         {/* Controls Overlay */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-start pointer-events-none">
           <div className="bg-black/70 p-4 rounded-lg backdrop-blur pointer-events-auto max-w-md max-h-[80vh] overflow-y-auto">
-            <h1 className="text-xl font-bold mb-2">Editor de Flechas</h1>
+            <h1 className="text-xl font-bold mb-2">Editor de Flechas (Yaw + Pitch)</h1>
             <p className="text-sm text-gray-300 mb-4">
-              Apunta la cruz amarilla y selecciona qué flecha quieres actualizar.
+              Apunta la cruz amarilla y "Fija" la posición (Horizontal y Vertical).
             </p>
             
             {/* Scene Navigation */}
@@ -197,7 +207,7 @@ export default function HotspotEditor() {
               ) : (
                 currentScene.hotspots.map((h, i) => {
                     const key = `${currentScene.id}-${h.targetSceneId}`;
-                    const isModified = manualYaws[key] !== undefined;
+                    const isModified = manualYaws[key] !== undefined || manualPitches[key] !== undefined;
                     return (
                         <div key={i} className="bg-gray-800 p-2 rounded border border-gray-700">
                             <div className="flex justify-between items-center mb-1">
@@ -205,17 +215,17 @@ export default function HotspotEditor() {
                                 <span className="text-xs text-gray-500">{h.targetSceneId}</span>
                             </div>
                             <button 
-                                onClick={() => handleSetYaw(h.targetSceneId)}
+                                onClick={() => handleSetPosition(h.targetSceneId)}
                                 className={`w-full py-2 rounded text-sm font-bold flex items-center justify-center gap-2 transition-colors ${
                                     isModified ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'
                                 }`}
                             >
-                                {isModified ? 'Actualizar Yaw' : 'Fijar Yaw'}
+                                {isModified ? 'Actualizar Posición' : 'Fijar Posición'}
                                 <Navigation size={14} className={isModified ? "" : "opacity-50"} />
                             </button>
                             {isModified && (
                                 <div className="text-[10px] text-green-400 mt-1 text-right font-mono">
-                                    Guardado: {manualYaws[key].toFixed(3)}
+                                    Yaw: {manualYaws[key]?.toFixed(3)} | Pitch: {manualPitches[key]?.toFixed(3)}
                                 </div>
                             )}
                         </div>
@@ -224,8 +234,9 @@ export default function HotspotEditor() {
               )}
             </div>
             
-            <div className="mt-4 text-xs font-mono text-gray-400 border-t border-gray-700 pt-2">
-              Yaw Actual: {currentYaw.toFixed(4)} rad
+            <div className="mt-4 text-xs font-mono text-gray-400 border-t border-gray-700 pt-2 grid grid-cols-2">
+              <div>Yaw: {currentYaw.toFixed(4)}</div>
+              <div>Pitch: {currentPitch.toFixed(4)}</div>
             </div>
           </div>
 

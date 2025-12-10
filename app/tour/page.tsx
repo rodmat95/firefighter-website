@@ -181,6 +181,7 @@ export default function Recorrido() {
             if (targetScene) {
                  // Use core Image constructor to prefetch resource into browser disk cache
                  const img = new window.Image();
+                 img.crossOrigin = "anonymous";
                  img.src = targetScene.image;
             }
           });
@@ -225,6 +226,21 @@ export default function Recorrido() {
 
   return (
     <div id="tour-container" className="fixed inset-0 w-full h-full bg-black flex flex-col z-50">
+      {/* Mobile Warning Overlay */}
+      <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-black p-8 text-center md:hidden">
+        <div className="max-w-xs space-y-6">
+          <p className="text-lg text-white font-medium leading-relaxed">
+            Actualmente, el recorrido está disponible únicamente en su versión para escritorio. La compatibilidad con dispositivos móviles estará disponible próximamente.
+          </p>
+          <button 
+            onClick={() => router.push("/")}
+            className="px-6 py-2 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors"
+          >
+            Volver al Inicio
+          </button>
+        </div>
+      </div>
+
       {/* Viewer Container */}
       <div id="tour-viewer-wrapper" className="relative w-full h-full overflow-hidden">
         <div id="pano-container" ref={panoRef} className="absolute inset-0 w-full h-full" />
