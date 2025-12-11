@@ -161,21 +161,47 @@ export const manualHotspotYaws: Record<string, number> = {
 
   "scene-D-01-scene-05": 2.791235135334059,
   "scene-D-01-scene-D-02": -3.024460422384994,
-
+  
   "scene-D-02-scene-D-01": 1.2185287587600957,
-  "scene-D-02-scene-D-03": 2.7343847852025416,
-
+  "scene-D-02-scene-D-03": 2.7359898870185244,
+  "scene-D-02-scene-E-01": -0.4167074670442439,
+  
   "scene-D-03-scene-D-02": -2.980030873383246,
   "scene-D-03-scene-D-04": 0.14763169018423206,
-
+  
   "scene-D-04-scene-D-03": 3.1363535577025434,
-
+  "scene-D-04-scene-D-05": -0.07342745454843502,
+  "scene-D-04-1-scene-D-04": -3.1022837349059014,
+  
   "scene-D-05-scene-D-04": 3.0060141032904664,
 
-  "scene-E-01-scene-D-02": 1.570773558165639
+  "scene-E-01-scene-D-02": 1.570773558165639,
+  "scene-E-01-scene-E-02": -3.133641982221439,
+  "scene-E-01-1-scene-E-01": 3.036001108715663,
+  "scene-E-01-scene-E-01-1": -0.23716208791007176,
+
+  "scene-E-02-scene-E-01": 2.9163721381805825,
+  "scene-E-02-scene-E-03": -0.22471295748117903,
+
+  "scene-E-03-scene-E-02": 2.7151756009929713,
+  "scene-E-03-scene-E-03-1": 0.504190612133895,
+  "scene-E-03-1-scene-E-03": 3.050519115818309,
+  "scene-E-03-scene-E-04": -0.40726978015633897,
+
+  "scene-E-04-scene-E-03": 2.712805117239265,
+  "scene-E-04-scene-E-05": -0.4231872808232282,
+
+  "scene-E-05-scene-E-04": 2.8073936289877146,
+  "scene-E-05-scene-E-06": -0.13043468266550207,
+
+  "scene-E-06-scene-E-05": -1.8855897675001714,
+
+
 };
 
 export const manualHotspotPitches: Record<string, number> = {
+  
+  
   "scene-01-1-scene-01": 0.22723859057433415,
   "scene-01-scene-01-1": -0.006034892583759444,
   "scene-01-scene-02": -0.0017242550239338073,
@@ -261,16 +287,38 @@ export const manualHotspotPitches: Record<string, number> = {
   "scene-D-01-scene-D-02": 0.026166086824551016,
   
   "scene-D-02-scene-D-01": 0.6877035568083727,
-  "scene-D-02-scene-D-03": 0.04188446019934133,
+  "scene-D-02-scene-D-03": 0.3120827736852725,
+  "scene-D-02-scene-E-01": 0.39875574336820563,
   
   "scene-D-03-scene-D-02": 0.35572772159989796,
   "scene-D-03-scene-D-04": 0.06638381842109098,
   
   "scene-D-04-scene-D-03": 0.3152093752580072,
-
+  "scene-D-04-scene-D-05": 0.11400195250007172,
+  "scene-D-04-1-scene-D-04": 0.05800626129286002,
+  
   "scene-D-05-scene-D-04": 0.4101827794233017,
+  
+  "scene-E-01-scene-D-02": 0.3456826199701375,
+  "scene-E-01-scene-E-02": 0.2788502638655199,
+  "scene-E-01-1-scene-E-01": 0.43351385612903925,
+  "scene-E-01-scene-E-01-1": 0.4504032955568391,
+  
+  "scene-E-02-scene-E-01": 0.4156770807191634,
+  "scene-E-02-scene-E-03": 0.373603061641095,
+  
+  "scene-E-03-scene-E-02": 0.4127697762151499,
+  "scene-E-03-scene-E-03-1": 0.11057422589695776,
+  "scene-E-03-scene-E-04": 0.3093260806729674,
+  "scene-E-03-1-scene-E-03": 0.33307543773653947,
+  
+  "scene-E-04-scene-E-05": 0.38570865218097694,
+  "scene-E-04-scene-E-03": 0.5015642594297418,
 
-  "scene-E-01-scene-D-02": 0.3456826199701375
+  "scene-E-05-scene-E-04": 0.369833297916605,
+  "scene-E-05-scene-E-06": 0.21413498921728724,
+
+  "scene-E-06-scene-E-05": 0.4922090705853073,
 };
 
 // 🎯 RUTA PERSONALIZADA: Coordenadas (Generado por Path Editor)

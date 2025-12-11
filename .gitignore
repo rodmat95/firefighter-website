@@ -54,10 +54,13 @@ Thumbs.db
 /public/hero-background-src/
 /public/about/
 /public/protagonists/
+/public/protagonists-opt/
 /public/members/
+/public/members-opt/
 /public/*.png
 /public/*.jpg
 /public/*.jpeg
 /public/*.mp4
 /public/*.webm
+/public/*.webp
 #/public/*.svg

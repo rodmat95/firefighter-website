@@ -97,11 +97,11 @@ export default function Footer() {
               </li> */}
               <li>
                 <Link
-                  id="footer-link-facilities"
-                  href="/facilities"
+                  id="footer-link-protagonists"
+                  href="/protagonists"
                   className="hover:text-card transition-colors"
                 >
-                  Instalaciones
+                  Protagonistas
                 </Link>
               </li>
               <li>

@@ -17,6 +17,7 @@ import {
   Calendar,
   ShieldCheck,
   History,
+  Award,
 } from "lucide-react";
 import { getAssetUrl } from "@/lib/assets";
 import { ImageWithLoader } from "@/components/ui/image-with-loader";
@@ -241,7 +242,7 @@ export default function Home() {
                 {/* Main Image (Back/Left) */}
                 <div className="absolute top-0 left-0 w-[85%] h-[85%] rounded-3xl overflow-hidden shadow-2xl z-10 transition-transform duration-700 group-hover:rotate-y-2 group-hover:scale-[1.02]">
                   <ImageWithLoader
-                    src={getAssetUrl("/protagonists/protagonists-1.png")}
+                    src={getAssetUrl("/protagonists/protagonists-hero-1.webp")}
                     alt="Bomberos Italia N° 5 - Acción"
                     fill
                     className="object-cover"
@@ -253,7 +254,7 @@ export default function Home() {
                 {/* Secondary Image (Front/Right) */}
                 <div className="absolute bottom-0 right-0 w-[65%] h-[55%] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20 border-4 border-zinc-950 transition-transform duration-700 group-hover:-translate-y-4 group-hover:translate-x-2">
                   <ImageWithLoader
-                    src={getAssetUrl("/protagonists/protagonists-2.png")}
+                    src={getAssetUrl("/protagonists/protagonists-hero-2.webp")}
                     alt="Bomberos Italia N° 5 - Retrato"
                     fill
                     className="object-cover"
@@ -270,12 +271,12 @@ export default function Home() {
                 <button
                   onClick={() => {
                     setAnimations("up", "none");
-                    router.push("/members");
+                    router.push("/protagonists");
                   }}
                   className="w-full bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white px-8 py-5 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-red-900/40 flex items-center justify-center gap-3 group/btn"
                 >
-                  <Users className="h-6 w-6 transition-transform group-hover/btn:scale-110" />
-                  Ver Integrantes
+                  <Award className="h-6 w-6 transition-transform group-hover/btn:scale-110" />
+                  Conoce a los Veteranos
                 </button>
               </div>
             </div>

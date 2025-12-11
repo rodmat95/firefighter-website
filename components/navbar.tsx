@@ -91,11 +91,11 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
               </li> */}
               <li>
                 <LinkComponent
-                  id="nav-link-facilities"
-                  href="/facilities"
+                  id="nav-link-protagonists"
+                  href="/protagonists"
                   className="px-3 py-2 rounded hover:bg-surface-10"
                 >
-                  Instalaciones
+                  Protagonistas
                 </LinkComponent>
               </li>
               <li>
@@ -162,11 +162,11 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
                 </li> */}
                 <li>
                   <LinkComponent
-                    id="mobile-nav-link-facilities"
-                    href="/facilities"
+                    id="mobile-nav-link-protagonists"
+                    href="/protagonists"
                     className="block w-full text-left px-3 py-2 rounded hover:bg-surface-10"
                   >
-                    Instalaciones
+                    Protagonistas
                   </LinkComponent>
                 </li>
                 <li>

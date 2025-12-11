@@ -21,6 +21,7 @@ The **firefighter‑website** project is built with the following stack (generat
 - **lucide-react** – Icon set.
 - **geist** – UI components.
 - **embla-carousel-react** – Carousel component.
+- **embla-carousel-autoplay** – Autoplay plugin for Embla Carousel.
 - **recharts** – Charting library.
 - **react‑day‑picker** – Date picker.
 - **react‑hook‑form** – Form handling.
@@ -46,6 +47,11 @@ The **firefighter‑website** project is built with the following stack (generat
 ## Cloud / Storage
 
 - **@aws-sdk/client-s3** – Interact with Cloudflare R2 (S3‑compatible API).
+- **Cloudflare R2** – Object storage for images, videos, and static assets (S3-compatible).
+
+## Image Optimization
+
+- **ImageMagick** – Command-line tool for image processing, conversion, and optimization (PNG → WebP, JPG, resizing).
 
 ## Build / Linting
 

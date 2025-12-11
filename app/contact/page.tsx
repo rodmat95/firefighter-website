@@ -1,6 +1,5 @@
 "use client";
 
-import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
@@ -11,16 +10,15 @@ import {
   Phone,
   Mail,
   MapPin,
-  Facebook,
-  Instagram,
   CheckCircle2,
-  X,
+  ArrowLeft,
+  MessageCircle,
 } from "lucide-react";
 import { SiTiktok } from "react-icons/si";
 import { useRouter } from "next/navigation";
 import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Instagram } from "lucide-react";
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -38,25 +36,19 @@ export default function ContactPage() {
   };
 
   return (
-    <div
-      id="contact-page"
-      className="dark bg-background text-foreground min-h-screen"
-    >
+    <div className="dark bg-background text-foreground min-h-screen">
+      {/* Floating Back Button */}
       <Button
-        id="contact-close-btn"
         variant="ghost"
         size="icon"
-        className="absolute mt-6 right-6 z-20 text-primary-foreground bg-primary/20 hover:bg-primary/50"
+        className="fixed mt-6 left-6 z-50 text-white bg-black/40 hover:bg-black/60 backdrop-blur-sm"
         onClick={handleClose}
       >
-        <X className="h-6 w-6" />
+        <ArrowLeft className="h-6 w-6" />
       </Button>
 
       {/* Hero Section */}
-      <section
-        id="contact-hero"
-        className="relative h-96 flex items-center justify-center text-center"
-      >
+      <section className="relative h-[60vh] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <ImageWithLoader
             src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
@@ -65,196 +57,176 @@ export default function ContactPage() {
             className="object-cover brightness-50"
             priority
           />
-          <div className="absolute" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background"></div>
         </div>
-        <div className="relative z-10 px-4 md:px-6">
-          <h1
-            id="contact-hero-title"
-            className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary-foreground"
-          >
+        <div className="relative z-10 px-4 md:px-6 max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-medium mb-2">
+            <MessageCircle className="w-4 h-4" />
+            <span>Estamos para Ayudarte</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-xl">
             Contáctanos
           </h1>
-          <p
-            id="contact-hero-subtitle"
-            className="mt-4 text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto"
-          >
-            ¿Tienes preguntas o necesitas información? Estamos aquí para
-            ayudarte.
+          <p className="text-lg md:text-xl text-zinc-200 max-w-2xl mx-auto font-medium">
+            ¿Tienes preguntas o necesitas información? Comunícate con nosotros.
           </p>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section
-        id="contact-content"
-        className="container mx-auto px-4 md:px-6 py-16"
-      >
-        <div className="container px-4 md:px-6">
-          <div className="grid md:grid-cols-2 gap-12">
+      {/* Main Content */}
+      <main className="container mx-auto px-4 md:px-6 py-16 -mt-20 relative z-20">
+        <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Form */}
-            <Card id="contact-form-card" className="bg-card">
-              <CardHeader>
-                <CardTitle>Ponte en Contacto</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {formSubmitted ? (
-                  <div id="contact-success-message" className="text-center p-8">
-                    <CheckCircle2 className="h-16 w-16 text-primary mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold mb-2">
+            <div className="bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-xl">
+              <h2 className="text-2xl font-bold text-white mb-6">Ponte en Contacto</h2>
+              
+              {formSubmitted ? (
+                  <div className="text-center p-8 py-16">
+                    <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto mb-4" />
+                    <h3 className="text-2xl font-bold mb-2 text-white">
                       ¡Mensaje Enviado!
                     </h3>
-                    <p className="text-lg text-muted-foreground mb-6">
+                    <p className="text-lg text-zinc-400 mb-8">
                       Gracias por contactarnos. Hemos recibido tu mensaje y te
                       responderemos lo antes posible.
                     </p>
                     <Button
-                      id="contact-send-another-btn"
                       onClick={() => setFormSubmitted(false)}
                       variant="outline"
+                      className="border-white/20 text-white hover:bg-white/10"
                     >
                       Enviar Otro Mensaje
                     </Button>
                   </div>
                 ) : (
-                  <form
-                    id="contact-form"
-                    onSubmit={handleSubmit}
-                    className="space-y-6"
-                  >
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="firstName">Nombre</Label>
+                        <Label htmlFor="firstName" className="text-zinc-300">Nombre</Label>
                         <Input
                           id="firstName"
                           name="firstName"
                           placeholder="John"
                           required
+                          className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="lastName">Apellido</Label>
+                        <Label htmlFor="lastName" className="text-zinc-300">Apellido</Label>
                         <Input
                           id="lastName"
                           name="lastName"
                           placeholder="Doe"
                           required
+                          className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email" className="text-zinc-300">Email</Label>
                       <Input
                         id="email"
                         name="email"
                         type="email"
                         placeholder="john.doe@example.com"
                         required
+                        className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="subject">Asunto</Label>
+                      <Label htmlFor="subject" className="text-zinc-300">Asunto</Label>
                       <Input
                         id="subject"
                         name="subject"
                         placeholder="¿Cómo podemos ayudarte?"
                         required
+                        className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="message">Mensaje</Label>
+                      <Label htmlFor="message" className="text-zinc-300">Mensaje</Label>
                       <Textarea
                         id="message"
                         name="message"
                         placeholder="Tu mensaje..."
                         rows={5}
                         required
+                        className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
                       />
                     </div>
                     <Button
-                      id="contact-submit-btn"
                       type="submit"
-                      className="w-full"
+                      className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-6 rounded-xl shadow-lg hover:shadow-red-900/20"
                     >
                       Enviar Mensaje
                     </Button>
                   </form>
                 )}
-              </CardContent>
-            </Card>
+            </div>
 
             {/* Contact Info */}
-            <div id="contact-info-section" className="space-y-8">
-              <Card id="contact-details-card" className="bg-card">
-                <CardHeader>
-                  <CardTitle>Información de Contacto</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <Phone className="h-6 w-6 text-primary mt-1" />
-                    <div>
-                      <h3 className="font-bold">Teléfono</h3>
-                      <p className="text-muted-foreground">Emergencias: 116</p>
-                      <p className="text-muted-foreground">
-                        Central: (01) 429-0318
-                      </p>
+            <div className="space-y-8">
+              {/* Info Card */}
+              <div className="bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-xl">
+                 <h2 className="text-2xl font-bold text-white mb-6">Información de Contacto</h2>
+                 <div className="space-y-6">
+                    <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                        <Phone className="h-6 w-6 text-red-500 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-white">Teléfono</h3>
+                          <p className="text-zinc-400">Emergencias: 116</p>
+                          <p className="text-zinc-400">Central: (01) 429-0318</p>
+                        </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <MapPin className="h-6 w-6 text-primary mt-1" />
-                    <div>
-                      <h3 className="font-bold">Ubicación</h3>
-                      <p className="text-muted-foreground">
-                        Av. Alejandro Granda s/n, Mz. E, Lt. 3, Urb. Stella
-                        Maris, Bellavista, Callao, Perú
-                      </p>
+                    <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                        <MapPin className="h-6 w-6 text-red-500 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-white">Ubicación</h3>
+                          <p className="text-zinc-400">
+                            Av. Alejandro Granda s/n, Mz. E, Lt. 3, Urb. Stella Maris, Bellavista, Callao, Perú
+                          </p>
+                        </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <Mail className="h-6 w-6 text-primary mt-1" />
-                    <div>
-                      <h3 className="font-bold">Correo Electrónico</h3>
-                      <a
-                        id="contact-email-link"
-                        href="mailto:utamaitalia5@gmail.com"
-                        className="text-muted-foreground hover:text-primary"
-                      >
-                        utamaitalia5@gmail.com
-                      </a>
+                     <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                        <Mail className="h-6 w-6 text-red-500 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-white">Correo Electrónico</h3>
+                          <a
+                            href="mailto:utamaitalia5@gmail.com"
+                            className="text-zinc-400 hover:text-red-500 transition-colors"
+                          >
+                            utamaitalia5@gmail.com
+                          </a>
+                        </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card id="contact-social-card" className="bg-card">
-                <CardHeader>
-                  <CardTitle>Síguenos</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex space-x-4">
+                 </div>
+              </div>
+
+              {/* Social Card */}
+              <div className="bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-xl">
+                 <h2 className="text-2xl font-bold text-white mb-6">Síguenos</h2>
+                 <div className="flex gap-4">
                     <a
-                      id="contact-social-instagram"
                       href="https://www.instagram.com/codigo10.32"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary"
+                      className="p-4 rounded-full bg-white/5 border border-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition-all hover:scale-110"
                     >
                       <Instagram className="h-6 w-6" />
                     </a>
                     <a
-                      id="contact-social-tiktok"
                       href="https://www.tiktok.com/@codigo10.32"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary"
+                      className="p-4 rounded-full bg-white/5 border border-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition-all hover:scale-110"
                     >
                       <SiTiktok className="h-6 w-6" />
                     </a>
-                  </div>
-                </CardContent>
-              </Card>
+                 </div>
+              </div>
             </div>
-          </div>
         </div>
-      </section>
+      </main>
     </div>
   );
 }

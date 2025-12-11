@@ -1,107 +1,105 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { X, User } from "lucide-react";
+import { ArrowLeft, User, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "@/context/TransitionContext";
-import { Card, CardContent } from "@/components/ui/card";
 import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
 
-// Custom Gradient for the border based on reference (Dark Red -> Beige/Gold)
-const BORDER_GRADIENT = "bg-gradient-to-br from-[#7f1d1d] via-[#b91c1c] to-[#fef3c7]"; // red-900 -> red-700 -> amber-100
+// Custom Gradient for the image border (Dark Red -> Beige/Gold)
+const BORDER_GRADIENT = "bg-gradient-to-br from-[#7f1d1d] via-[#b91c1c] to-[#fef3c7]";
 
-// Mock Data for Members
 const members = [
   {
     id: 1,
     name: "Angie Burgos",
     role: "Producción",
-    image: getAssetUrl("/members/Angie-Burgos.png"),
+    image: getAssetUrl("/members/Angie-Burgos.webp"),
   },
   {
     id: 2,
     name: "Romina Silva",
     role: "Asist. de producción",
-    image: getAssetUrl("/members/Romina-Silva.png"),
+    image: getAssetUrl("/members/Romina-Silva.webp"),
   },
   {
     id: 3,
     name: "Fabian Palomino",
     role: "Asist. de Producción",
-    image: getAssetUrl("/members/Fabian-Palomino.png"),
+    image: getAssetUrl("/members/Fabian-Palomino.webp"),
   },
   {
     id: 4,
     name: "Rodrigo Chavez",
     role: "Dirección General",
-    image: getAssetUrl("/members/Rodrigo-Chavez.png"),
+    image: getAssetUrl("/members/Rodrigo-Chavez.webp"),
   },
   {
     id: 5,
     name: "Julio Ramos",
     role: "Dirección de foto, op.cam y Gaffer",
-    image: getAssetUrl("/members/Julio-Ramos.png"),
+    image: getAssetUrl("/members/Julio-Ramos.webp"),
   },
   {
     id: 6,
     name: "David Aliaga",
     role: "1er asistente de foto y Postproducción",
-    image: getAssetUrl("/members/David-Aliaga.png"),
+    image: getAssetUrl("/members/David-Aliaga.webp"),
   },
   {
     id: 7,
     name: "Ruth De La Cruz",
     role: "Dirección de Arte",
-    image: getAssetUrl("/members/Ruth-De-La-Cruz.png"),
+    image: getAssetUrl("/members/Ruth-De-La-Cruz.webp"),
   },
   {
     id: 8,
     name: "Mario Romanet",
     role: "Luminotécnico, Sonido y Postproducción",
-    image: getAssetUrl("/members/Mario-Romanet.png"),
+    image: getAssetUrl("/members/Mario-Romanet.webp"),
   },
   {
     id: 9,
     name: "Cristhian Castillo",
     role: "Postprod., Colorización y Luminotécnico",
-    image: getAssetUrl("/members/Cristhian-Castillo.png"),
+    image: getAssetUrl("/members/Cristhian-Castillo.webp"),
   },
   {
     id: 10,
     name: "Antonio Alva",
     role: "Luminotécnico",
-    image: getAssetUrl("/members/Antonio-Alva.png"),
+    image: getAssetUrl("/members/Antonio-Alva.webp"),
   },
   {
     id: 11,
     name: "Deevid Siguas",
     role: "Asist. Arte",
-    image: getAssetUrl("/members/Deevid-Siguas.png"),
+    image: getAssetUrl("/members/Deevid-Siguas.webp"),
   },
   {
     id: 12,
     name: "Gabriel Guinea",
     role: "Dirección General",
-    image: getAssetUrl("/members/Gabriel-Guinea.png"),
+    image: getAssetUrl("/members/Gabriel-Guinea.webp"),
   },
   {
     id: 13,
     name: "Stephano Gonzales",
     role: "Productor de arte Luminotécnico",
-    image: getAssetUrl("/members/Stephano-Gonzales.png"),
+    image: getAssetUrl("/members/Stephano-Gonzales.webp"),
   },
   {
     id: 14,
     name: "Giancarlo Chahua",
     role: "Asist. de Arte",
-    image: getAssetUrl("/members/Giancarlo-Chahua.png"),
+    image: getAssetUrl("/members/Giancarlo-Chahua.webp"),
   },
   {
     id: 15,
     name: "Franco Calderon",
     role: "Asistente de cámara",
-    image: getAssetUrl("/members/Franco-Calderon.png"),
+    image: getAssetUrl("/members/Franco-Calderon.webp"),
   },
 ];
 
@@ -116,20 +114,18 @@ export default function MembersPage() {
 
   return (
     <div className="dark bg-background text-foreground min-h-screen">
+      {/* Floating Back Button */}
       <Button
         variant="ghost"
         size="icon"
-        className="absolute mt-6 right-6 z-20 text-primary-foreground bg-primary/20 hover:bg-primary/50"
+        className="fixed mt-6 left-6 z-50 text-white bg-black/40 hover:bg-black/60 backdrop-blur-sm"
         onClick={handleClose}
       >
-        <X className="h-6 w-6" />
+        <ArrowLeft className="h-6 w-6" />
       </Button>
 
       {/* Hero Section */}
-      <section
-        id="members-hero"
-        className="relative h-96 flex items-center justify-center text-center"
-      >
+      <section className="relative h-[60vh] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <ImageWithLoader
             src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
@@ -138,34 +134,33 @@ export default function MembersPage() {
             className="object-cover brightness-50"
             priority
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background"></div>
         </div>
-        <div className="relative z-10 px-4 md:px-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary-foreground">
+        <div className="relative z-10 px-4 md:px-6 max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
+           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-medium mb-2">
+            <Users className="w-4 h-4" />
+            <span>Nuestra Fuerza</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-xl">
             Nuestros Integrantes
           </h1>
-          <p className="mt-4 text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto">
-            Conoce a los hombres y mujeres que dedican su vida a servir a la
-            comunidad.
+          <p className="text-lg md:text-xl text-zinc-200 max-w-2xl mx-auto font-medium">
+            Conoce a los hombres y mujeres que dedican su vida a servir a la comunidad.
           </p>
         </div>
       </section>
 
       {/* Members Grid */}
-      <section
-        id="members-grid-section"
-        className="container mx-auto px-4 md:px-6 py-16"
-      >
-        <div className="container px-4 md:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <main className="container mx-auto px-4 md:px-6 py-16 -mt-20 relative z-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {members.map((member) => (
               <div
                 key={member.id}
-                id={`member-card-${member.id}`}
-                className="flex flex-col items-center text-center group"
+                className="group bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center hover:border-red-500/50 transition-all duration-300 hover:translate-y-[-5px]"
               >
                 {/* Circular Image Container with Gradient Border */}
-                <div className={`relative w-48 h-48 rounded-full p-[6px] ${BORDER_GRADIENT} shadow-xl mb-6 transition-transform duration-300 group-hover:scale-105`}>
-                  <div className="relative w-full h-full rounded-full overflow-hidden bg-white border-4 border-white/20">
+                <div className={`relative w-40 h-40 rounded-full p-[4px] ${BORDER_GRADIENT} shadow-xl mb-6 transition-transform duration-500 group-hover:scale-110`}>
+                  <div className="relative w-full h-full rounded-full overflow-hidden bg-black border-4 border-black/50">
                     {member.image ? (
                       <ImageWithLoader
                         src={member.image}
@@ -175,27 +170,26 @@ export default function MembersPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     ) : (
-                      <div className="flex items-center justify-center h-full bg-muted">
-                        <User className="h-20 w-20 text-muted-foreground" />
+                      <div className="flex items-center justify-center h-full bg-zinc-800">
+                        <User className="h-16 w-16 text-zinc-500" />
                       </div>
                     )}
                   </div>
                 </div>
                 
                 {/* Text Content */}
-                <div className="space-y-1">
-                  <h3 className="font-bold text-xl tracking-tight leading-tight">
+                <div className="space-y-2">
+                  <h3 className="font-bold text-xl text-white tracking-tight leading-tight group-hover:text-red-500 transition-colors">
                     {member.name}
                   </h3>
-                  <p className="text-muted-foreground font-medium text-sm md:text-base leading-tight">
+                  <p className="text-zinc-400 font-medium text-sm leading-tight">
                     {member.role}
                   </p>
                 </div>
               </div>
             ))}
-          </div>
         </div>
-      </section>
+      </main>
     </div>
   );
 }
