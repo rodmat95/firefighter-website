@@ -22,6 +22,7 @@ import { Instagram } from "lucide-react";
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { setAnimations } = useTransition();
 
@@ -30,9 +31,39 @@ export default function ContactPage() {
     router.push("/");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+      } else {
+        alert("Hubo un error al enviar el mensaje. Por favor intenta de nuevo.");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Hubo un error al enviar el mensaje. Por favor intenta de nuevo.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -50,6 +81,7 @@ export default function ContactPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
+          {/*
           <ImageWithLoader
             src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
             alt="Fondo Contacto"
@@ -57,6 +89,7 @@ export default function ContactPage() {
             className="object-cover brightness-50"
             priority
           />
+          */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background"></div>
         </div>
         <div className="relative z-10 px-4 md:px-6 max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -156,9 +189,10 @@ export default function ContactPage() {
                     </div>
                     <Button
                       type="submit"
-                      className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-6 rounded-xl shadow-lg hover:shadow-red-900/20"
+                      disabled={isSubmitting}
+                      className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-6 rounded-xl shadow-lg hover:shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Enviar Mensaje
+                      {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
                     </Button>
                   </form>
                 )}
@@ -173,11 +207,24 @@ export default function ContactPage() {
                     <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
                         <Phone className="h-6 w-6 text-red-500 mt-1" />
                         <div>
-                          <h3 className="font-bold text-white">Teléfono</h3>
-                          <p className="text-zinc-400">Emergencias: 116</p>
-                          <p className="text-zinc-400">Central: (01) 429-0318</p>
+                          <h3 className="font-bold text-white">Llamadas</h3>
+                          <p className="text-zinc-400">+51 902 853 013</p>
                         </div>
                     </div>
+                    
+                    <a 
+                      href="https://wa.me/51902853013"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors"
+                    >
+                        <MessageCircle className="h-6 w-6 text-red-500 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-white">WhatsApp</h3>
+                          <p className="text-zinc-400">Iniciar Chat</p>
+                        </div>
+                    </a>
+                    {/*
                     <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
                         <MapPin className="h-6 w-6 text-red-500 mt-1" />
                         <div>
@@ -187,6 +234,7 @@ export default function ContactPage() {
                           </p>
                         </div>
                     </div>
+                    */}
                      <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
                         <Mail className="h-6 w-6 text-red-500 mt-1" />
                         <div>

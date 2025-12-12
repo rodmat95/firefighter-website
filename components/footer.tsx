@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
-import { Facebook, Instagram, Youtube } from "lucide-react";
+import { Facebook, Instagram, Youtube, Phone, MessageCircle, Mail } from "lucide-react";
 import { SiTiktok } from "react-icons/si";
 
 export default function Footer() {
@@ -80,7 +80,7 @@ export default function Footer() {
               <li>
                 <Link
                   id="footer-link-about"
-                  href="/nosotros"
+                  href="/about-us"
                   className="hover:text-card transition-colors"
                 >
                   Nosotros
@@ -149,13 +149,22 @@ export default function Footer() {
           <div id="footer-contact-info">
             <h3 className="text-sm font-bold mb-4">Contacto</h3>
             <ul className="space-y-3 text-muted text-sm">
-              <li>
-                Av. Alejandro Granda, 3ra cuadra, Urb. Stella Maris, Bellavista,
-                Callao
+              <li className="flex items-center gap-2">
+                <Phone className="h-3 w-3" />
+                <span>+51 902 853 013</span>
               </li>
-              <li>(01) 429-0318</li>
-              <li>(01) 420-9163</li>
-              <li>utamaitalia5@gmail.com</li>
+              <li className="flex items-center gap-2">
+                <MessageCircle className="h-3 w-3" />
+                <a href="https://wa.me/51902853013" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  Chat WhatsApp
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="h-3 w-3" />
+                <a href="mailto:utamaitalia5@gmail.com" className="hover:text-white transition-colors">
+                  utamaitalia5@gmail.com
+                </a>
+              </li>
             </ul>
           </div>
         </div>

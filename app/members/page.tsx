@@ -127,6 +127,7 @@ export default function MembersPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
+          {/*
           <ImageWithLoader
             src={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
             alt="Fondo Integrantes"
@@ -134,6 +135,7 @@ export default function MembersPage() {
             className="object-cover brightness-50"
             priority
           />
+          */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background"></div>
         </div>
         <div className="relative z-10 px-4 md:px-6 max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">

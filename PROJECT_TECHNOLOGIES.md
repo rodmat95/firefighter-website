@@ -64,6 +64,10 @@ The **firefighter‑website** project is built with the following stack (generat
 - **dotenv** – Environment variable loading.
 - **mime‑types** – MIME type detection for uploads.
 
+## Email / Notifications
+
+- **Resend** – Email API for transactional emails (Contact Form).
+
 ## Repository & Hosting
 
 - **GitHub** – Source code repository (remote origin).

@@ -18,6 +18,7 @@ import {
   ShieldCheck,
   History,
   Award,
+  MessageCircle,
 } from "lucide-react";
 import { getAssetUrl } from "@/lib/assets";
 import { ImageWithLoader } from "@/components/ui/image-with-loader";
@@ -333,8 +334,7 @@ export default function Home() {
               Contáctanos
             </h2>
             <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-              ¿Tienes preguntas o necesitas información? Comunícate con
-              nosotros.
+              ¿Tienes preguntas o necesitas información? Comunícate con nosotros.
             </p>
           </div>
 
@@ -346,14 +346,27 @@ export default function Home() {
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                 <Phone className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-lg font-bold">Teléfono</h3>
+              <h3 className="text-lg font-bold">Llamadas</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Emergencias: 116
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Central: (01) 429-0318
+                +51 902 853 013
               </p>
             </div>
+
+            <a
+              href="https://wa.me/51902853013"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="contact-card-whatsapp"
+              className="flex flex-col items-center p-6 bg-background rounded-xl shadow-sm text-center border border-border hover:bg-zinc-50/5 transition-colors"
+            >
+              <div className="h-12 w-12 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
+                <MessageCircle className="h-6 w-6 text-green-500" />
+              </div>
+              <h3 className="text-lg font-bold">WhatsApp</h3>
+              <p className="mt-2 text-sm text-muted-foreground font-medium text-green-600/90">
+                Iniciar Chat
+              </p>
+            </a>
 
             <div
               id="contact-card-email"
@@ -365,22 +378,6 @@ export default function Home() {
               <h3 className="text-lg font-bold">Email</h3>
               <p className="mt-2 text-sm text-muted-foreground break-all">
                 utamaitalia5@gmail.com
-              </p>
-            </div>
-
-            <div
-              id="contact-card-location"
-              className="flex flex-col items-center p-6 bg-background rounded-xl shadow-sm text-center border border-border"
-            >
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <MapPin className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-lg font-bold">Ubicación</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Av. Alejandro Granda s/n
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Bellavista, Callao
               </p>
             </div>
           </div>
