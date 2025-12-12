@@ -13,35 +13,40 @@ const veterans = [
     name: "Félix Alberto Sam Niego Órdenes",
     role: "Capitán CBP",
     image: "/protagonists/3.webp",
-    bio: "Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
+    badge: "Bombero Veterano",
+    bio: "Bombero Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
   {
     id: 4,
     name: "Juan Carlos Castillo Díaz",
     role: "Brigadier CBP",
     image: "/protagonists/4.webp",
-    bio: "Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
+    badge: "Bombero Veterano",
+    bio: "Bombero Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
   {
     id: 5,
     name: "Rodolfo Germán Quevedo Pacheco",
     role: "Tnt Brigadier CBP",
     image: "/protagonists/5.webp",
-    bio: "Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
+    badge: "Bombero Veterano",
+    bio: "Bombero Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
   {
     id: 1,
     name: "Raquel Azucena Pareja Bancayan",
     role: "Capitán CBP",
     image: "/protagonists/1.webp",
-    bio: "Veterana de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
+    badge: "Bombero",
+    bio: "Bombero de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
   {
     id: 2,
     name: "Juan José Martinez Selis",
     role: "Seccionario CBP",
     image: "/protagonists/2.webp",
-    bio: "Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
+    badge: "Bombero",
+    bio: "Bombero de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
 ];
 
@@ -112,7 +117,7 @@ export default function ProtagonistsPage() {
                 <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                   <div className="flex items-center gap-2 text-red-500 font-bold text-sm mb-1">
                     <Shield className="w-4 h-4" />
-                    <span>Veterano</span>
+                    <span>{vet.badge}</span>
                   </div>
                   <h3 className="text-2xl font-bold text-white leading-tight mb-2">
                     {vet.name}

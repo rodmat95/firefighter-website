@@ -30,7 +30,7 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
           <div className="flex items-center">
             <ImageWithLoader
               src={getAssetUrl("/logo.svg")}
-              alt="Código 10-32"
+              alt="Código 10.32"
               width={32}
               height={32}
               className="mr-2"
@@ -41,7 +41,7 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
               href="/"
               className="text-xl font-bold"
             >
-              Código 10-32
+              Código 10.32
             </LinkComponent>
           </div>
 

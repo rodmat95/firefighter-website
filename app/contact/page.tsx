@@ -106,7 +106,7 @@ export default function ContactPage() {
                         <Input
                           id="firstName"
                           name="firstName"
-                          placeholder="John"
+                          placeholder="Juan"
                           required
                           className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
                         />
@@ -116,7 +116,7 @@ export default function ContactPage() {
                         <Input
                           id="lastName"
                           name="lastName"
-                          placeholder="Doe"
+                          placeholder="Perez"
                           required
                           className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
                         />
@@ -128,7 +128,7 @@ export default function ContactPage() {
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="john.doe@example.com"
+                        placeholder="juan.perez@correo.com"
                         required
                         className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
                       />
@@ -151,7 +151,7 @@ export default function ContactPage() {
                         placeholder="Tu mensaje..."
                         rows={5}
                         required
-                        className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50"
+                        className="bg-black/30 border-white/10 text-white placeholder:text-zinc-500 focus:border-red-500/50 max-h-64 overflow-y-auto"
                       />
                     </div>
                     <Button

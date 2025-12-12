@@ -46,7 +46,7 @@ export default function Home() {
 
   return (
     <main id="home-main" className="min-h-screen">
-      {/* Hero Section (Utama / Código 10-32) */}
+      {/* Hero Section (Utama / Código 10.32) */}
       <section
         id="hero-section"
         className="relative h-[100dvh] flex items-center justify-center text-center overflow-hidden"
@@ -86,7 +86,7 @@ export default function Home() {
               id="hero-subtitle"
               className="text-xl sm:text-3xl md:text-4xl font-bold text-red-600 drop-shadow-[0_1px_1px_rgba(255,150,150,0.35)] tracking-wide uppercase"
             >
-              CÓDIGO 10-32
+              CÓDIGO 10.32
             </p>
 
             <p
@@ -276,7 +276,7 @@ export default function Home() {
                   className="w-full bg-gradient-to-r from-red-700 to-red-600 hover:from-red-600 hover:to-red-500 text-white px-8 py-5 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-red-900/40 flex items-center justify-center gap-3 group/btn"
                 >
                   <Award className="h-6 w-6 transition-transform group-hover/btn:scale-110" />
-                  Conoce a los Veteranos
+                  Conoce a nuestros protagonistas
                 </button>
               </div>
             </div>

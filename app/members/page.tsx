@@ -139,13 +139,13 @@ export default function MembersPage() {
         <div className="relative z-10 px-4 md:px-6 max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-medium mb-2">
             <Users className="w-4 h-4" />
-            <span>Nuestra Fuerza</span>
+            <span>Talento Creativo</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white drop-shadow-xl">
-            Nuestros Integrantes
+            Equipo de Producción
           </h1>
           <p className="text-lg md:text-xl text-zinc-200 max-w-2xl mx-auto font-medium">
-            Conoce a los hombres y mujeres que dedican su vida a servir a la comunidad.
+            Conoce a los profesionales detrás de cada historia que contamos en Utama Producciones.
           </p>
         </div>
       </section>

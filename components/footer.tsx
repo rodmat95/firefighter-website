@@ -28,14 +28,14 @@ export default function Footer() {
                 showSpinner={false}
               />
               <div>
-                <div className="text-lg font-bold">Código 10-32</div>
+                <div className="text-lg font-bold">Código 10.32</div>
               </div>
             </Link>
             <p
               id="footer-description"
               className="mt-2 text-sm text-muted max-w-sm"
             >
-              Somos Código 10-32, comprometidos con la seguridad y el bienestar
+              Somos Código 10.32, comprometidos con la seguridad y el bienestar
               de la comunidad. Estamos disponibles 24/7 para responder a
               cualquier emergencia.
             </p>
@@ -170,7 +170,7 @@ export default function Footer() {
           className="mt-6 flex items-center justify-between text-muted text-sm"
         >
           <div>
-            © {new Date().getFullYear()} Código 10-32. Todos los derechos
+            © {new Date().getFullYear()} Código 10.32. Todos los derechos
             reservados.
           </div>
           <div className="hidden md:flex space-x-4">
