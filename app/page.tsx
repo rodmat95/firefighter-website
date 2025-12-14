@@ -377,7 +377,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-bold">Email</h3>
               <p className="mt-2 text-sm text-muted-foreground break-all">
-                utamaitalia5@gmail.com
+                utamaproduccionesof@gmail.com
               </p>
             </div>
           </div>

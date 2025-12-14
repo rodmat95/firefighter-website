@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
     const data = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: "utamaitalia5@gmail.com",
+      to: "utamaproduccionesof@gmail.com",
       subject: `Nuevo Mensaje Web: ${subject}`,
       html: `
         <h2>Nuevo mensaje de contacto</h2>

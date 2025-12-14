@@ -256,10 +256,10 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-bold text-white">Correo Electrónico</h3>
                     <a
-                      href="mailto:utamaitalia5@gmail.com"
+                      href="mailto:utamaproduccionesof@gmail.com"
                       className="text-zinc-400 hover:text-red-500 transition-colors"
                     >
-                      utamaitalia5@gmail.com
+                      utamaproduccionesof@gmail.com
                     </a>
                   </div>
                 </div>
