@@ -49,7 +49,7 @@ Thumbs.db
 
 # R2 Migration - Images hosted on Cloudflare
 /public/tour/
-/public/tour-src/
+/public/tour-tiles/
 /public/hero-background/
 /public/hero-background-src/
 /public/about/

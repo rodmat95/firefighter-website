@@ -51,7 +51,7 @@ The **firefighter‑website** project is built with the following stack (generat
 
 ## Image Optimization
 
-- **ImageMagick** – Command-line tool for image processing, conversion, and optimization (PNG → WebP, JPG, resizing).
+- **Sharp** – High‑performance Node.js image processing library, used for generating multi‑resolution WebP panoramas and responsive images.
 
 ## Build / Linting
 
