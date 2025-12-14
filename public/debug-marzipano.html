@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marzipano Debug</title>
+    <style>
+        #pano { width: 100%; height: 100vh; position: absolute; top: 0; left: 0; background: #333; }
+    </style>
+    <script src="/marzipano.js"></script>
+</head>
+<body>
+    <div id="pano"></div>
+    <script>
+        var panoElement = document.getElementById('pano');
+        var viewerOpts = { controls: { mouseViewMode: 'drag' } };
+        var viewer = new Marzipano.Viewer(panoElement, viewerOpts);
+
+        // HARDCODED URL THAT WE VERIFIED WITH CURL
+        var urlPrefix = "https://pub-c00cf6005c274665a7a3c567b997ce7c.r2.dev/tour-tiles/RUTA/01/output";
+        
+        // URL validada
+        var urlPrefix = "https://pub-c00cf6005c274665a7a3c567b997ce7c.r2.dev/tour-tiles/RUTA/01/output";
+        
+        var source = Marzipano.ImageUrlSource.fromString(
+            urlPrefix + "/{z}.webp",
+            { cubeMapPreviewUrl: null }
+        );
+
+        var geometry = new Marzipano.EquirectGeometry([
+            { width: 512 },
+            { width: 1024 },
+            { width: 2048 },
+            { width: 4096 },
+            { width: 8192 }
+        ]);
+
+        var limiter = Marzipano.RectilinearView.limit.traditional(4096, 100 * Math.PI / 180);
+        var view = new Marzipano.RectilinearView({ yaw: 0, pitch: 0, fov: Math.PI/3 }, limiter);
+
+        var scene = viewer.createScene({
+            source: source,
+            geometry: geometry,
+            view: view,
+            pinFirstLevel: true
+        });
+
+        scene.switchTo();
+        
+        console.log("Scene switched. Check network tab for tile requests.");
+    </script>
+</body>
+</html>

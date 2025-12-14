@@ -4,6 +4,7 @@ import path from "path";
 import mime from "mime-types";
 import dotenv from "dotenv";
 import { execSync } from "child_process";
+import sharp from "sharp";
 
 dotenv.config({ path: ".env.local" });
 dotenv.config();
@@ -18,22 +19,26 @@ interface SyncConfig {
   source: string;
   dest: string;
   r2Prefix: string;
-  resize?: string; // ImageMagick geometry (e.g., "4096x2048>")
+  resize?: string; // Sharp resize (e.g., "4096x2048")
   quality?: number;
   format?: "jpg" | "webp" | "keep";
   preserve?: string[]; // Filenames to strictly preserve/copy
+  enableTiling?: boolean; // Enable multi-resolution tiling for panoramas
+  tileSize?: number; // Tile size (default: 512)
 }
 
 // DEFINING THE PIPELINES
 const SYNC_CONFIGS: SyncConfig[] = [
   {
-    source: "public/tour-src",
-    dest: "public/tour",
-    r2Prefix: "tour",
-    resize: "4096x2048>",
-    quality: 85,
-    format: "jpg",
+    source: "public/tour", // Original PNGs are here now
+    dest: "public/tour-tiles", // Separate folder for tiled output
+    r2Prefix: "tour-tiles", // Separate prefix in R2
+    resize: "4096x2048",
+    quality: 90,
+    format: "webp",
     preserve: ["floorplan.png"],
+    enableTiling: true,
+    tileSize: 512,
   },
   {
     source: "public/members",
@@ -86,7 +91,7 @@ const s3 = new S3Client({
 });
 
 // --- HELPER: Sync and Convert ---
-function processDirectory(config: SyncConfig) {
+async function processDirectory(config: SyncConfig) {
   const { source, dest, format, resize, quality = 85, preserve = [] } = config;
 
   if (!fs.existsSync(source)) {
@@ -112,7 +117,7 @@ function processDirectory(config: SyncConfig) {
 
         if (stat.isDirectory()) {
             // Recursive? Yes, but need to map subdirs
-            processDirectory({
+            await processDirectory({
                 ...config,
                 source: srcPath,
                 dest: path.join(dest, item),
@@ -159,12 +164,65 @@ function processDirectory(config: SyncConfig) {
             if (isImage && !isSameDir) {
                  console.log(`🖼️ Processing: ${srcPath} -> ${destPath}`);
                  try {
-                    let cmd = `magick "${srcPath}" -quality ${quality}`;
-                    if (resize) {
-                        cmd += ` -resize "${resize}"`;
+                    // Check if tiling is enabled for this config
+                        if (config.enableTiling) {
+                        const basename = path.basename(destFilename, path.extname(destFilename));
+                        const outputDir = path.join(dest, basename, 'output'); // Using 'output' subfolder to match existing structure
+                        
+                        if (!fs.existsSync(outputDir)) {
+                            fs.mkdirSync(outputDir, { recursive: true });
+                        }
+                        
+                            console.log(`🔲 Generating multi-level images for: ${basename} in ${outputDir}...`);
+                        
+                        // Levels logic for Marzipano Equirectangular (non-tiled)
+                        // Level 0: 512px
+                        // Level 1: 1024px
+                        // Level 2: 2048px
+                        // Level 3: 4096px
+                        // Level 4: 8192px (8K for legibility)
+                        const levels = [
+                            { width: 512, name: '0.webp' },
+                            { width: 1024, name: '1.webp' },
+                            { width: 2048, name: '2.webp' },
+                            { width: 4096, name: '3.webp' },
+                            { width: 8192, name: '4.webp' }
+                        ];
+
+                        for (const level of levels) {
+                            await sharp(srcPath)
+                                .resize(level.width, null, {
+                                    fit: 'inside',
+                                    withoutEnlargement: true // Don't upscale if source is smaller than 4096 (or 8192)
+                                })
+                                .webp({ quality: quality || 90 }) // Increased quality for legibility
+                                .toFile(path.join(outputDir, level.name));
+                        }
+                        
+                        console.log(`✅ Multi-level images generated in: ${outputDir}`);
+                    } else {
+                        // Regular single-file processing
+                        let sharpInstance = sharp(srcPath);
+                        
+                        // Apply resize if specified
+                        if (resize) {
+                            const [width, height] = resize.split('x').map(Number);
+                            sharpInstance = sharpInstance.resize(width, height, {
+                                fit: 'inside',
+                                withoutEnlargement: true
+                            });
+                        }
+                        
+                        // Apply format conversion
+                        if (format === 'webp') {
+                            sharpInstance = sharpInstance.webp({ quality: quality || 80 });
+                        } else if (format === 'jpg') {
+                            sharpInstance = sharpInstance.jpeg({ quality: quality || 85 });
+                        }
+                        
+                        await sharpInstance.toFile(destPath);
+                        console.log(`✅ Processed: ${destPath}`);
                     }
-                    cmd += ` "${destPath}"`;
-                    execSync(cmd, { stdio: 'inherit' });
                  } catch (e) {
                      console.error(`❌ Failed to process ${srcPath}`, e);
                      // Fallback copy
@@ -223,7 +281,7 @@ async function uploadFile(filePath: string, fileKey: string) {
         Key: fileKey,
         Body: fileBuffer,
         ContentType: contentType,
-        // CacheControl: "public, max-age=31536000",
+        CacheControl: "public, max-age=31536000, immutable",
       })
     );
 
@@ -281,7 +339,7 @@ async function main() {
 
   // 1. Process all configurations
   for (const config of SYNC_CONFIGS) {
-      processDirectory(config);
+      await processDirectory(config);
   }
 
   // 2. Process Videos
@@ -328,24 +386,75 @@ async function main() {
   // We can fetch all or just check aggressively.
   // Given we have prefixes, we can fetch per prefix.
   const allPrefixes = [...new Set(SYNC_CONFIGS.map(c => c.r2Prefix))];
-  const existingKeys = new Set<string>();
+  const existingFiles = new Map<string, string>(); // Key -> ETag (clean)
   
+  // Helper to compute MD5 of a file
+  const computeMD5 = (filePath: string): string => {
+      const hash = require('crypto').createHash('md5');
+      const data = fs.readFileSync(filePath);
+      hash.update(data);
+      return hash.digest('hex');
+  };
+
+  // Helper to fetch files with ETags
+  const getR2FilesWithETags = async (prefix: string): Promise<Map<string, string>> => {
+      const files = new Map<string, string>();
+      let continuationToken: string | undefined = undefined;
+
+      do {
+          const command = new ListObjectsV2Command({
+              Bucket: BUCKET_NAME,
+              Prefix: prefix,
+              ContinuationToken: continuationToken
+          });
+
+          const response = await s3.send(command).catch(err => {
+              console.error(`❌ Error listing objects for prefix ${prefix}:`, err);
+              return { Contents: [], NextContinuationToken: undefined };
+          });
+
+          if (response.Contents) {
+              response.Contents.forEach(item => {
+                  if (item.Key && item.ETag) {
+                      // ETag usually comes with quotes "hash", strip them
+                      const cleanETag = item.ETag.replace(/"/g, '');
+                      files.set(item.Key, cleanETag);
+                  }
+              });
+          }
+          continuationToken = response.NextContinuationToken;
+      } while (continuationToken);
+
+      return files;
+  };
+
+  console.log("🔍 checking existing R2 state...");
   for (const prefix of allPrefixes) {
-      const keys = await getR2Files(prefix + "/"); // suffix with / to be safe? ListObjects uses prefix matching
-      keys.forEach(k => existingKeys.add(k));
+      const files = await getR2FilesWithETags(prefix + "/"); 
+      files.forEach((etag, key) => existingFiles.set(key, etag));
   }
 
   const uploadQueue = [];
+  let skipped = 0;
   
   for (const file of filesToUpload) {
-      if (existingKeys.has(file.key)) {
-          // console.log(`⏭️  Skipping: ${file.key}`);
-          continue;
+      if (existingFiles.has(file.key)) {
+          // Calculate local MD5
+          const localHash = computeMD5(file.path);
+          const remoteHash = existingFiles.get(file.key);
+          
+          if (localHash === remoteHash) {
+             // console.log(`⏭️  Skipping (Identical): ${file.key}`);
+              skipped++;
+              continue;
+          } else {
+             console.log(`📝 Changing (Detected Difference): ${file.key}`);
+          }
       }
       uploadQueue.push(() => uploadFile(file.path, file.key));
   }
 
-  console.log(`📋 Found ${uploadQueue.length} new files to upload.`);
+  console.log(`📋 Found ${uploadQueue.length} files to upload. Skipped ${skipped} identical files.`);
 
   while (uploadQueue.length > 0) {
       const batch = uploadQueue.splice(0, MAX_CONCURRENT_UPLOADS);

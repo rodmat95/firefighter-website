@@ -382,17 +382,17 @@ export const tourGraph: TourGraphNode[] = [];
 // Lista plana de todos los archivos encontrados en la estructura de carpetas
 const rawFiles = [
   // RUTA (Raíz)
-  "01.jpg", "01.1.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg", "08.jpg", "09.jpg", "09.1.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg",
+  "RUTA/01.png", "RUTA/01.1.png", "RUTA/02.png", "RUTA/03.png", "RUTA/04.png", "RUTA/05.png", "RUTA/06.png", "RUTA/07.png", "RUTA/08.png", "RUTA/09.png", "RUTA/09.1.png", "RUTA/10.png", "RUTA/11.png", "RUTA/12.png", "RUTA/13.png", "RUTA/14.png",
   // RUTA A
-  "RUTA A/A-01.jpg", "RUTA A/A-02.jpg", "RUTA A/A-03.jpg", "RUTA A/A-04.jpg", "RUTA A/A-04.1.jpg", "RUTA A/A-05.jpg", "RUTA A/A-06.jpg",
+  "RUTA A/A-01.png", "RUTA A/A-02.png", "RUTA A/A-03.png", "RUTA A/A-04.png", "RUTA A/A-04.1.png", "RUTA A/A-05.png", "RUTA A/A-06.png",
   // RUTA B
-  "RUTA B/B-01.jpg", "RUTA B/B-02.jpg", "RUTA B/B-02.1.jpg", "RUTA B/B-03.jpg",
+  "RUTA B/B-01.png", "RUTA B/B-02.png", "RUTA B/B-02.1.png", "RUTA B/B-03.png",
   // RUTA C
-  "RUTA C/C-01.jpg", "RUTA C/C-01.1.jpg", "RUTA C/C-02.jpg", "RUTA C/C-03.jpg", "RUTA C/C-04.jpg", "RUTA C/C-05.jpg", "RUTA C/C-06.jpg", "RUTA C/C-07.jpg",
+  "RUTA C/C-01.png", "RUTA C/C-01.1.png", "RUTA C/C-02.png", "RUTA C/C-03.png", "RUTA C/C-04.png", "RUTA C/C-05.png", "RUTA C/C-06.png", "RUTA C/C-07.png",
   // RUTA D
-  "RUTA D/D-01.jpg", "RUTA D/D-02.jpg", "RUTA D/D-03.jpg", "RUTA D/D-04.jpg", "RUTA D/D-04.1.jpg", "RUTA D/D-05.jpg",
+  "RUTA D/D-01.png", "RUTA D/D-02.png", "RUTA D/D-03.png", "RUTA D/D-04.png", "RUTA D/D-04.1.png", "RUTA D/D-05.png",
   // RUTA E
-  "RUTA E/E-01.jpg", "RUTA E/E-01.1.jpg", "RUTA E/E-02.jpg", "RUTA E/E-03.jpg", "RUTA E/E-03.1.jpg", "RUTA E/E-04.jpg", "RUTA E/E-05.jpg", "RUTA E/E-06.jpg",
+  "RUTA E/E-01.png", "RUTA E/E-01.1.png", "RUTA E/E-02.png", "RUTA E/E-03.png", "RUTA E/E-03.1.png", "RUTA E/E-04.png", "RUTA E/E-05.png", "RUTA E/E-06.png",
 ];
 
 // --- PARSING LOGIC ---
@@ -409,7 +409,7 @@ const parseFilename = (filepath: string): ParsedScene => {
   // Examples: "01.jpg", "10.1.jpg", "RUTA A/A-01.jpg", "RUTA B/B-02.1.jpg"
   const parts = filepath.split("/");
   const filename = parts[parts.length - 1];
-  const nameWithoutExt = filename.replace(".jpg", "");
+  const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
 
   let group = "ROOT";
   let numberPart = nameWithoutExt;
@@ -740,7 +740,8 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
   return {
     id,
     name: getSceneTitle(group, number, decimal),
-    image: getAssetUrl(`tour/${ps.filename.includes('/') ? '' : 'RUTA/'}${ps.filename.split('/').map(part => encodeURIComponent(part)).join('/')}?v=2`),
+    // URL for tiled structure: tour-tiles/{path_without_ext}/output
+    image: getAssetUrl(`tour-tiles/${ps.filename.replace(/\.[^/.]+$/, "")}/output`),
     hotspots,
     coordinates: currentCoords,
     northOffset,

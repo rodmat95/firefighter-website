@@ -55,6 +55,7 @@ export function Minimap({ scenes, currentScene, yaw }: MinimapProps) {
             alt="Mapa de la estación"
             fill
             className="object-contain"
+            priority
           />
         </div>
 

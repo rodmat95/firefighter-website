@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
     "dev": "next dev",
-    "lint": "next lint",
+    "build": "next build",
     "start": "next start",
-    "upload:r2": "tsx scripts/upload-to-r2.ts"
+    "lint": "next lint",
+    "upload:r2": "tsx scripts/upload-to-r2.ts",
+    "clean:r2": "tsx scripts/clear-r2-folder.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.943.0",
@@ -66,6 +67,7 @@
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
     "resend": "^6.6.0",
+    "sharp": "^0.34.5",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
@@ -76,6 +78,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sharp": "^0.32.0",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.21.0",

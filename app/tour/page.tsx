@@ -96,9 +96,23 @@ export default function Recorrido() {
         }
 
         if (!scene) {
-          const source = Marzipano.ImageUrlSource.fromString(currentScene.image);
-          const geometry = new Marzipano.EquirectGeometry([{ width: 4000 }]);
-          const limiter = Marzipano.RectilinearView.limit.traditional(4000, 100 * Math.PI / 180);
+          // New Tiled Source Logic using Sharp/Google layout structure
+          const urlPrefix = currentScene.image;
+          const source = Marzipano.ImageUrlSource.fromString(
+            `${urlPrefix}/{z}.webp`,
+            { cubeMapPreviewUrl: null }
+          );
+
+          // Define multi-resolution levels matching Sharp output (512, 1024, 2048, 4096, 8192)
+          const geometry = new Marzipano.EquirectGeometry([
+            { width: 512 },
+            { width: 1024 },
+            { width: 2048 },
+            { width: 4096 },
+            { width: 8192 }
+          ]);
+
+          const limiter = Marzipano.RectilinearView.limit.traditional(4096, 100 * Math.PI / 180);
           const view = new Marzipano.RectilinearView(
             { yaw: targetYaw, pitch: 0, fov: 65 * Math.PI / 180 },
             limiter
@@ -178,11 +192,15 @@ export default function Recorrido() {
           currentScene.hotspots.forEach(hotspot => {
             const targetId = hotspot.targetSceneId;
             const targetScene = scenes.find(s => s.id === targetId);
-            if (targetScene) {
+            if (targetScene && targetScene.image) {
+                 // console.log("DEBUG: Preloading target", targetScene.id, targetScene.image);
                  // Use core Image constructor to prefetch resource into browser disk cache
+                 // Tiled update: Preload the low-res preview tile (Level 0, tile 0,0)
                  const img = new window.Image();
                  img.crossOrigin = "anonymous";
-                 img.src = targetScene.image;
+                 img.src = `${targetScene.image}/0.webp`;
+            } else {
+                 console.warn("DEBUG: Skipping preload for", hotspot.targetSceneId, targetScene);
             }
           });
         };
