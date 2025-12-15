@@ -14,12 +14,14 @@ export function AboutUsView() {
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center text-center">
         <div className="absolute inset-0 z-0">
+          {/*
           <ImageWithLoader
             src={getAssetUrl("/placeholder.svg?height=800&width=800")}
             alt="Our Team"
             fill
             className="object-cover brightness-50"
           />
+          */}
           <div className="absolute" />
         </div>
         <div className="relative z-10 px-4 md:px-6">
@@ -27,8 +29,7 @@ export function AboutUsView() {
             Sobre Nosotros
           </h1>
           <p className="mt-4 text-lg md:text-xl text-primary-foreground/80 max-w-3xl mx-auto">
-            Conoce nuestra historia, misión y los valores que nos unen como
-            equipo.
+            Conoce nuestra historia, misión y los valores que nos unen como equipo.
           </p>
         </div>
       </section>

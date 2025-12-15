@@ -30,46 +30,49 @@ interface SyncConfig {
 // DEFINING THE PIPELINES
 const SYNC_CONFIGS: SyncConfig[] = [
   {
-    source: "public/tour", // Original PNGs are here now
-    dest: "public/tour-tiles", // Separate folder for tiled output
-    r2Prefix: "tour-tiles", // Separate prefix in R2
+    source: "public/sources/tour/raw_scenes", // Raw 360 images
+    dest: "public/assets/tour/tiles", // Tiled output
+    r2Prefix: "assets/tour/tiles", // R2 Prefix
     resize: "4096x2048",
     quality: 90,
     format: "webp",
-    preserve: ["floorplan.png"],
+    preserve: ["floorplan.png", "floorplan.webp"],
     enableTiling: true,
     tileSize: 512,
   },
   {
-    source: "public/members",
-    dest: "public/members-opt", // Optimized versions go here
-    r2Prefix: "members",
-    resize: undefined, // Respect original resolution
+    source: "public/sources/images/members",
+    dest: "public/assets/images/members",
+    r2Prefix: "assets/images/members",
+    resize: undefined, 
     quality: 80,
-    format: "webp", // Convert to WebP for better compression + transparency support
+    format: "webp", 
   },
   {
-    source: "public/protagonists",
-    dest: "public/protagonists-opt",
-    r2Prefix: "protagonists",
-    resize: undefined, // Respect original resolution
+    source: "public/sources/images/protagonists",
+    dest: "public/assets/images/protagonists",
+    r2Prefix: "assets/images/protagonists",
+    resize: undefined,
     quality: 80,
     format: "webp",
   },
   {
-    source: "public/about",
-    dest: "public/about", // No separate optimization folder for now (in-place or just upload)
-    r2Prefix: "about",
-    // processing same dir implies just uploading, unless we implement in-place opt.
-    // implementing specific logic to just upload if src == dest?
-    // actually, simpler to just map it for upload and skip processing if we don't want to optimize.
+    source: "public/assets/images/about",
+    dest: "public/assets/images/about", 
+    r2Prefix: "assets/images/about",
     format: "keep",
   },
   {
-    source: "public/hero-background",
-    dest: "public/hero-background",
-    r2Prefix: "hero-background",
+    source: "public/assets/videos/hero",
+    dest: "public/assets/videos/hero",
+    r2Prefix: "assets/videos/hero",
     format: "keep",
+  },
+  {
+      source: "public/assets/images/placeholders",
+      dest: "public/assets/images/placeholders",
+      r2Prefix: "assets/images/placeholders",
+      format: "keep",
   }
 ];
 
@@ -293,8 +296,8 @@ async function uploadFile(filePath: string, fileKey: string) {
 
 // --- HELPERS: Video ---
 async function processVideos() {
-  const videoSourceDir = "public/hero-background-src";
-  const videoDestDir = "public/hero-background";
+  const videoSourceDir = "public/sources/videos/hero";
+  const videoDestDir = "public/assets/videos/hero";
   // Attempt to use ffmpeg-installer, fallback to system ffmpeg
   let ffmpegPath = "ffmpeg"; 
   try {

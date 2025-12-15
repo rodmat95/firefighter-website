@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { getAssetUrl } from "@/lib/assets";
 import { ImageWithLoader } from "@/components/ui/image-with-loader";
+import { VideoWithLoader } from "@/components/ui/video-with-loader";
 import { cn } from "@/lib/utils";
 import Footer from "@/components/footer";
 import Autoplay from "embla-carousel-autoplay";
@@ -53,23 +54,23 @@ export default function Home() {
         className="relative h-[100dvh] flex items-center justify-center text-center overflow-hidden"
       >
         <div className="absolute inset-0 z-0">
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
+          <VideoWithLoader
+            containerClassName="absolute inset-0 w-full h-full"
+            className="w-full h-full object-cover"
             autoPlay
             loop
             muted
             playsInline
-            poster={getAssetUrl("/placeholder.svg?height=1080&width=1920")}
           >
             <source
-              src={`${process.env.NEXT_PUBLIC_R2_URL}/hero-background/hero-background.webm`}
+              src={`${process.env.NEXT_PUBLIC_R2_URL}/assets/videos/hero/hero-background.webm`}
               type="video/webm"
             />
             <source
-              src={`${process.env.NEXT_PUBLIC_R2_URL}/hero-background/hero-background.mp4`}
+              src={`${process.env.NEXT_PUBLIC_R2_URL}/assets/videos/hero/hero-background.mp4`}
               type="video/mp4"
             />
-          </video>
+          </VideoWithLoader>
           {/* Subtle light overlay to help black text, but keeping video very visible */}
           <div className="absolute inset-0 bg-black/30 z-10"></div>
         </div>
@@ -188,7 +189,7 @@ export default function Home() {
                   <CarouselItem className="h-full">
                     <div className="relative w-full h-full">
                       <ImageWithLoader
-                        src={getAssetUrl("/about/bts-1.png")}
+                        src={getAssetUrl("/assets/images/about/bts-1.png")}
                         alt="Equipo Utama - Detrás de Cámaras 1"
                         fill
                         className="object-cover"
@@ -198,7 +199,7 @@ export default function Home() {
                   <CarouselItem className="h-full">
                     <div className="relative w-full h-full">
                       <ImageWithLoader
-                        src={getAssetUrl("/about/bts-2.png")}
+                        src={getAssetUrl("/assets/images/about/bts-2.png")}
                         alt="Equipo Utama - Detrás de Cámaras 2"
                         fill
                         className="object-cover"
@@ -243,7 +244,7 @@ export default function Home() {
                 {/* Main Image (Back/Left) */}
                 <div className="absolute top-0 left-0 w-[85%] h-[85%] rounded-3xl overflow-hidden shadow-2xl z-10 transition-transform duration-700 group-hover:rotate-y-2 group-hover:scale-[1.02]">
                   <ImageWithLoader
-                    src={getAssetUrl("/protagonists/protagonists-hero-1.webp")}
+                    src={getAssetUrl("/assets/images/protagonists/protagonists-hero-1.webp")}
                     alt="Bomberos Italia N° 5 - Acción"
                     fill
                     className="object-cover"
@@ -255,7 +256,7 @@ export default function Home() {
                 {/* Secondary Image (Front/Right) */}
                 <div className="absolute bottom-0 right-0 w-[65%] h-[55%] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20 border-4 border-zinc-950 transition-transform duration-700 group-hover:-translate-y-4 group-hover:translate-x-2">
                   <ImageWithLoader
-                    src={getAssetUrl("/protagonists/protagonists-hero-2.webp")}
+                    src={getAssetUrl("/assets/images/protagonists/protagonists-hero-2.webp")}
                     alt="Bomberos Italia N° 5 - Retrato"
                     fill
                     className="object-cover"

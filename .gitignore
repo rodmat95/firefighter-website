@@ -48,19 +48,16 @@ Thumbs.db
 # package managers
 
 # R2 Migration - Images hosted on Cloudflare
-/public/tour/
-/public/tour-tiles/
-/public/hero-background/
-/public/hero-background-src/
-/public/about/
-/public/protagonists/
-/public/protagonists-opt/
-/public/members/
-/public/members-opt/
-/public/*.png
-/public/*.jpg
-/public/*.jpeg
-/public/*.mp4
-/public/*.webm
-/public/*.webp
-#/public/*.svg
+# R2 Migration - Images/Assets hosted on Cloudflare or Local Source
+/public/assets/tour/
+/public/assets/videos/hero/
+/public/assets/images/about/
+/public/assets/images/protagonists/
+/public/assets/images/members/
+/public/sources/
+/public/assets/*.png
+/public/assets/*.jpg
+/public/assets/*.jpeg
+/public/assets/*.mp4
+/public/assets/*.webm
+/public/assets/*.webp

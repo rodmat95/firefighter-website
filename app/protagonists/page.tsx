@@ -12,7 +12,7 @@ const veterans = [
     id: 3,
     name: "Félix Alberto Sam Niego Órdenes",
     role: "Capitán CBP",
-    image: "/protagonists/3.webp",
+    image: "/assets/images/protagonists/3.webp",
     badge: "Bombero Veterano",
     bio: "Bombero Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
@@ -20,7 +20,7 @@ const veterans = [
     id: 4,
     name: "Juan Carlos Castillo Díaz",
     role: "Brigadier CBP",
-    image: "/protagonists/4.webp",
+    image: "/assets/images/protagonists/4.webp",
     badge: "Bombero Veterano",
     bio: "Bombero Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
@@ -28,7 +28,7 @@ const veterans = [
     id: 5,
     name: "Rodolfo Germán Quevedo Pacheco",
     role: "Tnt Brigadier CBP",
-    image: "/protagonists/5.webp",
+    image: "/assets/images/protagonists/5.webp",
     badge: "Bombero Veterano",
     bio: "Bombero Veterano de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
@@ -36,7 +36,7 @@ const veterans = [
     id: 1,
     name: "Raquel Azucena Pareja Bancayan",
     role: "Capitán CBP",
-    image: "/protagonists/1.webp",
+    image: "/assets/images/protagonists/1.webp",
     badge: "Bombero",
     bio: "Bombero de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
@@ -44,7 +44,7 @@ const veterans = [
     id: 2,
     name: "Juan José Martinez Selis",
     role: "Seccionario CBP",
-    image: "/protagonists/2.webp",
+    image: "/assets/images/protagonists/2.webp",
     badge: "Bombero",
     bio: "Bombero de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
@@ -74,7 +74,7 @@ export default function ProtagonistsPage() {
       <section className="relative h-[60vh] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <ImageWithLoader
-            src={getAssetUrl("/protagonists/protagonists-hero-1.webp")}
+            src={getAssetUrl("/assets/images/protagonists/protagonists-hero-1.webp")}
             alt="Nuestros Veteranos"
             fill
             className="object-cover"

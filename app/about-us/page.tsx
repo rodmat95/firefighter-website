@@ -32,7 +32,7 @@ export default function AboutUsPage() {
       <section className="relative h-[60vh] flex items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <ImageWithLoader
-            src={getAssetUrl("/about/hero-about.png")}
+            src={getAssetUrl("/assets/images/about/hero-about.png")}
             alt="Fondo Sobre Nosotros"
             fill
             className="object-cover"

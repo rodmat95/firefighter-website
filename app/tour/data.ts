@@ -741,7 +741,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     id,
     name: getSceneTitle(group, number, decimal),
     // URL for tiled structure: tour-tiles/{path_without_ext}/output
-    image: getAssetUrl(`tour-tiles/${ps.filename.replace(/\.[^/.]+$/, "")}/output`),
+    image: getAssetUrl(`assets/tour/tiles/${ps.filename.replace(/\.[^/.]+$/, "")}/output`),
     hotspots,
     coordinates: currentCoords,
     northOffset,
