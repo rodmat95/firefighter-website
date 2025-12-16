@@ -161,6 +161,17 @@ export default function Recorrido() {
                   ${hotspot.text || "Ver Multimedia"}
                 </div>
               `;
+            } else if (hotspot.type === "link") {
+              // External Link Hotspot
+              element.className = "hotspot opacity-0 transition-opacity duration-500 transform-gpu";
+              element.innerHTML = `
+                <div class="w-12 h-12 bg-purple-600/90 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(147,51,234,0.5)] cursor-pointer hover:scale-110 transition-transform text-white border-2 border-white/80 animate-bounce">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </div>
+                <div class="mt-2 px-3 py-1.5 bg-purple-900/80 text-white text-xs font-bold rounded-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none text-center shadow-lg border border-purple-500/30">
+                  ${hotspot.text || "Enlace"}
+                </div>
+              `;
             } else {
               // Standard info hotspot
               element.className = "hotspot opacity-0 transition-opacity duration-500 transform-gpu";
@@ -180,6 +191,9 @@ export default function Recorrido() {
                 if (hotspot.media) {
                   setActiveMedia(hotspot.media);
                 }
+              } else if (hotspot.type === "link" && hotspot.link) {
+                // Open external link
+                window.open(hotspot.link, "_blank");
               } else {
                 const target = scenes.find((s) => s.id === hotspot.targetSceneId);
                 if (target) {

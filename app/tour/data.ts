@@ -3,7 +3,8 @@ export interface Hotspot {
   pitch: number;
   targetSceneId: string;
   text: string;
-  type: "arrow" | "info" | "multimedia";
+  type: "arrow" | "info" | "multimedia" | "link";
+  link?: string;
   media?: {
     title: string;
     description: string;
@@ -816,6 +817,26 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     });
   }
 
+  // --- LINK CONTENT INJECTION ---
+  const linkContent: Record<string, { title: string; link: string; text?: string }> = {
+    "scene-13": { title: "Kick: codigo1032", link: "https://kick.com/codigo1032", text: "Ver Kick" },
+    "scene-10": { title: "Concurso", link: "https://forms.gle/fBeB7Zv9yVu33hDs6", text: "Ir a Concurso" },
+    "scene-A-04-1": { title: "Comic: Emergencia Confirmada", link: "https://www.webtoons.com/es/canvas/1025-emergencia-confirmada/list?title_no=1098787", text: "Leer Comic" },
+    "scene-09-1": { title: "Audiodrama", link: "https://open.spotify.com/show/5zFyJWpSzdhxS5LP6yEIBZ?si=34b2331d17ab4fa6", text: "Escuchar" }
+  };
+
+  if (linkContent[id]) {
+    const info = linkContent[id];
+    hotspots.push({
+      yaw: 0,
+      pitch: 0,
+      targetSceneId: "link-trigger",
+      text: info.text || "Info",
+      type: "link",
+      link: info.link
+    });
+  }
+
   // --- MULTIMEDIA INJECTION ---
   if (multimediaContent[id]) {
     const media = multimediaContent[id];
@@ -833,8 +854,6 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
       }
     });
   }
-
-
 
   return {
     id,
