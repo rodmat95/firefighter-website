@@ -64,9 +64,25 @@ export default function HotspotEditor() {
 
         // Create scene if it doesn't exist
         if (!scene) {
-          const source = Marzipano.ImageUrlSource.fromString(currentScene.image);
-          const geometry = new Marzipano.EquirectGeometry([{ width: 4000 }]);
-          const view = new Marzipano.RectilinearView({ yaw: 0, pitch: 0, fov: Math.PI / 4 }, null);
+          // Tiled Source Logic (Matching tour/page.tsx)
+          const source = Marzipano.ImageUrlSource.fromString(
+            `${currentScene.image}/{z}.webp`,
+            { cubeMapPreviewUrl: null }
+          );
+
+          const geometry = new Marzipano.EquirectGeometry([
+            { width: 512 },
+            { width: 1024 },
+            { width: 2048 },
+            { width: 4096 },
+            { width: 8192 }
+          ]);
+
+          const limiter = Marzipano.RectilinearView.limit.traditional(4096, 100 * Math.PI / 180);
+          const view = new Marzipano.RectilinearView(
+            { yaw: 0, pitch: 0, fov: Math.PI / 4 },
+            limiter
+          );
 
           scene = viewer.createScene({
             source: source,
@@ -80,39 +96,39 @@ export default function HotspotEditor() {
 
         // Update Hotspots
         const container = scene.hotspotContainer();
-        
+
         // Safe clear of existing hotspots
         if (container) {
           try {
-              const existingHotspots = container.listHotspots();
-              if (existingHotspots) {
-                  // Copy array to avoid modification issues during iteration
-                  [...existingHotspots].forEach(h => {
-                      try { container.destroyHotspot(h); } catch(e) {}
-                  });
-              }
+            const existingHotspots = container.listHotspots();
+            if (existingHotspots) {
+              // Copy array to avoid modification issues during iteration
+              [...existingHotspots].forEach(h => {
+                try { container.destroyHotspot(h); } catch (e) { }
+              });
+            }
           } catch (e) {
-              console.warn("Error clearing hotspots:", e);
+            console.warn("Error clearing hotspots:", e);
           }
 
           // Add new hotspots
           currentScene.hotspots.forEach((hotspot: any) => {
-              const element = document.createElement("div");
-              element.className = "w-10 h-10 bg-blue-500/50 rounded-full border-2 border-white flex items-center justify-center text-white font-bold shadow-lg";
-              // Show target ID suffix as label (e.g. "02" or "A-01")
-              const label = hotspot.targetSceneId.replace("scene-", "").replace("ROOT-", "");
-              element.innerHTML = label.substring(0, 3); 
-              element.title = `${hotspot.text} -> ${hotspot.targetSceneId}`;
+            const element = document.createElement("div");
+            element.className = "w-10 h-10 bg-blue-500/50 rounded-full border-2 border-white flex items-center justify-center text-white font-bold shadow-lg";
+            // Show target ID suffix as label (e.g. "02" or "A-01")
+            const label = hotspot.targetSceneId.replace("scene-", "").replace("ROOT-", "");
+            element.innerHTML = label.substring(0, 3);
+            element.title = `${hotspot.text} -> ${hotspot.targetSceneId}`;
 
-              const key = `${currentScene.id}-${hotspot.targetSceneId}`;
-              const yaw = manualYaws[key] !== undefined ? manualYaws[key] : hotspot.yaw;
-              const pitch = manualPitches[key] !== undefined ? manualPitches[key] : (hotspot.pitch || 0.1);
-              
-              try {
-                  container.createHotspot(element, { yaw: yaw, pitch: pitch });
-              } catch (e) {
-                  console.warn("Error creating hotspot:", e);
-              }
+            const key = `${currentScene.id}-${hotspot.targetSceneId}`;
+            const yaw = manualYaws[key] !== undefined ? manualYaws[key] : hotspot.yaw;
+            const pitch = manualPitches[key] !== undefined ? manualPitches[key] : (hotspot.pitch || 0.1);
+
+            try {
+              container.createHotspot(element, { yaw: yaw, pitch: pitch });
+            } catch (e) {
+              console.warn("Error creating hotspot:", e);
+            }
           });
         }
 
@@ -137,8 +153,8 @@ export default function HotspotEditor() {
       [key]: currentYaw
     }));
     setManualPitches(prev => ({
-        ...prev,
-        [key]: currentPitch
+      ...prev,
+      [key]: currentPitch
     }));
   };
 
@@ -158,7 +174,7 @@ export default function HotspotEditor() {
   const handleCopyConfig = () => {
     const yawsCode = `export const manualHotspotYaws: Record<string, number> = ${JSON.stringify(manualYaws, null, 2)};`;
     const pitchesCode = `export const manualHotspotPitches: Record<string, number> = ${JSON.stringify(manualPitches, null, 2)};`;
-    
+
     navigator.clipboard.writeText(`${yawsCode}\n\n${pitchesCode}`);
     alert("Configuración (Yaws + Pitches) copiada al portapapeles!");
   };
@@ -167,7 +183,7 @@ export default function HotspotEditor() {
     <div className="min-h-screen bg-gray-900 text-white flex flex-col">
       <div className="flex-1 relative">
         <div ref={panoRef} className="absolute inset-0 w-full h-full" />
-        
+
         {/* Center Crosshair */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
           <div className="w-1 h-10 bg-yellow-400 shadow-[0_0_10px_rgba(255,255,0,0.8)]"></div>
@@ -181,12 +197,12 @@ export default function HotspotEditor() {
             <p className="text-sm text-gray-300 mb-4">
               Apunta la cruz amarilla y "Fija" la posición (Horizontal y Vertical).
             </p>
-            
+
             {/* Scene Navigation */}
             <div className="flex items-center gap-2 mb-4">
               <button onClick={handlePrev} className="p-2 bg-gray-700 rounded hover:bg-gray-600"><ChevronLeft size={20} /></button>
-              <select 
-                value={currentSceneIndex} 
+              <select
+                value={currentSceneIndex}
                 onChange={handleSceneSelect}
                 className="bg-gray-800 border border-gray-600 rounded px-2 py-1 text-sm flex-1 max-w-[200px]"
               >
@@ -206,34 +222,33 @@ export default function HotspotEditor() {
                 <p className="text-sm text-gray-500 italic">No hay conexiones en esta escena.</p>
               ) : (
                 currentScene.hotspots.map((h, i) => {
-                    const key = `${currentScene.id}-${h.targetSceneId}`;
-                    const isModified = manualYaws[key] !== undefined || manualPitches[key] !== undefined;
-                    return (
-                        <div key={i} className="bg-gray-800 p-2 rounded border border-gray-700">
-                            <div className="flex justify-between items-center mb-1">
-                                <span className="font-bold text-sm">{h.text}</span>
-                                <span className="text-xs text-gray-500">{h.targetSceneId}</span>
-                            </div>
-                            <button 
-                                onClick={() => handleSetPosition(h.targetSceneId)}
-                                className={`w-full py-2 rounded text-sm font-bold flex items-center justify-center gap-2 transition-colors ${
-                                    isModified ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'
-                                }`}
-                            >
-                                {isModified ? 'Actualizar Posición' : 'Fijar Posición'}
-                                <Navigation size={14} className={isModified ? "" : "opacity-50"} />
-                            </button>
-                            {isModified && (
-                                <div className="text-[10px] text-green-400 mt-1 text-right font-mono">
-                                    Yaw: {manualYaws[key]?.toFixed(3)} | Pitch: {manualPitches[key]?.toFixed(3)}
-                                </div>
-                            )}
+                  const key = `${currentScene.id}-${h.targetSceneId}`;
+                  const isModified = manualYaws[key] !== undefined || manualPitches[key] !== undefined;
+                  return (
+                    <div key={i} className="bg-gray-800 p-2 rounded border border-gray-700">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-sm">{h.text}</span>
+                        <span className="text-xs text-gray-500">{h.targetSceneId}</span>
+                      </div>
+                      <button
+                        onClick={() => handleSetPosition(h.targetSceneId)}
+                        className={`w-full py-2 rounded text-sm font-bold flex items-center justify-center gap-2 transition-colors ${isModified ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'
+                          }`}
+                      >
+                        {isModified ? 'Actualizar Posición' : 'Fijar Posición'}
+                        <Navigation size={14} className={isModified ? "" : "opacity-50"} />
+                      </button>
+                      {isModified && (
+                        <div className="text-[10px] text-green-400 mt-1 text-right font-mono">
+                          Yaw: {manualYaws[key]?.toFixed(3)} | Pitch: {manualPitches[key]?.toFixed(3)}
                         </div>
-                    );
+                      )}
+                    </div>
+                  );
                 })
               )}
             </div>
-            
+
             <div className="mt-4 text-xs font-mono text-gray-400 border-t border-gray-700 pt-2 grid grid-cols-2">
               <div>Yaw: {currentYaw.toFixed(4)}</div>
               <div>Pitch: {currentPitch.toFixed(4)}</div>
@@ -241,7 +256,7 @@ export default function HotspotEditor() {
           </div>
 
           <div className="bg-black/70 p-4 rounded-lg backdrop-blur pointer-events-auto">
-            <button 
+            <button
               onClick={handleCopyConfig}
               className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded flex items-center gap-2 font-bold shadow-lg"
             >

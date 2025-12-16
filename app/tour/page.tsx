@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { scenes, Scene } from "./data";
 import { Minimap } from "../../components/tour/Minimap";
 import { Compass } from "../../components/tour/Compass";
-import { LogOut } from "lucide-react";
+import { LogOut, Info, PlayCircle } from "lucide-react";
+import { MultimediaOverlay } from "../../components/tour/MultimediaOverlay";
 
 export default function Recorrido() {
   const router = useRouter();
@@ -63,6 +64,7 @@ export default function Recorrido() {
   const scenesRef = useRef<Map<string, any>>(new Map());
 
   const [isBacktracking, setIsBacktracking] = useState(false);
+  const [activeMedia, setActiveMedia] = useState<{ title: string, description: string, url?: string, type: "image" | "video" } | null>(null);
 
   // Switch Scene & Update Hotspots
   useEffect(() => {
@@ -71,28 +73,28 @@ export default function Recorrido() {
     import("marzipano").then((Marzipano) => {
       try {
         let scene = scenesRef.current.get(currentScene.id);
-        
+
         // Determine initial yaw based on entry point and navigation direction
         let targetYaw = 0;
         let priorityHotspot = null;
 
         if (isBacktracking) {
-            // If we are going back, look for "Regresar" or "Volver" to keep the flow
-            priorityHotspot = currentScene.hotspots.find(h => 
-                h.text?.includes("Regresar") || h.text?.includes("Volver")
-            );
+          // If we are going back, look for "Regresar" or "Volver" to keep the flow
+          priorityHotspot = currentScene.hotspots.find(h =>
+            h.text?.includes("Regresar") || h.text?.includes("Volver")
+          );
         } else {
-            // Default forward: Look for "Continuar", "Ir a", or "Ruta"
-            priorityHotspot = currentScene.hotspots.find(h => 
-                h.text === "Continuar" || h.text?.startsWith("Ir a") || h.text?.startsWith("Ruta")
-            );
+          // Default forward: Look for "Continuar", "Ir a", or "Ruta"
+          priorityHotspot = currentScene.hotspots.find(h =>
+            h.text === "Continuar" || h.text?.startsWith("Ir a") || h.text?.startsWith("Ruta")
+          );
         }
 
         if (priorityHotspot) {
-            targetYaw = priorityHotspot.yaw;
+          targetYaw = priorityHotspot.yaw;
         } else if (currentScene.hotspots.length > 0) {
-            // Fallback to any arrow if specific one not found
-            targetYaw = currentScene.hotspots[0].yaw;
+          // Fallback to any arrow if specific one not found
+          targetYaw = currentScene.hotspots[0].yaw;
         }
 
         if (!scene) {
@@ -130,7 +132,7 @@ export default function Recorrido() {
             const element = document.createElement("div");
             // Add a class to hide initially
             element.classList.add("opacity-0", "transition-opacity", "duration-500");
-            
+
             if (hotspot.type === "arrow") {
               // Google Maps style floor arrow
               element.className = "floor-hotspot opacity-0 transition-opacity duration-500 transform-gpu";
@@ -147,6 +149,18 @@ export default function Recorrido() {
                   </div>
                 </div>
               `;
+            } else if (hotspot.type === "multimedia") {
+              // Multimedia Hotspot (Icon or Invisible)
+              // For now, let's make it a distinct icon
+              element.className = "hotspot opacity-0 transition-opacity duration-500 transform-gpu";
+              element.innerHTML = `
+                <div class="w-12 h-12 bg-blue-600/90 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)] cursor-pointer hover:scale-110 transition-transform text-white border-2 border-white/80 animate-pulse">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                </div>
+                <div class="mt-2 px-3 py-1.5 bg-blue-900/80 text-white text-xs font-bold rounded-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none text-center shadow-lg border border-blue-500/30">
+                  ${hotspot.text || "Ver Multimedia"}
+                </div>
+              `;
             } else {
               // Standard info hotspot
               element.className = "hotspot opacity-0 transition-opacity duration-500 transform-gpu";
@@ -159,14 +173,21 @@ export default function Recorrido() {
                 </div>
               `;
             }
-            
+
             element.addEventListener("click", () => {
-              const target = scenes.find((s) => s.id === hotspot.targetSceneId);
-              if (target) {
-                // Determine if we are going back
-                const isBack = hotspot.text?.includes("Regresar") || hotspot.text?.includes("Volver");
-                setIsBacktracking(!!isBack);
-                setCurrentScene(target);
+              if (hotspot.type === "multimedia") {
+                // Trigger Overlay Sync
+                if (hotspot.media) {
+                  setActiveMedia(hotspot.media);
+                }
+              } else {
+                const target = scenes.find((s) => s.id === hotspot.targetSceneId);
+                if (target) {
+                  // Determine if we are going back
+                  const isBack = hotspot.text?.includes("Regresar") || hotspot.text?.includes("Volver");
+                  setIsBacktracking(!!isBack);
+                  setCurrentScene(target);
+                }
               }
             });
 
@@ -193,18 +214,18 @@ export default function Recorrido() {
             const targetId = hotspot.targetSceneId;
             const targetScene = scenes.find(s => s.id === targetId);
             if (targetScene && targetScene.image) {
-                 // console.log("DEBUG: Preloading target", targetScene.id, targetScene.image);
-                 // Use core Image constructor to prefetch resource into browser disk cache
-                 // Tiled update: Preload the low-res preview tile (Level 0, tile 0,0)
-                 const img = new window.Image();
-                 img.crossOrigin = "anonymous";
-                 img.src = `${targetScene.image}/0.webp`;
+              // console.log("DEBUG: Preloading target", targetScene.id, targetScene.image);
+              // Use core Image constructor to prefetch resource into browser disk cache
+              // Tiled update: Preload the low-res preview tile (Level 0, tile 0,0)
+              const img = new window.Image();
+              img.crossOrigin = "anonymous";
+              img.src = `${targetScene.image}/0.webp`;
             } else {
-                 console.warn("DEBUG: Skipping preload for", hotspot.targetSceneId, targetScene);
+              console.warn("DEBUG: Skipping preload for", hotspot.targetSceneId, targetScene);
             }
           });
         };
-        
+
         // Delay preloading slightly to prioritize current scene render
         setTimeout(preloadScenes, 1500);
 
@@ -217,12 +238,12 @@ export default function Recorrido() {
             // Callback when transition completes: Show hotspots
             const container = scene.hotspotContainer();
             if (container) {
-                const hotspots = container.listHotspots();
-                hotspots.forEach((h: any) => {
-                    if (h.domElement()) {
-                        h.domElement().classList.remove("opacity-0");
-                    }
-                });
+              const hotspots = container.listHotspots();
+              hotspots.forEach((h: any) => {
+                if (h.domElement()) {
+                  h.domElement().classList.remove("opacity-0");
+                }
+              });
             }
           });
         } catch (e) {
@@ -250,7 +271,7 @@ export default function Recorrido() {
           <p className="text-lg text-white font-medium leading-relaxed">
             Actualmente, el recorrido está disponible únicamente en su versión para escritorio. La compatibilidad con dispositivos móviles estará disponible próximamente.
           </p>
-          <button 
+          <button
             onClick={() => router.push("/")}
             className="px-6 py-2 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-colors"
           >
@@ -259,15 +280,22 @@ export default function Recorrido() {
         </div>
       </div>
 
+      {/* Multimedia Overlay Layer */}
+      <MultimediaOverlay
+        isOpen={!!activeMedia}
+        onClose={() => setActiveMedia(null)}
+        data={activeMedia}
+      />
+
       {/* Viewer Container */}
       <div id="tour-viewer-wrapper" className="relative w-full h-full overflow-hidden">
         <div id="pano-container" ref={panoRef} className="absolute inset-0 w-full h-full" />
-        
+
         {/* Top Overlay */}
         <div id="tour-overlay" className="absolute top-4 left-4 z-10 bg-black/60 text-white p-3 md:p-4 rounded-xl backdrop-blur-md border border-white/10 max-w-[80%] md:max-w-md shadow-2xl">
           <h1 id="tour-scene-name" className="text-xl md:text-2xl font-bold truncate leading-tight">{currentScene.name}</h1>
           <p id="tour-instructions" className="text-xs md:text-sm opacity-80 mt-1 hidden md:block">Arrastra para explorar • Clic en flechas para moverte</p>
-          <button 
+          <button
             id="tour-exit-btn"
             onClick={() => router.push("/")}
             className="mt-3 flex items-center gap-2 bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg text-xs md:text-sm transition-colors active:scale-95"
@@ -284,9 +312,9 @@ export default function Recorrido() {
 
         {/* Minimap (Bottom Right) - Collapsible on mobile could be better, but hidden on smaller mobile is safe for now unless user asks */}
         <div id="tour-minimap-container" className="absolute bottom-4 right-4 z-10 hidden md:block opacity-90 hover:opacity-100 transition-opacity">
-          <Minimap 
-            scenes={scenes} 
-            currentScene={currentScene} 
+          <Minimap
+            scenes={scenes}
+            currentScene={currentScene}
             yaw={viewParams.yaw + (currentScene.northOffset || 0)}
           />
         </div>
@@ -301,4 +329,3 @@ export default function Recorrido() {
     </div>
   );
 }
-

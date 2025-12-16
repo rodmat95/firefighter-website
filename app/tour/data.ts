@@ -3,7 +3,13 @@ export interface Hotspot {
   pitch: number;
   targetSceneId: string;
   text: string;
-  type: "arrow" | "info";
+  type: "arrow" | "info" | "multimedia";
+  media?: {
+    title: string;
+    description: string;
+    url?: string;
+    type: "image" | "video";
+  };
 }
 
 export interface Scene {
@@ -161,18 +167,18 @@ export const manualHotspotYaws: Record<string, number> = {
 
   "scene-D-01-scene-05": 2.791235135334059,
   "scene-D-01-scene-D-02": -3.024460422384994,
-  
+
   "scene-D-02-scene-D-01": 1.2185287587600957,
   "scene-D-02-scene-D-03": 2.7359898870185244,
   "scene-D-02-scene-E-01": -0.4167074670442439,
-  
+
   "scene-D-03-scene-D-02": -2.980030873383246,
   "scene-D-03-scene-D-04": 0.14763169018423206,
-  
+
   "scene-D-04-scene-D-03": 3.1363535577025434,
   "scene-D-04-scene-D-05": -0.07342745454843502,
   "scene-D-04-1-scene-D-04": -3.1022837349059014,
-  
+
   "scene-D-05-scene-D-04": 3.0060141032904664,
 
   "scene-E-01-scene-D-02": 1.570773558165639,
@@ -197,121 +203,130 @@ export const manualHotspotYaws: Record<string, number> = {
   "scene-E-06-scene-E-05": -1.8855897675001714,
 
 
+  "scene-08-multimedia-trigger": 0.058991297479821014,
+  "scene-D-05-multimedia-trigger": -0.1114269267056045,
+  "scene-E-06-multimedia-trigger": -0.9908810098089873,
+  "scene-E-01-1-multimedia-trigger": -0.08801306798912023,
+  "scene-A-05-multimedia-trigger": -0.3305385398472609,
+  "scene-12-multimedia-trigger": -0.4361042862622355,
+  "scene-C-06-multimedia-trigger": -0.46912127043477625,
+  "scene-B-02-1-multimedia-trigger": -0.3670569620966617,
+  "scene-D-04-1-multimedia-trigger": -0.05899129747983167,
 };
 
 export const manualHotspotPitches: Record<string, number> = {
-  
-  
+
+
   "scene-01-1-scene-01": 0.22723859057433415,
   "scene-01-scene-01-1": -0.006034892583759444,
   "scene-01-scene-02": -0.0017242550239338073,
-  
+
   "scene-02-scene-01": 0.09761280924737648,
   "scene-02-scene-03": 0.01979456402354529,
-  
+
   "scene-03-scene-02": 0.04329111720781853,
   "scene-03-scene-04": 0.03362297296650496,
-  
+
   "scene-04-scene-03": 0.033555763584530496,
   "scene-04-scene-05": 0.03267292116128928,
-  
+
   "scene-05-scene-04": 0.006357244082682456,
   "scene-05-scene-06": 0.12123023775717101,
   "scene-05-scene-A-01": 0.01717431238593292,
   "scene-05-scene-C-01": 0.1035243389119529,
   "scene-05-scene-D-01": 0.09114665106166342,
-  
+
   "scene-06-scene-07": 0.28930258557033994,
-  
+
   "scene-07-scene-06": 0.1645977485038692,
-  
+
   "scene-08-scene-07": 0.3082703366784436,
   "scene-08-scene-09": 0.09662550271237436,
-  
+
   "scene-09-1-scene-09": 0.2193271337811975,
   "scene-09-scene-08": 0.10887540106115523,
   "scene-09-scene-09-1": 0.12373303736464258,
   "scene-09-scene-B-01": 0.1373046948433263,
-  
+
   "scene-10-scene-09": 0.24749029322126503,
-  
+
   "scene-11-scene-10": 0.2991451002782348,
   "scene-11-scene-12": 0.2490644470850647,
-  
+
   "scene-12-scene-11": 0.29697728374104315,
   "scene-12-scene-13": 0.03394730264380641,
-  
+
   "scene-13-scene-12": 0.2767073247439349,
   "scene-13-scene-14": 0.040445623696339084,
-  
+
   "scene-14-scene-13": 0.18792938292719796,
-  
+
   "scene-A-01-scene-05": 0.027206532062006517,
   "scene-A-01-scene-A-01": 0.017509028794417958,
   "scene-A-01-scene-A-02": -0.01662293786197111,
   "scene-A-01-scene-B-01": 0.026396745361919827,
-  
+
   "scene-A-02-scene-A-01": 0.013980627520250977,
   "scene-A-02-scene-A-03": -0.02327744282298383,
-  
+
   "scene-A-03-scene-A-02": 0.002225379983016751,
   "scene-A-03-scene-A-04": -0.01876096543800898,
-  
+
   "scene-A-04-1-scene-A-04": 0.5838504026827724,
   "scene-A-04-scene-A-03": -0.015504805173808478,
   "scene-A-04-scene-A-04-1": -0.052517247321961946,
   "scene-A-04-scene-A-05": -0.012672100491641913,
-  
+
   "scene-A-05-scene-A-04": -0.013168937508867273,
   "scene-A-05-scene-A-06": 0.051905677910704995,
-  
+
   "scene-A-06-scene-A-05": 0.023300294977595115,
-  
+
   "scene-B-01-scene-09": 0.19732435676987237,
   "scene-B-01-scene-A-01": 0.21889453707111883,
   "scene-B-01-scene-B-02": 0.01698880438749839,
-  
+
   "scene-B-02-1-scene-B-02": 0.11215741316353878,
   "scene-B-02-scene-B-01": 0.05677071448699422,
   "scene-B-02-scene-B-02-1": 0.017907878701285185,
   "scene-B-02-scene-B-03": -0.006030096072453972,
-  
+
   "scene-B-03-scene-B-02": 0.02413957033489922,
-  
+
   "scene-C-03-scene-C-04": 0.036197819748810645,
   "scene-C-04-scene-C-05": -0.1387983506922854,
   "scene-C-05-scene-C-06": 0.09007616202900337,
   "scene-C-06-scene-C-05": 0.1582105176318258,
-  
+
   "scene-D-01-scene-05": 0.7040462105995537,
   "scene-D-01-scene-D-02": 0.026166086824551016,
-  
+
   "scene-D-02-scene-D-01": 0.6877035568083727,
   "scene-D-02-scene-D-03": 0.3120827736852725,
   "scene-D-02-scene-E-01": 0.39875574336820563,
-  
+
   "scene-D-03-scene-D-02": 0.35572772159989796,
   "scene-D-03-scene-D-04": 0.06638381842109098,
-  
+
   "scene-D-04-scene-D-03": 0.3152093752580072,
   "scene-D-04-scene-D-05": 0.11400195250007172,
   "scene-D-04-1-scene-D-04": 0.05800626129286002,
-  
+
   "scene-D-05-scene-D-04": 0.4101827794233017,
-  
+
   "scene-E-01-scene-D-02": 0.3456826199701375,
   "scene-E-01-scene-E-02": 0.2788502638655199,
   "scene-E-01-1-scene-E-01": 0.43351385612903925,
   "scene-E-01-scene-E-01-1": 0.4504032955568391,
-  
+
   "scene-E-02-scene-E-01": 0.4156770807191634,
   "scene-E-02-scene-E-03": 0.373603061641095,
-  
+
   "scene-E-03-scene-E-02": 0.4127697762151499,
   "scene-E-03-scene-E-03-1": 0.11057422589695776,
   "scene-E-03-scene-E-04": 0.3093260806729674,
   "scene-E-03-1-scene-E-03": 0.33307543773653947,
-  
+
   "scene-E-04-scene-E-05": 0.38570865218097694,
   "scene-E-04-scene-E-03": 0.5015642594297418,
 
@@ -319,6 +334,15 @@ export const manualHotspotPitches: Record<string, number> = {
   "scene-E-05-scene-E-06": 0.21413498921728724,
 
   "scene-E-06-scene-E-05": 0.4922090705853073,
+  "scene-08-multimedia-trigger": 0.22280429204337437,
+  "scene-12-multimedia-trigger": 0.07969267664071822,
+  "scene-A-05-multimedia-trigger": 0.16362460916159804,
+  "scene-B-02-1-multimedia-trigger": 0.297107842951327,
+  "scene-C-06-multimedia-trigger": 0.1894979170860296,
+  "scene-D-04-1-multimedia-trigger": 0.1883835960742175,
+  "scene-D-05-multimedia-trigger": 0.12594788994676165,
+  "scene-E-01-1-multimedia-trigger": 0.30680631256521096,
+  "scene-E-06-multimedia-trigger": 0.14593961850972548,
 };
 
 // 🎯 RUTA PERSONALIZADA: Coordenadas (Generado por Path Editor)
@@ -373,6 +397,61 @@ export const tourPath = [
   { x: 48.05, y: 52.25 },
   { x: 44.14, y: 52.25 },
 ];
+
+// 🎥 CONTENIDO MULTIMEDIA (Videos)
+// Mapeo de SceneID -> Contenido
+const multimediaContent: Record<string, { title: string; description: string; url: string; delay?: number }> = {
+  // Documentales
+  "scene-D-05": {
+    title: "Documental: Alberto",
+    description: "Historia y legado de Alberto en el cuerpo de bomberos.",
+    url: "https://youtu.be/oEdwx2jUHGU"
+  },
+  "scene-E-06": {
+    title: "Documental: Rodolfo",
+    description: "Conoce la historia de Rodolfo.",
+    url: "https://youtu.be/nYEwDB5c364"
+  },
+  "scene-E-01-1": {
+    title: "Documental: Castillo",
+    description: "Historia sobre el Castillo.",
+    url: "https://youtu.be/ozA8WJ1nOvs"
+  },
+
+  // Juanjo
+  "scene-A-05": {
+    title: "Juanjo: Parte 1",
+    description: "Primera parte del recorrido con Juanjo.",
+    url: "https://youtu.be/G2_CkPew2wM"
+  },
+  "scene-12": {
+    title: "Juanjo: Parte 2",
+    description: "Segunda parte del recorrido con Juanjo.",
+    url: "https://youtu.be/Y-MVITZ7i4c"
+  },
+  "scene-C-06": {
+    title: "Juanjo: Parte 3",
+    description: "Tercera parte del recorrido con Juanjo.",
+    url: "https://youtu.be/roCOe_NZb8o"
+  },
+
+  // Raquel
+  "scene-08": {
+    title: "Raquel: Parte 1",
+    description: "Primera parte de la historia de Raquel.",
+    url: "https://youtu.be/Gtt7RXFHVYg"
+  },
+  "scene-B-02-1": {
+    title: "Raquel: Parte 2",
+    description: "Segunda parte de la historia de Raquel.",
+    url: "https://youtu.be/jIa58FBDW7c"
+  },
+  "scene-D-04-1": {
+    title: "Raquel: Parte 3",
+    description: "Tercera parte de la historia de Raquel.",
+    url: "https://youtu.be/KOug8elLuWY"
+  },
+};
 
 // 🎯 RUTA PERSONALIZADA: Grafo de navegación (Placeholder para evitar errores en Minimap)
 // TODO: Reconstruir grafo basado en hotspots si se desea mostrar líneas
@@ -434,7 +513,7 @@ const parseFilename = (filepath: string): ParsedScene => {
   let idSuffix = numberPart.replace(".", "-");
   // Pad single digits for better sorting/IDs if needed, but keeping simple for now
   let id = `scene-${group === "ROOT" ? "" : group + "-"}${idSuffix}`;
-  
+
   return {
     id,
     filename: filepath,
@@ -462,9 +541,9 @@ const getCoordinates = (index: number) => {
 
 // --- HOTSPOT GENERATION ---
 
-const getHotspotYaw = (currentSceneId: string, targetSceneId: string, currentCoords: {x: number, y: number}, targetCoords: {x: number, y: number}, northOffset: number, defaultYaw: number = 0) => {
+const getHotspotYaw = (currentSceneId: string, targetSceneId: string, currentCoords: { x: number, y: number }, targetCoords: { x: number, y: number }, northOffset: number, defaultYaw: number = 0) => {
   const key = `${currentSceneId}-${targetSceneId}`;
-  
+
   // 1. Manual override
   if (manualHotspotYaws[key] !== undefined) {
     return manualHotspotYaws[key];
@@ -472,7 +551,7 @@ const getHotspotYaw = (currentSceneId: string, targetSceneId: string, currentCoo
 
   // 2. Automatic (if we had coordinates, which we don't really have for the new structure yet)
   // For now, return defaultYaw (which can be set based on "Left", "Right", etc.)
-  return defaultYaw - northOffset; 
+  return defaultYaw - northOffset;
 };
 
 const getSceneTitle = (group: string, number: number, decimal: number | null): string => {
@@ -522,11 +601,11 @@ const getSceneTitle = (group: string, number: number, decimal: number | null): s
 };
 
 const getHotspotPitch = (currentSceneId: string, targetSceneId: string) => {
-    const key = `${currentSceneId}-${targetSceneId}`;
-    if (manualHotspotPitches[key] !== undefined) {
-        return manualHotspotPitches[key];
-    }
-    return 0.1; // Default pitch
+  const key = `${currentSceneId}-${targetSceneId}`;
+  if (manualHotspotPitches[key] !== undefined) {
+    return manualHotspotPitches[key];
+  }
+  return 0.1; // Default pitch
 };
 
 import { getAssetUrl } from "@/lib/assets";
@@ -535,9 +614,9 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
   const { id, group, number, decimal } = ps;
   const hotspots: Hotspot[] = [];
   const northOffset = northOffsets[id] || 0;
-  
+
   // Placeholder coords
-  const currentCoords = getCoordinates(index); 
+  const currentCoords = getCoordinates(index);
 
   // Helper for context-aware text
   const getNavigationText = (targetTitle: string, isBackwards: boolean = false) => {
@@ -611,62 +690,62 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     const routeC = findScene("C", 1);
     const routeD = findScene("D", 1);
 
-    if (routeA) hotspots.push({ 
-      yaw: getHotspotYaw(id, routeA.id, currentCoords, currentCoords, northOffset, -Math.PI / 2), 
-      pitch: getHotspotPitch(id, routeA.id), 
-      targetSceneId: routeA.id, 
-      text: getNavigationText(getSceneTitle(routeA.group, routeA.number, routeA.decimal)), 
-      type: "arrow" 
+    if (routeA) hotspots.push({
+      yaw: getHotspotYaw(id, routeA.id, currentCoords, currentCoords, northOffset, -Math.PI / 2),
+      pitch: getHotspotPitch(id, routeA.id),
+      targetSceneId: routeA.id,
+      text: getNavigationText(getSceneTitle(routeA.group, routeA.number, routeA.decimal)),
+      type: "arrow"
     });
-    if (routeC) hotspots.push({ 
-      yaw: getHotspotYaw(id, routeC.id, currentCoords, currentCoords, northOffset, Math.PI / 2), 
-      pitch: getHotspotPitch(id, routeC.id), 
-      targetSceneId: routeC.id, 
-      text: getNavigationText(getSceneTitle(routeC.group, routeC.number, routeC.decimal)), 
-      type: "arrow" 
+    if (routeC) hotspots.push({
+      yaw: getHotspotYaw(id, routeC.id, currentCoords, currentCoords, northOffset, Math.PI / 2),
+      pitch: getHotspotPitch(id, routeC.id),
+      targetSceneId: routeC.id,
+      text: getNavigationText(getSceneTitle(routeC.group, routeC.number, routeC.decimal)),
+      type: "arrow"
     });
-    if (routeD) hotspots.push({ 
+    if (routeD) hotspots.push({
       yaw: getHotspotYaw(id, routeD.id, currentCoords, currentCoords, northOffset, Math.PI / 2 + 0.5),
-      pitch: getHotspotPitch(id, routeD.id), 
-      targetSceneId: routeD.id, 
-      text: getNavigationText(getSceneTitle(routeD.group, routeD.number, routeD.decimal)), 
-      type: "arrow" 
+      pitch: getHotspotPitch(id, routeD.id),
+      targetSceneId: routeD.id,
+      text: getNavigationText(getSceneTitle(routeD.group, routeD.number, routeD.decimal)),
+      type: "arrow"
     });
   }
 
   // Rule: "En A-01... comienza la ruta B hacia la izquierda"
   if (group === "A" && number === 1 && decimal === null) {
     const routeB = findScene("B", 1);
-    if (routeB) hotspots.push({ 
-      yaw: getHotspotYaw(id, routeB.id, currentCoords, currentCoords, northOffset, -Math.PI / 2), 
-      pitch: getHotspotPitch(id, routeB.id), 
-      targetSceneId: routeB.id, 
-      text: getNavigationText(getSceneTitle(routeB.group, routeB.number, routeB.decimal)), 
-      type: "arrow" 
+    if (routeB) hotspots.push({
+      yaw: getHotspotYaw(id, routeB.id, currentCoords, currentCoords, northOffset, -Math.PI / 2),
+      pitch: getHotspotPitch(id, routeB.id),
+      targetSceneId: routeB.id,
+      text: getNavigationText(getSceneTitle(routeB.group, routeB.number, routeB.decimal)),
+      type: "arrow"
     });
   }
 
   // Rule: "En D-02... comienza la ruta E"
   if (group === "D" && number === 2 && decimal === null) {
     const routeE = findScene("E", 1);
-    if (routeE) hotspots.push({ 
-      yaw: getHotspotYaw(id, routeE.id, currentCoords, currentCoords, northOffset, -Math.PI / 2), 
-      pitch: getHotspotPitch(id, routeE.id), 
-      targetSceneId: routeE.id, 
-      text: getNavigationText(getSceneTitle(routeE.group, routeE.number, routeE.decimal)), 
-      type: "arrow" 
+    if (routeE) hotspots.push({
+      yaw: getHotspotYaw(id, routeE.id, currentCoords, currentCoords, northOffset, -Math.PI / 2),
+      pitch: getHotspotPitch(id, routeE.id),
+      targetSceneId: routeE.id,
+      text: getNavigationText(getSceneTitle(routeE.group, routeE.number, routeE.decimal)),
+      type: "arrow"
     });
   }
 
   // Rule: "En 09... conexión a B-01"
   if (group === "ROOT" && number === 9 && decimal === null) {
     const routeB01 = findScene("B", 1);
-    if (routeB01) hotspots.push({ 
+    if (routeB01) hotspots.push({
       yaw: getHotspotYaw(id, routeB01.id, currentCoords, currentCoords, northOffset, 0), // Default yaw, calibrate manually
-      pitch: 0, 
-      targetSceneId: routeB01.id, 
-      text: getNavigationText(getSceneTitle(routeB01.group, routeB01.number, routeB01.decimal)), 
-      type: "arrow" 
+      pitch: 0,
+      targetSceneId: routeB01.id,
+      text: getNavigationText(getSceneTitle(routeB01.group, routeB01.number, routeB01.decimal)),
+      type: "arrow"
     });
   }
 
@@ -674,68 +753,88 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
   // A-01 -> 05 (Updated from 06)
   if (group === "A" && number === 1 && decimal === null) {
     const root05 = findScene("ROOT", 5);
-    if (root05) hotspots.push({ 
-      yaw: getHotspotYaw(id, root05.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: 0, 
-      targetSceneId: root05.id, 
-      text: `Volver a ${getSceneTitle(root05.group, root05.number, root05.decimal)}`, 
-      type: "arrow" 
+    if (root05) hotspots.push({
+      yaw: getHotspotYaw(id, root05.id, currentCoords, currentCoords, northOffset, Math.PI),
+      pitch: 0,
+      targetSceneId: root05.id,
+      text: `Volver a ${getSceneTitle(root05.group, root05.number, root05.decimal)}`,
+      type: "arrow"
     });
   }
   // C-01 -> 05 (Updated from 06)
   if (group === "C" && number === 1 && decimal === null) {
     const root05 = findScene("ROOT", 5);
-    if (root05) hotspots.push({ 
-      yaw: getHotspotYaw(id, root05.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: getHotspotPitch(id, root05.id), 
-      targetSceneId: root05.id, 
-      text: `Volver a ${getSceneTitle(root05.group, root05.number, root05.decimal)}`, 
-      type: "arrow" 
+    if (root05) hotspots.push({
+      yaw: getHotspotYaw(id, root05.id, currentCoords, currentCoords, northOffset, Math.PI),
+      pitch: getHotspotPitch(id, root05.id),
+      targetSceneId: root05.id,
+      text: `Volver a ${getSceneTitle(root05.group, root05.number, root05.decimal)}`,
+      type: "arrow"
     });
   }
   // D-01 -> 05 (Updated from 06)
   if (group === "D" && number === 1 && decimal === null) {
     const root05 = findScene("ROOT", 5);
-    if (root05) hotspots.push({ 
-      yaw: getHotspotYaw(id, root05.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: getHotspotPitch(id, root05.id), 
-      targetSceneId: root05.id, 
-      text: `Volver a ${getSceneTitle(root05.group, root05.number, root05.decimal)}`, 
-      type: "arrow" 
+    if (root05) hotspots.push({
+      yaw: getHotspotYaw(id, root05.id, currentCoords, currentCoords, northOffset, Math.PI),
+      pitch: getHotspotPitch(id, root05.id),
+      targetSceneId: root05.id,
+      text: `Volver a ${getSceneTitle(root05.group, root05.number, root05.decimal)}`,
+      type: "arrow"
     });
   }
   // B-01 -> A-01
   if (group === "B" && number === 1 && decimal === null) {
     const a01 = findScene("A", 1);
-    if (a01) hotspots.push({ 
-      yaw: getHotspotYaw(id, a01.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: getHotspotPitch(id, a01.id), 
-      targetSceneId: a01.id, 
-      text: `Volver a ${getSceneTitle(a01.group, a01.number, a01.decimal)}`, 
-      type: "arrow" 
+    if (a01) hotspots.push({
+      yaw: getHotspotYaw(id, a01.id, currentCoords, currentCoords, northOffset, Math.PI),
+      pitch: getHotspotPitch(id, a01.id),
+      targetSceneId: a01.id,
+      text: `Volver a ${getSceneTitle(a01.group, a01.number, a01.decimal)}`,
+      type: "arrow"
     });
 
     // New: B-01 -> 09
     const root09 = findScene("ROOT", 9);
-    if (root09) hotspots.push({ 
+    if (root09) hotspots.push({
       yaw: getHotspotYaw(id, root09.id, currentCoords, currentCoords, northOffset, 0), // Default yaw, calibrate manually
-      pitch: getHotspotPitch(id, root09.id), 
-      targetSceneId: root09.id, 
-      text: getNavigationText(getSceneTitle(root09.group, root09.number, root09.decimal)), 
-      type: "arrow" 
+      pitch: getHotspotPitch(id, root09.id),
+      targetSceneId: root09.id,
+      text: getNavigationText(getSceneTitle(root09.group, root09.number, root09.decimal)),
+      type: "arrow"
     });
   }
   // E-01 -> D-02
   if (group === "E" && number === 1 && decimal === null) {
     const d02 = findScene("D", 2);
-    if (d02) hotspots.push({ 
-      yaw: getHotspotYaw(id, d02.id, currentCoords, currentCoords, northOffset, Math.PI), 
-      pitch: getHotspotPitch(id, d02.id), 
-      targetSceneId: d02.id, 
-      text: `Volver a ${getSceneTitle(d02.group, d02.number, d02.decimal)}`, 
-      type: "arrow" 
+    if (d02) hotspots.push({
+      yaw: getHotspotYaw(id, d02.id, currentCoords, currentCoords, northOffset, Math.PI),
+      pitch: getHotspotPitch(id, d02.id),
+      targetSceneId: d02.id,
+      text: `Volver a ${getSceneTitle(d02.group, d02.number, d02.decimal)}`,
+      type: "arrow"
     });
   }
+
+  // --- MULTIMEDIA INJECTION ---
+  if (multimediaContent[id]) {
+    const media = multimediaContent[id];
+    hotspots.push({
+      yaw: 0, // Default yaw, user must position it in Editor
+      pitch: 0,
+      targetSceneId: "multimedia-trigger", // Dummy ID used by Overlay trigger
+      text: "Ver Video",
+      type: "multimedia",
+      media: {
+        title: media.title,
+        description: media.description,
+        type: "video",
+        url: media.url // YouTube link
+      }
+    });
+  }
+
+
 
   return {
     id,
