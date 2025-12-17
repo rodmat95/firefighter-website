@@ -18,7 +18,8 @@ The **firefighter‑website** project is built with the following stack (generat
 - **Tailwind CSS** `3.4.17` – Utility‑first CSS framework.
 - **Tailwind Merge** – Class name merging.
 - **Tailwind CSS Animate** – Animation utilities.
-- **lucide-react** – Icon set.
+- **lucide-react** – General UI icons (navigation, system icons).
+- **react-icons** – Social media and brand icons (Simple Icons set).
 - **geist** – UI components.
 - **embla-carousel-react** – Carousel component.
 - **embla-carousel-autoplay** – Autoplay plugin for Embla Carousel.
@@ -36,7 +37,7 @@ The **firefighter‑website** project is built with the following stack (generat
 - **date‑fns** – Date utilities.
 - **input‑otp** – OTP input.
 - **react‑resizable‑panels** – Resizable layout panels.
-- **react‑icons** – Icon collection.
+
 - **next‑themes** – Theme handling.
 - **@vercel/analytics** – Analytics integration.
 

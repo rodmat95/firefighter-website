@@ -35,9 +35,7 @@ export default function Footer() {
               id="footer-description"
               className="mt-2 text-sm text-muted max-w-sm"
             >
-              Somos Código 10.32, comprometidos con la seguridad y el bienestar
-              de la comunidad. Estamos disponibles 24/7 para responder a
-              cualquier emergencia.
+              "Código 10.32" es un proyecto transmedia producido por Utama Producciones, dedicado a honrar la labor de la Benemérita Compañía de Bomberos Italia N° 5.
             </p>
 
             <div id="footer-social-links" className="flex space-x-3 mt-4">
