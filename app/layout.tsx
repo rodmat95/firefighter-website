@@ -12,9 +12,9 @@ const outfit = Outfit({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Código 10.32",
   description:
-    "Colegas y amigos, bienvenidos a la página Oficial de «Código 10.32». En nuestra web, encontrarán información relacionada con el día a día de los miembros de la Compañía.",
+    "Bienvenidos al proyecto transmedia «Código 10.32», un homenaje documental producido por Utama dedicado a la historia y valor de la Benemérita Compañía de Bomberos Italia N° 5.",
   icons: {
-    icon: "/images/branding/logo_color.svg",
+    icon: "/assets/images/branding/logo_color.svg",
   },
 };
 

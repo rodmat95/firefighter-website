@@ -108,9 +108,7 @@ export default function AboutUsPage() {
              <h2 className="text-3xl font-bold text-white">Nuestro Equipo</h2>
           </div>
           <p className="text-zinc-400 text-lg max-w-3xl mx-auto mb-8">
-            Somos un equipo de profesionales dedicados y voluntarios
-            apasionados, unidos por el compromiso de servir y proteger a nuestra
-            comunidad.
+            Somos un equipo de estudiantes y profesionales apasionados, unidos por el compromiso de narrar historias con impacto y valor social.
           </p>
           <Button 
             size="lg" 

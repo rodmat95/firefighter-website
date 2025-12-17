@@ -9,16 +9,14 @@ import { Label } from "@/components/ui/label";
 import {
   Phone,
   Mail,
-  MapPin,
   CheckCircle2,
   ArrowLeft,
   MessageCircle,
 } from "lucide-react";
-import { SiTiktok } from "react-icons/si";
+import { SiTiktok, SiKick, SiInstagram, SiYoutube } from "react-icons/si";
 import { useRouter } from "next/navigation";
 import { ImageWithLoader } from "@/components/ui/image-with-loader";
 import { getAssetUrl } from "@/lib/assets";
-import { Instagram } from "lucide-react";
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -103,7 +101,7 @@ export default function ContactPage() {
             Contáctanos
           </h1>
           <p className="text-lg md:text-xl text-zinc-200 max-w-2xl mx-auto font-medium">
-            ¿Tienes preguntas o necesitas información? Comunícate con nosotros.
+            ¿Tienes preguntas sobre el proyecto documental "Código 10.32"? Comunícate con el equipo de producción.
           </p>
         </div>
       </section>
@@ -276,7 +274,7 @@ export default function ContactPage() {
                   rel="noopener noreferrer"
                   className="p-4 rounded-full bg-white/5 border border-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition-all hover:scale-110"
                 >
-                  <Instagram className="h-6 w-6" />
+                  <SiInstagram className="h-6 w-6" />
                 </a>
                 <a
                   href="https://www.tiktok.com/@codigo10.32"
@@ -285,6 +283,22 @@ export default function ContactPage() {
                   className="p-4 rounded-full bg-white/5 border border-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition-all hover:scale-110"
                 >
                   <SiTiktok className="h-6 w-6" />
+                </a>
+                <a
+                  href="https://www.youtube.com/@Utama2-m7e"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-full bg-white/5 border border-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition-all hover:scale-110"
+                >
+                  <SiYoutube className="h-6 w-6" />
+                </a>
+                <a
+                  href="https://www.kick.com/codigo1032"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-full bg-white/5 border border-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition-all hover:scale-110"
+                >
+                  <SiKick className="h-6 w-6" />
                 </a>
               </div>
             </div>
