@@ -9,6 +9,60 @@ import { Compass } from "../../components/tour/Compass";
 import { LogOut, Info, PlayCircle } from "lucide-react";
 import { MultimediaOverlay } from "../../components/tour/MultimediaOverlay";
 
+// Extend Navigator interface for Network Information API
+interface NetworkInformation extends EventTarget {
+  readonly downlink: number;
+  readonly effectiveType: string;
+  readonly rtt: number;
+  readonly saveData: boolean;
+  onchange: EventListener;
+}
+
+interface NavigatorWithConnection extends Navigator {
+  connection?: NetworkInformation;
+}
+
+// 🧠 SMART SCALING LOGIC
+const getSmartGeometry = () => {
+  // Safe access to navigator.connection
+  const nav = navigator as NavigatorWithConnection;
+  const connection = nav.connection;
+  
+  // Default to conservative/standard behavior if API not supported
+  const speed = connection ? connection.downlink : 5; // Assume 5Mbps (Average 4G) if unknown
+
+  const isFastConnection = speed > 8; // Threshold: 8 Mbps
+
+  if (isFastConnection) {
+    // 🚀 FAST MODE: Skip intermediate levels
+    // Load 512px (Level 0) -> 8192px (Level 4)
+    console.log(`🚀 [SmartScale] Connection is fast (${speed} Mbps). Using minimal geometry.`);
+    return {
+      levels: [
+        { width: 512 },  // 0.webp
+        { width: 8192 }  // 4.webp
+      ],
+      // Custom mapping: 
+      // Level 0 (Index 0 in levels, z=0) -> 0.webp (Real Index 0)
+      // Level 1 (Index 1 in levels, z=1) -> 4.webp (Real Index 4)
+      isOptimized: true
+    };
+  } else {
+    // 🐢 STANDARD MODE: Progressive loading
+    console.log(`🐢 [SmartScale] Connection is normal/slow (${speed} Mbps). Using full geometry.`);
+    return {
+      levels: [
+        { width: 512 },
+        { width: 1024 },
+        { width: 2048 },
+        { width: 4096 },
+        { width: 8192 }
+      ],
+      isOptimized: false
+    };
+  }
+};
+
 export default function Recorrido() {
   const router = useRouter();
   const panoRef = useRef<HTMLDivElement | null>(null);
@@ -100,19 +154,28 @@ export default function Recorrido() {
         if (!scene) {
           // New Tiled Source Logic using Sharp/Google layout structure
           const urlPrefix = currentScene.image;
-          const source = Marzipano.ImageUrlSource.fromString(
-            `${urlPrefix}/{z}.webp`,
+          // Define multi-resolution levels matching Sharp output
+          const { levels, isOptimized } = getSmartGeometry();
+          
+          const geometry = new Marzipano.EquirectGeometry(levels);
+
+          // Custom Source for Optimized Loading
+          // If optimized, we need to remap the requested 'z' level to the actual file index
+          const source = new Marzipano.ImageUrlSource(
+            (tile: any) => {
+              let realIndex = tile.z;
+              
+              if (isOptimized) {
+                // If optimized:
+                // z=0 (First level) -> Real 0 (512px)
+                // z=1 (Second level) -> Real 4 (8192px)
+                if (tile.z === 1) realIndex = 4;
+              }
+
+              return { url: `${urlPrefix}/${realIndex}.webp` };
+            },
             { cubeMapPreviewUrl: null }
           );
-
-          // Define multi-resolution levels matching Sharp output (512, 1024, 2048, 4096, 8192)
-          const geometry = new Marzipano.EquirectGeometry([
-            { width: 512 },
-            { width: 1024 },
-            { width: 2048 },
-            { width: 4096 },
-            { width: 8192 }
-          ]);
 
           const limiter = Marzipano.RectilinearView.limit.traditional(4096, 100 * Math.PI / 180);
           const view = new Marzipano.RectilinearView(
@@ -165,11 +228,14 @@ export default function Recorrido() {
               // External Link Hotspot
               element.className = "hotspot opacity-0 transition-opacity duration-500 transform-gpu";
               element.innerHTML = `
-                <div class="w-12 h-12 bg-purple-600/90 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(147,51,234,0.5)] cursor-pointer hover:scale-110 transition-transform text-white border-2 border-white/80 animate-bounce">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                </div>
-                <div class="mt-2 px-3 py-1.5 bg-purple-900/80 text-white text-xs font-bold rounded-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none text-center shadow-lg border border-purple-500/30">
-                  ${hotspot.text || "Enlace"}
+                <div class="relative group flex flex-col items-center">
+                  <div class="w-12 h-12 bg-purple-600/90 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(147,51,234,0.5)] cursor-pointer hover:scale-110 transition-transform text-white border-2 border-white/80 animate-bounce">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  </div>
+                  <div class="mt-2 px-3 py-1.5 bg-purple-900/80 text-white text-xs font-bold rounded-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none text-center shadow-lg border border-purple-500/30">
+                    <span class="block">${hotspot.text || "Enlace"}</span>
+                    ${hotspot.hoverLabel ? `<span class="block text-[10px] font-normal opacity-80 mt-0.5">${hotspot.hoverLabel}</span>` : ""}
+                  </div>
                 </div>
               `;
             } else {

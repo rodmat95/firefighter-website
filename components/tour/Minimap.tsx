@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Scene, tourGraph } from "../../app/tour/data";
+import { getAssetUrl } from "@/lib/assets";
 
 interface MinimapProps {
   scenes: Scene[];
@@ -51,7 +52,7 @@ export function Minimap({ scenes, currentScene, yaw }: MinimapProps) {
         {/* Floorplan Image */}
         <div className="absolute inset-0 opacity-50">
           <Image
-            src={`${process.env.NEXT_PUBLIC_R2_URL || ""}/tour/floorplan.png`}
+            src={getAssetUrl("assets/tour/tiles/floorplan.webp")}
             alt="Mapa de la estación"
             fill
             className="object-contain"

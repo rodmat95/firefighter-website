@@ -5,6 +5,7 @@ export interface Hotspot {
   text: string;
   type: "arrow" | "info" | "multimedia" | "link";
   link?: string;
+  hoverLabel?: string;
   media?: {
     title: string;
     description: string;
@@ -204,15 +205,19 @@ export const manualHotspotYaws: Record<string, number> = {
   "scene-E-06-scene-E-05": -1.8855897675001714,
 
 
-  "scene-08-multimedia-trigger": 0.058991297479821014,
-  "scene-D-05-multimedia-trigger": -0.1114269267056045,
-  "scene-E-06-multimedia-trigger": -0.9908810098089873,
-  "scene-E-01-1-multimedia-trigger": -0.08801306798912023,
-  "scene-A-05-multimedia-trigger": -0.3305385398472609,
-  "scene-12-multimedia-trigger": -0.4361042862622355,
-  "scene-C-06-multimedia-trigger": -0.46912127043477625,
-  "scene-B-02-1-multimedia-trigger": -0.3670569620966617,
-  "scene-D-04-1-multimedia-trigger": -0.05899129747983167,
+  "scene-08-multimedia-trigger": 0.0435633981382324,
+  "scene-09-1-link-trigger": 0.422959144044734,
+  "scene-10-link-trigger": 2.874783613291225,
+  "scene-12-multimedia-trigger": -0.3966781327072795,
+  "scene-13-link-trigger": -0.2586296283738747,
+  "scene-A-04-1-link-trigger": -2.336622365887308,
+  "scene-A-05-multimedia-trigger": -0.3237889060606829,
+  "scene-B-02-1-multimedia-trigger": -0.3566281527166666,
+  "scene-C-06-multimedia-trigger": -0.4518773380151444,
+  "scene-D-04-1-multimedia-trigger": -0.05611480275979552,
+  "scene-D-05-multimedia-trigger": -0.11018756486171455,
+  "scene-E-01-1-multimedia-trigger": -0.08856235847968996,
+  "scene-E-06-multimedia-trigger": -0.9821994289276965,
 };
 
 export const manualHotspotPitches: Record<string, number> = {
@@ -335,15 +340,19 @@ export const manualHotspotPitches: Record<string, number> = {
   "scene-E-05-scene-E-06": 0.21413498921728724,
 
   "scene-E-06-scene-E-05": 0.4922090705853073,
-  "scene-08-multimedia-trigger": 0.22280429204337437,
-  "scene-12-multimedia-trigger": 0.07969267664071822,
-  "scene-A-05-multimedia-trigger": 0.16362460916159804,
-  "scene-B-02-1-multimedia-trigger": 0.297107842951327,
-  "scene-C-06-multimedia-trigger": 0.1894979170860296,
-  "scene-D-04-1-multimedia-trigger": 0.1883835960742175,
-  "scene-D-05-multimedia-trigger": 0.12594788994676165,
-  "scene-E-01-1-multimedia-trigger": 0.30680631256521096,
-  "scene-E-06-multimedia-trigger": 0.14593961850972548,
+  "scene-08-multimedia-trigger": 0.19000071871115587,
+  "scene-09-1-link-trigger": 0.3622859539117762,
+  "scene-10-link-trigger": 0.10368329314980329,
+  "scene-12-multimedia-trigger": 0.07105391342353506,
+  "scene-13-link-trigger": 0.06880750961812154,
+  "scene-A-04-1-link-trigger": 0.38278489339770694,
+  "scene-A-05-multimedia-trigger": 0.13815639334816687,
+  "scene-B-02-1-multimedia-trigger": 0.2997586668066461,
+  "scene-C-06-multimedia-trigger": 0.18755777036355248,
+  "scene-D-04-1-multimedia-trigger": 0.1867204588887521,
+  "scene-D-05-multimedia-trigger": 0.1399931076585066,
+  "scene-E-01-1-multimedia-trigger": 0.31734104896339765,
+  "scene-E-06-multimedia-trigger": 0.16113396897054955,
 };
 
 // 🎯 RUTA PERSONALIZADA: Coordenadas (Generado por Path Editor)
@@ -828,10 +837,11 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
   if (linkContent[id]) {
     const info = linkContent[id];
     hotspots.push({
-      yaw: 0,
-      pitch: 0,
+      yaw: getHotspotYaw(id, "link-trigger", currentCoords, currentCoords, northOffset, 0),
+      pitch: getHotspotPitch(id, "link-trigger"),
       targetSceneId: "link-trigger",
       text: info.text || "Info",
+      hoverLabel: info.title,
       type: "link",
       link: info.link
     });
@@ -841,8 +851,8 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
   if (multimediaContent[id]) {
     const media = multimediaContent[id];
     hotspots.push({
-      yaw: 0, // Default yaw, user must position it in Editor
-      pitch: 0,
+      yaw: getHotspotYaw(id, "multimedia-trigger", currentCoords, currentCoords, northOffset, 0),
+      pitch: getHotspotPitch(id, "multimedia-trigger"),
       targetSceneId: "multimedia-trigger", // Dummy ID used by Overlay trigger
       text: "Ver Video",
       type: "multimedia",
