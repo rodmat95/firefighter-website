@@ -95,7 +95,7 @@ export default function Home() {
               id="hero-description"
               className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-zinc-900 font-bold drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)] leading-relaxed"
             >
-              "Nuestro hogar, donde nacen las historias."
+              &quot;Nuestro hogar, donde nacen las historias.&quot;
             </p>
             <p className="max-w-3xl mx-auto text-sm sm:text-base md:text-lg text-zinc-800 italic font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)] hidden sm:block">
               Un documental sobre la Benemérita y Sesquicentenaria Compañía
@@ -129,7 +129,7 @@ export default function Home() {
                   Sobre Nosotros
                 </h2>
                 <p className="text-muted-foreground text-lg font-medium">
-                  Utama: "Nuestro Hogar"
+                  Utama: &quot;Nuestro Hogar&quot;
                 </p>
               </div>
               <div
@@ -364,7 +364,7 @@ export default function Home() {
                 <MessageCircle className="h-6 w-6 text-green-500" />
               </div>
               <h3 className="text-lg font-bold">WhatsApp</h3>
-              <p className="mt-2 text-sm text-muted-foreground font-medium text-green-600/90">
+              <p className="mt-2 text-sm font-medium text-green-600/90">
                 Iniciar Chat
               </p>
             </a>

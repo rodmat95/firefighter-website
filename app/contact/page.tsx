@@ -101,7 +101,7 @@ export default function ContactPage() {
             Contáctanos
           </h1>
           <p className="text-lg md:text-xl text-zinc-200 max-w-2xl mx-auto font-medium">
-            ¿Tienes preguntas sobre el proyecto documental "Código 10.32"? Comunícate con el equipo de producción.
+            ¿Tienes preguntas sobre el proyecto documental &quot;Código 10.32&quot;? Comunícate con el equipo de producción.
           </p>
         </div>
       </section>

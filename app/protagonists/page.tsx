@@ -41,6 +41,14 @@ const veterans = [
     bio: "Bombero de la Benemérita Compañía Italiana de Bomberos Italia N° 5.",
   },
   {
+    id: 6,
+    name: "José Del Carmen Sarmiento Huayamares",
+    role: "Brigadier CBP",
+    image: "/assets/images/protagonists/6.webp",
+    badge: "Bombero Veterano",
+    bio: "Siempre con nosotros José. Que Dios te tenga en su gloria.",
+  },
+  {
     id: 2,
     name: "Juan José Martinez Selis",
     role: "Seccionario CBP",
@@ -127,7 +135,7 @@ export default function ProtagonistsPage() {
               </div>
               <div className="p-6 pt-4 border-t border-white/5 bg-zinc-900/80 flex-grow">
                  <p className="text-zinc-300 leading-relaxed text-sm">
-                    "{vet.bio}"
+                    &quot;{vet.bio}&quot;
                  </p>
               </div>
             </div>
