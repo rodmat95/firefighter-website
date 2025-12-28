@@ -29,8 +29,8 @@ export interface TourGraphNode {
   next: number[];
 }
 
-// 🧭 CALIBRACIÓN DE NORTE
-// Usa http://localhost:3000/north-offset-editor para generar estos valores
+// * [CONFIG] CALIBRACIÓN DE NORTE
+// ? [INFO] Usa http://localhost:3000/north-offset-editor para generar estos valores
 export const northOffsets: Record<string, number> = {
   "scene-01": -0.16262002090843097,
   "scene-01-1": 1.8928634837338407,
@@ -83,8 +83,8 @@ export const northOffsets: Record<string, number> = {
   "scene-E-06": -2.948987734175816,
 };
 
-// 🎯 AJUSTE MANUAL DE FLECHAS
-// Usa http://localhost:3000/hotspot-editor para generar estos valores
+// * [CONFIG] AJUSTE MANUAL DE FLECHAS
+// ? [INFO] Usa http://localhost:3000/hotspot-editor para generar estos valores
 export const manualHotspotYaws: Record<string, number> = {
   "scene-01-1-scene-01": 1.9441130738975474,
   "scene-01-scene-01-1": 0.9537402166772537,
@@ -390,7 +390,7 @@ export const manualHotspotPitches: Record<string, number> = {
   "scene-E-06-multimedia-trigger": 0.16113396897054955
 };
 
-// 🎯 RUTA PERSONALIZADA: Coordenadas (Generado por Path Editor)
+// * [CONFIG] RUTA PERSONALIZADA: Coordenadas (Generado por Path Editor)
 export const tourPath = [
   { x: 69.07, y: 92.04 },
   { x: 71.77, y: 84.08 },
@@ -443,7 +443,7 @@ export const tourPath = [
   { x: 44.14, y: 52.25 },
 ];
 
-// 🎥 CONTENIDO MULTIMEDIA (Videos)
+// * [DATA] CONTENIDO MULTIMEDIA (Videos)
 // Mapeo de SceneID -> Contenido
 const multimediaContent: Record<string, { title: string; description: string; url: string; delay?: number }> = {
   // Documentales
@@ -498,11 +498,11 @@ const multimediaContent: Record<string, { title: string; description: string; ur
   },
 };
 
-// 🎯 RUTA PERSONALIZADA: Grafo de navegación (Placeholder para evitar errores en Minimap)
+// * [CONFIG] RUTA PERSONALIZADA: Grafo de navegación (Placeholder para evitar errores en Minimap)
 // TODO: Reconstruir grafo basado en hotspots si se desea mostrar líneas
 export const tourGraph: TourGraphNode[] = [];
 
-// --- DEFINICIÓN DE ARCHIVOS ---
+// * [LOGIC] DEFINICIÓN DE ARCHIVOS
 // Lista plana de todos los archivos encontrados en la estructura de carpetas
 const rawFiles = [
   // RUTA (Raíz)
@@ -519,7 +519,7 @@ const rawFiles = [
   "RUTA E/E-01.png", "RUTA E/E-01.1.png", "RUTA E/E-02.png", "RUTA E/E-03.png", "RUTA E/E-03.1.png", "RUTA E/E-04.png", "RUTA E/E-05.png", "RUTA E/E-06.png",
 ];
 
-// --- PARSING LOGIC ---
+// * [LOGIC] PARSING LOGIC
 
 interface ParsedScene {
   id: string;
@@ -575,7 +575,7 @@ const findScene = (group: string, number: number, decimal: number | null = null)
   return parsedScenes.find(s => s.group === group && s.number === number && s.decimal === decimal);
 };
 
-// --- COORDINATES ---
+// * [LOGIC] COORDINATES
 const getCoordinates = (index: number) => {
   if (tourPath[index]) {
     return tourPath[index];
@@ -584,7 +584,7 @@ const getCoordinates = (index: number) => {
   return { x: 50, y: 50 };
 };
 
-// --- HOTSPOT GENERATION ---
+// * [LOGIC] HOTSPOT GENERATION
 
 const getHotspotYaw = (currentSceneId: string, targetSceneId: string, currentCoords: { x: number, y: number }, targetCoords: { x: number, y: number }, northOffset: number, defaultYaw: number = 0) => {
   const key = `${currentSceneId}-${targetSceneId}`;
@@ -672,7 +672,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     return `Ir a ${targetTitle}`;
   };
 
-  // --- AUTOMATIC CONNECTIONS ---
+  // * [LOGIC] AUTOMATIC CONNECTIONS
 
   // 1. Sequential (Next/Prev)
   // Only if no decimal involved (01 -> 02) or strictly within decimal (not handling 09.1 -> 09.2 here unless they exist)
@@ -727,7 +727,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     }
   }
 
-  // --- MANUAL BRANCHING RULES ---
+  // * [LOGIC] MANUAL BRANCHING RULES
 
   // Rule: "En 05... comienzan tres rutas: A (Izq), C (Der), D (Der)" (Updated from 06)
   if (group === "ROOT" && number === 5 && decimal === null) {
@@ -861,7 +861,7 @@ export const scenes: Scene[] = parsedScenes.map((ps, index) => {
     });
   }
 
-  // --- LINK CONTENT INJECTION ---
+  // * [LOGIC] LINK CONTENT INJECTION
   const linkContent: Record<string, { title: string; link: string; text?: string } | { title: string; link: string; text?: string }[]> = {
     // "scene-13": { title: "Kick: codigo1032", link: "https://kick.com/codigo1032", text: "Ver Kick" },
     // "scene-10": { title: "Concurso", link: "https://forms.gle/fBeB7Zv9yVu33hDs6", text: "Ir a Concurso" },

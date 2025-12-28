@@ -14,7 +14,7 @@ const ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
 const BUCKET_NAME = process.env.R2_BUCKET_NAME;
 
-// Configuration Interface
+// * [TYPE] Configuration Interface
 interface SyncConfig {
   source: string;
   dest: string;
@@ -27,7 +27,7 @@ interface SyncConfig {
   tileSize?: number; // Tile size (default: 512)
 }
 
-// DEFINING THE PIPELINES
+// * [CONFIG] DEFINING THE PIPELINES
 const SYNC_CONFIGS: SyncConfig[] = [
   {
     source: "public/sources/tour/raw_scenes", // Raw 360 images
@@ -76,7 +76,7 @@ const SYNC_CONFIGS: SyncConfig[] = [
   }
 ];
 
-// Upload configuration
+// * [CONFIG] Upload configuration
 const MAX_CONCURRENT_UPLOADS = 20;
 
 if (!ACCOUNT_ID || !ACCESS_KEY_ID || !SECRET_ACCESS_KEY || !BUCKET_NAME) {
@@ -93,7 +93,7 @@ const s3 = new S3Client({
   },
 });
 
-// --- HELPER: Sync and Convert ---
+// * [LOGIC] HELPER: Sync and Convert
 async function processDirectory(config: SyncConfig) {
   const { source, dest, format, resize, quality = 85, preserve = [] } = config;
 
@@ -241,7 +241,7 @@ async function processDirectory(config: SyncConfig) {
   }
 }
 
-// --- HELPER: Upload Logic ---
+// * [LOGIC] HELPER: Upload Logic
 async function getR2Files(folderPrefix: string): Promise<Set<string>> {
   const existingFiles = new Set<string>();
   let isTruncated = true;
@@ -294,7 +294,7 @@ async function uploadFile(filePath: string, fileKey: string) {
   }
 }
 
-// --- HELPERS: Video ---
+// * [LOGIC] HELPERS: Video
 async function processVideos() {
   const videoSourceDir = "public/sources/videos/hero";
   const videoDestDir = "public/assets/videos/hero";
@@ -336,7 +336,7 @@ async function processVideos() {
   }
 }
 
-// --- MAIN ---
+// * [LOGIC] MAIN
 async function main() {
   console.log("🔄 Starting Sync and Optimization Process...");
 

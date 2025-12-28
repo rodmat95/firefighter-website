@@ -8,7 +8,7 @@ import { X, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
-// Define a type for the LinkComponent prop
+// * [TYPE] Define a type for the LinkComponent prop
 type LinkComponentProps = React.FC<
   LinkProps & { className?: string; children: React.ReactNode; id?: string }
 >;
@@ -45,7 +45,7 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
             </LinkComponent>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* * [UI] Mobile Menu Button */}
           <button
             id="mobile-menu-btn"
             className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors text-white z-50 relative"
@@ -68,7 +68,7 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
             </div>
           </button>
 
-          {/* Desktop Navigation */}
+          {/* * [UI] Desktop Navigation */}
           <nav id="desktop-nav" className="hidden md:block">
             <ul className="flex space-x-6">
               <li>
@@ -80,7 +80,8 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
                   Nosotros
                 </LinkComponent>
               </li>
-              {/* <li>
+              {/* // [PENDING] Services page disabled
+              <li>
                 <LinkComponent
                   id="nav-link-services"
                   href="/services"
@@ -129,7 +130,7 @@ export default function Navbar({ LinkComponent }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* * [UI] Mobile Navigation Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
