@@ -132,7 +132,7 @@ export default function NorthOffsetEditor() {
             <p className="text-sm text-gray-300 mb-4">
               1. Gira la vista hasta que estés mirando hacia el <strong>NORTE</strong> real (o hacia adelante en el mapa).
               <br />
-              2. Pulsa "Fijar Norte Aquí".
+              2. Pulsa &quot;Fijar Norte Aquí&quot;.
             </p>
             
             {/* Scene Navigation */}

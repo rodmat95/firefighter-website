@@ -72,6 +72,7 @@ export default function Recorrido() {
   const [viewParams, setViewParams] = useState({ yaw: 0, pitch: 0, fov: 65 * Math.PI / 180 });
 
   const yawRef = useRef(0);
+  const desiredHeadingRef = useRef<number | null>(null);
 
   // Initialize Viewer
   useEffect(() => {
@@ -130,25 +131,27 @@ export default function Recorrido() {
 
         // Determine initial yaw based on entry point and navigation direction
         let targetYaw = 0;
-        let priorityHotspot = null;
-
-        if (isBacktracking) {
-          // If we are going back, look for "Regresar" or "Volver" to keep the flow
-          priorityHotspot = currentScene.hotspots.find(h =>
-            h.text?.includes("Regresar") || h.text?.includes("Volver")
-          );
+        
+        // POV PERSISTENCE LOGIC
+        // If we have a desired/persisted absolute heading, calculate the local yaw for this scene
+        if (desiredHeadingRef.current !== null) {
+           // New Yaw = Absolute Heading - Scene North Offset
+           targetYaw = desiredHeadingRef.current - (currentScene.northOffset || 0);
+           
+           // Create a clean "entry" view, but respecting the direction
+           // We reset `desiredHeadingRef` only after using it, but actually we might want to keep it?
+           // No, once consumed for this transition, we reset it to null so initial loads or resets work normally?
+           // Actually, let's keep it null-able, so if user just loads the page fresh it uses default.
+           desiredHeadingRef.current = null; 
         } else {
-          // Default forward: Look for "Continuar", "Ir a", or "Ruta"
-          priorityHotspot = currentScene.hotspots.find(h =>
-            h.text === "Continuar" || h.text?.startsWith("Ir a") || h.text?.startsWith("Ruta")
-          );
-        }
-
-        if (priorityHotspot) {
-          targetYaw = priorityHotspot.yaw;
-        } else if (currentScene.hotspots.length > 0) {
-          // Fallback to any arrow if specific one not found
-          targetYaw = currentScene.hotspots[0].yaw;
+           // Fallback to old logic (Hotspots/Arrows) ONLY if no desired heading was set (e.g. first load)
+           // But actually, we want every navigation click to set desiredHeadingRef.
+           // So this fallback handles the very first load if `desiredHeadingRef` is null.
+           let priorityHotspot = null;
+           // ... existing priority logic if needed for first load ...
+           if (currentScene.hotspots.length > 0) {
+              targetYaw = currentScene.hotspots[0].yaw;
+           }
         }
 
         if (!scene) {
@@ -263,6 +266,11 @@ export default function Recorrido() {
               } else {
                 const target = scenes.find((s) => s.id === hotspot.targetSceneId);
                 if (target) {
+                  // CAPTURE CURRENT PERSPECTIVE BEFORE SWITCHING
+                  // Current Heading = Current Yaw + Current North Offset
+                  const currentAbsoluteHeading = yawRef.current + (currentScene.northOffset || 0);
+                  desiredHeadingRef.current = currentAbsoluteHeading;
+
                   // Determine if we are going back
                   const isBack = hotspot.text?.includes("Regresar") || hotspot.text?.includes("Volver");
                   setIsBacktracking(!!isBack);
@@ -281,6 +289,12 @@ export default function Recorrido() {
           scenesRef.current.set(currentScene.id, scene);
         } else {
           // If scene exists, update view to target yaw
+          // ALSO APPLY POV PERSISTENCE HERE
+           if (desiredHeadingRef.current !== null) {
+             targetYaw = desiredHeadingRef.current - (currentScene.northOffset || 0);
+             desiredHeadingRef.current = null;
+           }
+          
           try {
             scene.view().setParameters({ yaw: targetYaw });
           } catch (e) {

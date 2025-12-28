@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
@@ -20,6 +18,14 @@ export function VideoWithLoader({
   const [isLoading, setIsLoading] = useState(true);
   // State to track if we should show the spinner (to avoid flicker on fast loads)
   const [showSpinnerInternal, setShowSpinnerInternal] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Check if video is already ready on mount (e.g. from cache)
+    if (videoRef.current && videoRef.current.readyState >= 3) {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     // Only set a timeout to show the spinner if we are still loading
@@ -45,6 +51,7 @@ export function VideoWithLoader({
         </div>
       )}
       <video
+        ref={videoRef}
         className={cn(
           "transition-all duration-700",
           isLoading ? "opacity-0 scale-105" : "opacity-100 scale-100",

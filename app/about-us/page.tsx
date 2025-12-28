@@ -49,7 +49,7 @@ export default function AboutUsPage() {
             Utama Producciones
           </h1>
           <p className="text-lg md:text-xl text-zinc-200 max-w-2xl mx-auto font-medium">
-            "Nuestro Hogar" - Donde nacen las historias.
+            &quot;Nuestro Hogar&quot; - Donde nacen las historias.
           </p>
         </div>
       </section>

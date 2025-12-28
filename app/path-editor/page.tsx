@@ -47,7 +47,7 @@ export default function PathEditorPage() {
       });
       setConnections(initialConnections);
     }
-  }, []);
+  }, [points.length]);
 
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef<number | null>(null);

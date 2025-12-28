@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <main id="home-main" className="min-h-screen">
-      {/* Hero Section (Utama / Código 10.32) */}
+      {/* * [SECTION] Hero Section (Utama / Código 10.32) */}
       <section
         id="hero-section"
         className="relative h-[100dvh] flex items-center justify-center text-center overflow-hidden"
@@ -71,12 +71,12 @@ export default function Home() {
               type="video/mp4"
             />
           </VideoWithLoader>
-          {/* Subtle light overlay to help black text, but keeping video very visible */}
+          {/* * [NOTE] Subtle light overlay to help black text, but keeping video very visible */}
           <div className="absolute inset-0 bg-black/30 z-10"></div>
         </div>
 
         <div className="container relative z-20 px-4 md:px-6 flex flex-col items-center">
-          {/* Minimalist Container - No blur/border, just layout */}
+          {/* * [NOTE] Minimalist Container - No blur/border, just layout */}
           <div className="max-w-5xl mx-auto space-y-4 md:space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <h1
               id="hero-title"
@@ -95,7 +95,7 @@ export default function Home() {
               id="hero-description"
               className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-zinc-900 font-bold drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)] leading-relaxed"
             >
-              "Nuestro hogar, donde nacen las historias."
+              &quot;Nuestro hogar, donde nacen las historias.&quot;
             </p>
             <p className="max-w-3xl mx-auto text-sm sm:text-base md:text-lg text-zinc-800 italic font-semibold drop-shadow-[0_1px_1px_rgba(255,255,255,0.35)] hidden sm:block">
               Un documental sobre la Benemérita y Sesquicentenaria Compañía
@@ -116,7 +116,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sobre Nosotros (Utama Producciones) */}
+      {/* * [SECTION] Sobre Nosotros (Utama Producciones) */}
       <section id="about-section" className="py-12 md:py-24 bg-card">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -129,7 +129,7 @@ export default function Home() {
                   Sobre Nosotros
                 </h2>
                 <p className="text-muted-foreground text-lg font-medium">
-                  Utama: "Nuestro Hogar"
+                  Utama: &quot;Nuestro Hogar&quot;
                 </p>
               </div>
               <div
@@ -219,12 +219,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Nuestros Protagonistas: Italia N° 5 (History) */}
+      {/* * [SECTION] Nuestros Protagonistas: Italia N° 5 (History) */}
       <section
         id="protagonists-section"
         className="py-12 md:py-24 bg-zinc-950 border-y border-white/5 relative overflow-hidden text-zinc-100"
       >
-        {/* Background pattern or subtle gradient to make it distinct */}
+        {/* * [NOTE] Background pattern or subtle gradient to make it distinct */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-destructive/20 via-zinc-950 to-zinc-950 opacity-40 z-0"></div>
 
         <div className="container px-4 md:px-6 mx-auto relative z-10">
@@ -239,9 +239,9 @@ export default function Home() {
                 </h3>
               </div>
 
-              {/* Modern Image Composition */}
+              {/* * [UI] Modern Image Composition */}
               <div className="relative h-[500px] w-full group perspective-1000">
-                {/* Main Image (Back/Left) */}
+                {/* ? [INFO] Main Image (Back/Left) */}
                 <div className="absolute top-0 left-0 w-[85%] h-[85%] rounded-3xl overflow-hidden shadow-2xl z-10 transition-transform duration-700 group-hover:rotate-y-2 group-hover:scale-[1.02]">
                   <ImageWithLoader
                     src={getAssetUrl("/assets/images/protagonists/protagonists-hero-1.webp")}
@@ -253,7 +253,7 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
                 </div>
 
-                {/* Secondary Image (Front/Right) */}
+                {/* ? [INFO] Secondary Image (Front/Right) */}
                 <div className="absolute bottom-0 right-0 w-[65%] h-[55%] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20 border-4 border-zinc-950 transition-transform duration-700 group-hover:-translate-y-4 group-hover:translate-x-2">
                   <ImageWithLoader
                     src={getAssetUrl("/assets/images/protagonists/protagonists-hero-2.webp")}
@@ -264,7 +264,7 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Decorative Elements */}
+                {/* * [UI] Decorative Elements */}
                 <div className="absolute -z-10 top-10 right-10 w-32 h-32 bg-red-600/20 rounded-full blur-3xl"></div>
                 <div className="absolute -z-10 bottom-10 left-10 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl"></div>
               </div>
@@ -324,7 +324,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Preview */}
+      {/* * [SECTION] Contact Preview */}
       <section
         id="contact-preview-section"
         className="py-12 md:py-20 bg-secondary/30"
@@ -364,7 +364,7 @@ export default function Home() {
                 <MessageCircle className="h-6 w-6 text-green-500" />
               </div>
               <h3 className="text-lg font-bold">WhatsApp</h3>
-              <p className="mt-2 text-sm text-muted-foreground font-medium text-green-600/90">
+              <p className="mt-2 text-sm font-medium text-green-600/90">
                 Iniciar Chat
               </p>
             </a>

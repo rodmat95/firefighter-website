@@ -195,7 +195,7 @@ export default function HotspotEditor() {
           <div className="bg-black/70 p-4 rounded-lg backdrop-blur pointer-events-auto max-w-md max-h-[80vh] overflow-y-auto">
             <h1 className="text-xl font-bold mb-2">Editor de Flechas (Yaw + Pitch)</h1>
             <p className="text-sm text-gray-300 mb-4">
-              Apunta la cruz amarilla y "Fija" la posición (Horizontal y Vertical).
+              Apunta la cruz amarilla y &quot;Fija&quot; la posición (Horizontal y Vertical).
             </p>
 
             {/* Scene Navigation */}
